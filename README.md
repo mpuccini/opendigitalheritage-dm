@@ -10,10 +10,25 @@ blog o wiki, ma anche più complesse come un e-commerce. E' basato sull'engine t
  - primo
  - secondo
  * terzo
-  - sottolista
+   - sottolista
 
  1. primo
  2. secondo
-  1. sottolista
+   1. sottolista
 
+Protrebbe essere evidenziare del codice: `git push`   
+```
+git pull
+```
+
+```
+import pandas as pd
+
+data = pd.readCSV("example.csv")
+
+
+## Esempi di testo
+
+**Scrive testo in grassetto**  
+*oppure in corsivo*
 
