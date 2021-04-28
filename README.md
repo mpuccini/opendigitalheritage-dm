@@ -32,3 +32,7 @@ data = pd.readCSV("example.csv")
 **Scrive testo in grassetto**  
 *oppure in corsivo*
 
+[link esterni](https://www.intranet.enea.it/acl_users/credentials_cookie_auth/require_login?came_from=https%3A//www.intranet.enea.it/)   
+
+[link interni](esempio.md)
+
