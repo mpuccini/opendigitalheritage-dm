@@ -21,7 +21,7 @@ Protrebbe essere evidenziare del codice: `git push`
 git pull
 ```
 
-```
+```python
 import pandas as pd
 
 data = pd.readCSV("example.csv")
