@@ -1,7 +1,7 @@
 # Documentazione  
 ## Definizione:  
 l'obiettivo è realizzare un'applicazione client-server composta da un sito web dinamico che dialoga con un db che memorizza i dati.  
-### Approccio:  
+## Approccio:  
 volendo realizzare un sito web dinamico, è stato scelto di scrivere il codice in python utlilizzando le  
 librerie del framework Flask.  
 Flask è un micro-web Framework Python che offre la possibilità di sviluppare applicazioni web semplici come  
@@ -25,7 +25,7 @@ git pull
 import pandas as pd
 
 data = pd.readCSV("example.csv")
-
+```
 
 ## Esempi di testo
 
