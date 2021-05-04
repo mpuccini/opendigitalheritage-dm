@@ -28,31 +28,6 @@ Ecco un esempio di documento per memorizzare dati di un ristorante:
     },
     "borough": "Brooklyn",
     "cuisine": "American",
-    "grades": [{
-        "date": {
-            "$date": "2014-06-10T00:00:00.000Z"
-        },
-        "grade": "A",
-        "score": 5
-    }, {
-        "date": {
-            "$date": "2013-06-05T00:00:00.000Z"
-        },
-        "grade": "A",
-        "score": 7
-    }, {
-        "date": {
-            "$date": "2012-04-13T00:00:00.000Z"
-        },
-        "grade": "A",
-        "score": 12
-    }, {
-        "date": {
-            "$date": "2011-10-12T00:00:00.000Z"
-        },
-        "grade": "A",
-        "score": 12
-    }],
     "name": "Riviera Caterer",
     "restaurant_id": "40356018"
 }
@@ -91,12 +66,34 @@ L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
  - scegliere di inserire un nuovo dato nel DB tramite l'interazione con un input grafico che lo condurra ad una pagina web che consentirà di proseguire con questa operazione.
  - scegliere di cercare un dato nel DB tramite l'interazione con un input grafico che lo condurra ad una pagina  web che consentirà di proseguie con questa operazione. In questo caso l'utente dovra necessariamente  
  conoscere il valore di alcuni campi del documento o dei documenti che vuole ottere.  
- - scegliere di cercare un dato nel DB tramite una ricerca testuale. Questa attività sarà agevolata dal sistema  poichè MongoDB offre la possibilità di effettuare Full Text Search.  
- esempio di Full Text Search:  
+ - scegliere di cercare un dato nel DB tramite una ricerca testuale. Questa attività sarà agevolata dal sistema  poichè MongoDB offre la possibilità di effettuare Full Text Search.    
  ```python
+ #Full Text Search:
  text = 'Douro River and Ribeira Square'
  text_results = airbnb.listingsAndReviews.find({"$text": {"$search": text}},{"_id":0, "name":1})
  ```
+ ### Operazione di Inserimento
+ Dopo che l'utente avra scelto l'operazione "Inserisci", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
+ - Inserimento PDF  
+ - Inserimento Immagine  
+ - Inserimento Modello 3D  
+Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form.  
+```HTML
+<!--Form per inserire un documento testuale--> 
+<form  method="post" enctype="multipart/form-data">
+  CAMPO TESTO <input type="text" name="testo1">
+  FILE <input type="file" name="file1">
+  <input type="submit" value="Upload">
+</form>
+```  
+### Operazione di Ricerca
+Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
+ - Ricerca PDF  
+ - Ricerca Immagine  
+ - Ricerca Modello 3D  
+Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
+Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di   ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
+
 
 
 
