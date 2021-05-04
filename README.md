@@ -12,7 +12,20 @@ librerie del framework Flask.
 Flask è un micro-web Framework Python che offre la possibilità di sviluppare applicazioni web semplici come  
 blog o wiki, ma anche più complesse come un e-commerce. E' basato su:  
  - Jinja, un engine template che permette la creazione di file HTML, XML o in altri formati di markup, che  vengono restituiti all'utente mediante una risposta HTTP.  
- - Werkzeug WSGI, un toolkit per stabilire la comunicazione e le interazioni tre il server e le applicazioni web.    
+ - Werkzeug WSGI, un toolkit per stabilire la comunicazione e le interazioni tre il server e le applicazioni web.  
+```python
+#esempio di hello word
+from flask import Flask
+app = Flask(name)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+
+
+if name == "main":
+    app.run(debug=False)
+```
 ### MongoDB
 E' stato scelto di gestire i dati in maniera persistente con sfruttando l'infrastrutture offerte da MongoDB.  
 MongoDB è un DBMS, Data Management System, NoSQL e doc-oriented. Per memorizzare e gestire i dati, al posto  
