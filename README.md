@@ -1,7 +1,11 @@
 # Documentazione  
 ## Definizione  
-L'obiettivo è realizzare un'applicazione client-server composta da un sito web dinamico che dialoga con un db che memorizza i dati.  
-## Approccio:  
+L'obiettivo è realizzare un'applicazione client-server con lo scopo di memorizzare informazioni sui  
+beni culturali mediante:  
+ - Immagini  
+ - Documenti in formato PDF  
+ - Modellazioni 3D    
+## Approccio 
 ### Flask
 Volendo realizzare un sito web dinamico, è stato scelto di scrivere il codice in python utlilizzando le  
 librerie del framework Flask.  
@@ -75,6 +79,24 @@ Alcune delle caratteristiche principali sono:
  - **Capped Collection**:  
  MongoDB supporta collection a dimensioni fisse chiamate capped collection.  
  Questo tipo di collection mantiene l'ordine di inserimento e una volta raggiunta la dimensione definita, si comporta come una coda circolare.
+
+## Architettura del sistema  
+Le operazioni principali che il sistema dovrà offrire sono le seguenti:
+ - Inserimento nel DB di nuovi dati relativi ai beni culturali. Dovrà quindi consentire l'aggiunta di nuove  
+ immagini, nuovi documenti PDF e nuove modellazioni 3D.
+ - Ricerca di informazioni gia presenti nella Banca Dati.  
+### Interfaccia Utente
+L'UI sarà composta da input grafici che guideranno l'utente a compiere le operazioni desiderate.  
+L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
+ - scegliere di inserire un nuovo dato nel DB tramite l'interazione con un input grafico che lo condurra ad una pagina web che consentirà di proseguire con questa operazione.
+ - scegliere di cercare un dato nel DB tramite l'interazione con un input grafico che lo condurra ad una pagina  web che consentirà di proseguie con questa operazione. In questo caso l'utente dovra necessariamente  
+ conoscere il valore di alcuni campi del documento o dei documenti che vuole ottere.  
+ - scegliere di cercare un dato nel DB tramite una ricerca testuale. Questa attività sarà agevolata dal sistema  poichè MongoDB offre la possibilità di effettuare Full Text Search.  
+ esempio di Full Text Search:  
+ ```python
+ text = 'Douro River and Ribeira Square'
+ text_results = airbnb.listingsAndReviews.find({"$text": {"$search": text}},{"_id":0, "name":1})
+ ```
 
 
 
