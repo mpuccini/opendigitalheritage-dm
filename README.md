@@ -1,12 +1,30 @@
-# Documentazione  
+# Documentazione
+## Introduzione 
+
 ## Definizione  
-L'obiettivo è realizzare un'applicazione client-server con lo scopo di memorizzare informazioni sui  
+L'obiettivo è realizzare proof of concept di un'applicazione client-server con lo scopo di memorizzare informazioni sui  
 beni culturali mediante:  
  - Immagini  
  - Documenti in formato PDF  
  - Modellazioni 3D    
-## Approccio 
-### Flask
+## Approccio
+### Piattaforma ENEA
+  
+### Python 
+Python è un linguaggio di programmazione di alto livello orientato agli oggetti   adatto, tra gli altri usi, a svilluppare applicazioni distribuite, scripting, computazione numerica e system testing.  
+ - E' un linguaggio multi-paradigma che ha fra i principali obiettivi la dinamicità,  semplicità e flessibilità. Supporta il paradigma OO e molte  caratteristiche di programmazione funzionale e riflessione.  
+ - Le caratteristiche puù immediatamente riconoscibili di Python sono le variabili  non tipizzate e l'uso dell'indentazione per la sintassi delle specifiche al posto delle più comuni parentesi.  
+ - Altre caratteristiche distintive sono l'overloading di operatori e funzioni   tramite delegati la presenza di un ricco assortimento di tipi e funzioni di base  e librerie standard, sintassi avanzate quali slicing e list comprension.  
+ - Il controllo dei tipi è forte e viene eseguito in runtime (dynamic typing):  
+ una variabile è un contenitore a cui viene associata un'etichetta che può  essere associata a diversi contenitori anche di tipo diverso durante il suo tempo  di vita.  
+Fa parte di Python un sistema garbage collector per liberazione e recupero automatico della memoria di lavoro  
+```python
+a= 5
+#qui a è un intero
+a= "ciao mondo"
+#qui a è una stringa
+```  
+#### Flask
 Volendo realizzare un sito web dinamico, è stato scelto di scrivere il codice in python utlilizzando le  
 librerie del framework Flask.  
 Flask è un micro-web Framework Python che offre la possibilità di sviluppare applicazioni web semplici come  
