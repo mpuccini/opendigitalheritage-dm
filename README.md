@@ -19,7 +19,7 @@ Il cluster CRESCO6 di Portici è un sistema di calcolo costituito da 434 nodi. O
 Si hanno quindi a disposizione 20832 core connessi tra loro da una rete a larga banda e bassa latenza basata su Intel Omni-Path a 100 Gb/s.
 L'utilizzo del cluster avviene facendo il login su uno dei nodi di front-end. I nodi di front-end servono semplicemente  
 per il lancio delle applicazioni tramite LSF, per editare i propri script di lancio o per le compilazioni.  
-file system disponibili su CRESCO6 sono:  
+I file system disponibili su CRESCO6 sono:  
  - AFS filesystem geografico e accessibile da qualsiasi nodo in ENEA e nel  “mondo” che installa il client AFS. Quota di Default per user: 10GB  
  - GPFS il file system di IBM ad alte prestazioni per l'I/O parallelo.    
 ### Python 
