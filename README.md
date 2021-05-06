@@ -8,8 +8,20 @@ beni culturali mediante:
  - Documenti in formato PDF  
  - Modellazioni 3D    
 ## Approccio
-### Piattaforma ENEA
-  
+### Piattaforma ENEA  
+ENEAGRID è l'infrastruttura che fornisce l'accesso alle risorse di calcolo della Divisione ICT dell'ENEA.  
+Le principali risorse di calcolo di ENEAGRID sono i cluster CRESCO.  
+Il cluster CRESCO6 di Portici è un sistema di calcolo costituito da 434 nodi. Ogni nodo ha:  
+ - 2 socket da 24 core con processore Intel(R) Xeon(R) Platinum 8160 con frequenza di clock pari 2.10GHz e 192 GB di RAM
+ - Una interfaccia Intel Omni-Path 100 Gb/s
+ Due interfacce GbE
+ - Supporto BMC/IPMI 1.8 e software per la gestione remota della console
+Si hanno quindi a disposizione 20832 core connessi tra loro da una rete a larga banda e bassa latenza basata su Intel Omni-Path a 100 Gb/s.
+L'utilizzo del cluster avviene facendo il login su uno dei nodi di front-end. I nodi di front-end servono semplicemente  
+per il lancio delle applicazioni tramite LSF, per editare i propri script di lancio o per le compilazioni.  
+file system disponibili su CRESCO6 sono:  
+ - AFS filesystem geografico e accessibile da qualsiasi nodo in ENEA e nel  “mondo” che installa il client AFS. Quota di Default per user: 10GB  
+ - GPFS il file system di IBM ad alte prestazioni per l'I/O parallelo.    
 ### Python 
 Python è un linguaggio di programmazione di alto livello orientato agli oggetti   adatto, tra gli altri usi, a svilluppare applicazioni distribuite, scripting, computazione numerica e system testing.  
  - E' un linguaggio multi-paradigma che ha fra i principali obiettivi la dinamicità,  semplicità e flessibilità. Supporta il paradigma OO e molte  caratteristiche di programmazione funzionale e riflessione.  
