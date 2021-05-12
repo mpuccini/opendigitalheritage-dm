@@ -114,6 +114,8 @@ L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
  text = 'Douro River and Ribeira Square'
  text_results = airbnb.listingsAndReviews.find({"$text": {"$search": text}},{"_id":0, "name":1})
  ```
+ ![alt text](https://github.com/mpuccini/testtirocinio/blob/main/immagini/StrutturaPAgineWeb.jpg?raw=true)  
+ Schema della struttura dell'interfaccia web.
  ### Operazione di Inserimento
  Dopo che l'utente avra scelto l'operazione "Inserisci", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
  - Inserimento PDF  
