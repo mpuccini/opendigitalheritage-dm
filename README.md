@@ -119,6 +119,7 @@ L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
  - Inserimento PDF  
  - Inserimento Immagine  
  - Inserimento Modello 3D  
+
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form.  
 ```HTML
 <!--Form per inserire un documento testuale--> 
@@ -133,7 +134,8 @@ Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad
 Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
  - Ricerca PDF  
  - Ricerca Immagine  
- - Ricerca Modello 3D  
+ - Ricerca Modello 3D   
+
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
 ![alt text](https://github.com/mpuccini/testtirocinio/blob/main/immagini/diagrammaRicerca.jpg?raw=true)  
 Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di   ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
