@@ -135,7 +135,7 @@ Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagi
  - Ricerca Modello 3D  
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
 
-```uml-sequence-diagram
+```sequenceDiagram
 participant Utente
 participant Sistema
 Utente->Sistema:IniziaRicerca()
