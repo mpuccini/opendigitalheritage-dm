@@ -128,14 +128,14 @@ Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad
   <input type="submit" value="Upload">
 </form>
 ```  
-![alt text](https://github.com/mpuccini/testtirocinio/immagini/blob/main/diagrammaInserimento.JPG?raw=true)  
+![alt text](https://github.com/mpuccini/testtirocinio/blob/main/immagini/diagrammaInserimento.JPG?raw=true)  
 ### Operazione di Ricerca
 Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
  - Ricerca PDF  
  - Ricerca Immagine  
  - Ricerca Modello 3D  
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
-![alt text](https://github.com/mpuccini/testtirocinio/immagini/blob/main/diagrammaRicerca.jpg?raw=true)  
+![alt text](https://github.com/mpuccini/testtirocinio/blob/main/immagini/diagrammaRicerca.jpg?raw=true)  
 Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di   ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
 
 ## Note markdown
