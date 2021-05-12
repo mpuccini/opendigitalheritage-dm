@@ -134,7 +134,18 @@ Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagi
  - Ricerca Immagine  
  - Ricerca Modello 3D  
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
-![alt text](https://github.com/mpuccini/testtirocinio/blob/main/diagrammaRicerca.jpg?raw=true) 
+
+```uml-sequence-diagram
+participant Utente
+participant Sistema
+Utente->Sistema:IniziaRicerca()
+Utente<--Sistema:elenco delle collezioni ricercabili
+Utente->Sistema:SceglieCollezione(idCollezione)
+Utente<--Sistema:nome attributi caratteristici della collezione scelta
+Utente->Sistema:InserisceCaratteristiche(...)
+Utente<--Sistema:Documenti desiderati
+```
+
 Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di   ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
 
 ## Note markdown
