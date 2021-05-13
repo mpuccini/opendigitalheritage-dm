@@ -1,1 +1,0 @@
-print("Ciao prova Python")
