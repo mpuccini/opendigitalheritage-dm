@@ -124,12 +124,9 @@ L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
  text = 'Douro River and Ribeira Square'
  text_results = airbnb.listingsAndReviews.find({"$text": {"$search": text}},{"_id":0, "name":1})
  ```
-<<<<<<< HEAD
- ![alt text](https://github.com/mpuccini/testtirocinio/blob/main/imgs/StrutturaPagineWeb.JPG?raw=true)  
-=======
- ![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/StrutturaPagineWeb.JPG?raw=true)  
->>>>>>> 424bb40a44344b83a6303e72cb463c13352993d9
- Schema della struttura dell'interfaccia web.
+![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/StrutturaPagineWeb.JPG?raw=true)  
+
+Schema della struttura dell'interfaccia web.
 
 ### Operazione di Inserimento
  Dopo che l'utente avra scelto l'operazione "Inserisci", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
@@ -146,12 +143,8 @@ Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad
   <input type="submit" value="Upload">
 </form>
 ```  
-<<<<<<< HEAD
-![alt text](https://github.com/mpuccini/testtirocinio/blob/main/imgs/diagrammaInserimento.JPG?raw=true)  
-
-=======
 ![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaInserimento.JPG?raw=true)  
->>>>>>> 424bb40a44344b83a6303e72cb463c13352993d9
+
 ### Operazione di Ricerca
 Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
  - Ricerca PDF  
@@ -159,10 +152,7 @@ Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagi
  - Ricerca Modello 3D   
 
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
-<<<<<<< HEAD
-![alt text](https://github.com/mpuccini/testtirocinio/blob/main/imgs/diagrammaRicerca.jpg?raw=true)  
-=======
 ![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaRicerca.jpg?raw=true)  
->>>>>>> 424bb40a44344b83a6303e72cb463c13352993d9
+
 Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di   ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
 
