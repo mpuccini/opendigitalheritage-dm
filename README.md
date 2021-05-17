@@ -1,7 +1,7 @@
 # Documentazione
 
 ## Introduzione  
-L'Obiettivo di questo tirocinio è presentare un proof of concept di un tool più ampio che sarà implementato nella piattaforma ENEA.  
+L'obiettivo di questo tirocinio è presentare un proof of concept di un tool più ampio che sarà implementato nella piattaforma ENEA.  
 In particolare si vuole realizzare un proof of concept di un'applicazione client-server con lo scopo di memorizzare informazioni sui beni culturali mediante:  
  - Immagini  
  - Documenti in formato PDF  
@@ -14,23 +14,26 @@ ENEAGRID è l'infrastruttura che fornisce l'accesso alle risorse di calcolo dell
 Le principali risorse di calcolo di ENEAGRID sono i cluster CRESCO.  
 Il cluster CRESCO6 di Portici è un sistema di calcolo costituito da 434 nodi. Ogni nodo ha:  
  - 2 socket da 24 core con processore Intel(R) Xeon(R) Platinum 8160 con frequenza di clock pari 2.10GHz e 192 GB di RAM
- - Una interfaccia Intel Omni-Path 100 Gb/s
- Due interfacce GbE
+ - Una interfaccia Intel Omni-Path 100 Gb/s  
+ - Due interfacce GbE
  - Supporto BMC/IPMI 1.8 e software per la gestione remota della console.  
+
 Si hanno quindi a disposizione 20832 core connessi tra loro da una rete a larga banda e bassa latenza basata su Intel Omni-Path a 100 Gb/s.
-L'utilizzo del cluster avviene facendo il login su uno dei nodi di front-end. I nodi di front-end servono semplicemente  
-per il lancio delle applicazioni tramite LSF, per editare i propri script di lancio o per le compilazioni.  
+L'utilizzo del cluster avviene facendo il login su uno dei nodi di front-end.  
+I nodi di front-end servono semplicemente per il lancio delle applicazioni tramite LSF,  per editare i propri script di lancio o per le compilazioni.  
 I file system disponibili su CRESCO6 sono:  
  - AFS filesystem geografico e accessibile da qualsiasi nodo in ENEA e nel  “mondo” che installa il client AFS. Quota di Default per user: 10GB  
  - GPFS il file system di IBM ad alte prestazioni per l'I/O parallelo.    
 
 ### Python 
-Python è un linguaggio di programmazione di alto livello orientato agli oggetti   adatto, tra gli altri usi, a svilluppare applicazioni distribuite, scripting, computazione numerica e system testing.  
+Python è un linguaggio di programmazione di alto livello orientato agli oggetti adatto, tra gli altri usi, a svilluppare  applicazioni distribuite, scripting, computazione numerica e system testing.  
  - E' un linguaggio multi-paradigma che ha fra i principali obiettivi la dinamicità,  semplicità e flessibilità. Supporta il paradigma OO e molte  caratteristiche di programmazione funzionale e riflessione.  
- - Le caratteristiche puù immediatamente riconoscibili di Python sono le variabili  non tipizzate e l'uso dell'indentazione per la sintassi delle specifiche al posto delle più comuni parentesi.  
- - Altre caratteristiche distintive sono l'overloading di operatori e funzioni   tramite delegati la presenza di un ricco assortimento di tipi e funzioni di base  e librerie standard, sintassi avanzate quali slicing e list comprension.  
+ - Le caratteristiche più immediatamente riconoscibili di Python sono le variabili  non tipizzate e l'uso dell'indentazione per la sintassi delle specifiche al posto delle più comuni parentesi.  
+ - Altre caratteristiche distintive sono l'overloading di operatori e funzioni tramite delegati la presenza di un ricco   assortimento di tipi e funzioni di base e librerie standard, sintassi avanzate quali slicing e list comprension.  
  - Il controllo dei tipi è forte e viene eseguito in runtime (dynamic typing):  
- una variabile è un contenitore a cui viene associata un'etichetta che può  essere associata a diversi contenitori anche di tipo diverso durante il suo tempo  di vita.  
+ una variabile è un contenitore a cui viene associata un'etichetta che può essere associata a diversi contenitori  
+ anche di tipo diverso durante il suo tempo  di vita.  
+
 Fa parte di Python un sistema garbage collector per liberazione e recupero automatico della memoria di lavoro  
 ```python
 a= 5
@@ -64,8 +67,7 @@ if name == "main":
 E' stato scelto di gestire i dati in maniera persistente con sfruttando l'infrastrutture offerte da MongoDB.  
 MongoDB è un DBMS, Data Management System, NoSQL e doc-oriented.  
 Questo strumento sarà utilizzato sulla piattaforma cloud che offre MongoDB stesso.
-Per memorizzare e gestire i dati, al posto di tabelle come nei DBMS SQL, MongoDB utilizza dei documenti  
-in stile JSON con schema dinamico chiamati BSON.  
+Per memorizzare e gestire i dati, al posto di tabelle come nei DBMS SQL, MongoDB utilizza dei documenti in stile JSON con  schema dinamico chiamati BSON.  
 Ecco un esempio di documento per memorizzare dati di un ristorante:  
 ```JSON
 {
@@ -122,7 +124,11 @@ L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
  text = 'Douro River and Ribeira Square'
  text_results = airbnb.listingsAndReviews.find({"$text": {"$search": text}},{"_id":0, "name":1})
  ```
+<<<<<<< HEAD
  ![alt text](https://github.com/mpuccini/testtirocinio/blob/main/imgs/StrutturaPagineWeb.JPG?raw=true)  
+=======
+ ![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/StrutturaPagineWeb.JPG?raw=true)  
+>>>>>>> 424bb40a44344b83a6303e72cb463c13352993d9
  Schema della struttura dell'interfaccia web.
 
 ### Operazione di Inserimento
@@ -140,8 +146,12 @@ Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad
   <input type="submit" value="Upload">
 </form>
 ```  
+<<<<<<< HEAD
 ![alt text](https://github.com/mpuccini/testtirocinio/blob/main/imgs/diagrammaInserimento.JPG?raw=true)  
 
+=======
+![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaInserimento.JPG?raw=true)  
+>>>>>>> 424bb40a44344b83a6303e72cb463c13352993d9
 ### Operazione di Ricerca
 Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
  - Ricerca PDF  
@@ -149,6 +159,10 @@ Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagi
  - Ricerca Modello 3D   
 
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
+<<<<<<< HEAD
 ![alt text](https://github.com/mpuccini/testtirocinio/blob/main/imgs/diagrammaRicerca.jpg?raw=true)  
+=======
+![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaRicerca.jpg?raw=true)  
+>>>>>>> 424bb40a44344b83a6303e72cb463c13352993d9
 Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di   ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
 
