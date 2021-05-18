@@ -90,7 +90,7 @@ Alcune delle caratteristiche principali sono:
  - **Indicizzazione**:  
  qualunque campo in MongoDB può essere indicizzato (gli indici in MongoDB sono   concettualmente similari a quelli dei tradizionali RDBMS).  
  - **Alta affidabilità**:  
- MongoDB fornisce alta disponibilità e aumento del carico gestito attraverso i replica set.  Un replica set consiste in due o più copie dei dati.Ogni replica può avere il ruolo di copia   primaria o secondaria in qualunque momento.  La replica primaria effettua tutte le scritture e le letture. Le repliche secondarie mantengono una copia dei dati della replica primaria attraverso un meccanismo di replicazione incluso nel prodotto.  Quando una replica primaria fallisce, il replica set inizia automaticamente un processo di elezione per determinare quale replica secondaria deve diventare primaria.  Le copie secondarie possono anche effettuare letture, con dati eventualmente consistenti di default.  
+ MongoDB fornisce alta disponibilità e aumento del carico gestito attraverso i replica set.  Un replica set consiste in due o più copie dei dati. Ogni replica può avere il ruolo di copia   primaria o secondaria in qualunque momento.  La replica primaria effettua tutte le scritture e le letture. Le repliche secondarie mantengono una copia dei dati della replica primaria attraverso un meccanismo di replicazione incluso nel prodotto.  Quando una replica primaria fallisce, il replica set inizia automaticamente un processo di elezione per determinare quale replica secondaria deve diventare primaria.  Le copie secondarie possono anche effettuare letture, con dati eventualmente consistenti di default.  
  - **Sharding e bilanciamento dei dati**:  
  MongoDB scala orizzontalmente usando lo sharding. L'utente deve scegliere una chiave di sharding, che  determina come i dati di una collection saranno distribuiti tra i vari nodi.  
  I dati sono divisi in intervalli (basati sulla chiave di shard) e distribuiti su molteplici shard  
@@ -115,8 +115,8 @@ Le operazioni principali che il proof of concept dovrà offrire sono le seguenti
 ### Interfaccia Utente
 L'UI sarà composta da input grafici che guideranno l'utente a compiere le operazioni desiderate.  
 L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
- - scegliere di inserire un nuovo dato nel DB tramite l'interazione con un input grafico che lo condurra ad una pagina web che consentirà di proseguire con questa operazione.
- - scegliere di cercare un dato nel DB tramite l'interazione con un input grafico che lo condurra ad una pagina  web che consentirà di proseguie con questa operazione. In questo caso l'utente dovra necessariamente  
+ - scegliere di inserire un nuovo dato nel DB tramite l'interazione con un input grafico che lo condurrà ad una pagina web che consentirà di proseguire con questa operazione.
+ - scegliere di cercare un dato nel DB tramite l'interazione con un input grafico che lo condurrà ad una pagina  web che consentirà di proseguie con questa operazione. In questo caso l'utente dovrà necessariamente  
  conoscere il valore di alcuni campi del documento o dei documenti che vuole ottere.  
  - scegliere di cercare un dato nel DB tramite una ricerca testuale. Questa attività sarà agevolata dal sistema  poichè MongoDB offre la possibilità di effettuare Full Text Search.    
  ```python
@@ -154,5 +154,5 @@ Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagi
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
 ![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaRicerca.jpg?raw=true)  
 
-Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di   ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
+Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
 
