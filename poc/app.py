@@ -1,7 +1,7 @@
 # app.py
 #!bin/python
-from flask import Flask, request, render_template, Markup
-from flask_pymongo import PyMongo
+from flask import Flask, request, render_template
+from werkzeug.datastructures import FileStorage
 from models import InsertPdfForm
 from flask_bootstrap import Bootstrap
 from pymongo import MongoClient
@@ -33,8 +33,8 @@ def insertPDF():
     if request.method == 'POST' and form.validate_on_submit():
         name = request.form['nome']
         pdf=request.files['pdf']
-        
-        PDFs.insert_one({'name': name, 'pdf': pdf})
+        filepath="C:/filepdfjpeg/"
+        PDFs.insert_one({'nomeOpera': name, 'nomePDF':pdf.filename , 'PathPDF': filepath+pdf.filename })
         return render_template('uploadDone.html')
     return render_template('uploadPDF.html',form=form)
 
