@@ -8,11 +8,6 @@ import backend as be
 
 app = Flask(__name__)
 
-#client = MongoClient("mongodb+srv://giacomo:12345@cluster0.8buoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-#db = client['pocenea'] 
-
-#PDFs = db['PDFs']
-
 c = be.loadConf()
 sk = c['app']['secret_key']
 app.config.from_mapping(
