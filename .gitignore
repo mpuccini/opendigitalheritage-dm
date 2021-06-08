@@ -1,0 +1,10 @@
+poc/__pycache__/
+*.py[cod]
+config.ini
+
+*.idea/
+*.vs/
+*.vscode/
+*.env
+
+*.sock
