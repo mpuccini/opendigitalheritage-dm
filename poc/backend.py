@@ -182,7 +182,7 @@ def workOnObj(obj):
         if not os.path.exists(newsavepath):             
             os.makedirs(newsavepath)
         split_obj = os.path.splitext(obj.filename)
-        hashname = objhash+'.'+split_obj[1]
+        hashname = objhash+split_obj[1]
         shutil.move(tmpsavepath,newsavepath+'/'+hashname)
     
         return objhash
