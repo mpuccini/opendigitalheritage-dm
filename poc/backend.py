@@ -114,9 +114,11 @@ def upload2mongo(doc, collection):
 
     log.debug("Inserting new document")    
     indoc = coll.insert_one(doc)    
+
+    # Add reference into inventory
     inventory = connect2mongo(c, 'inventory')
     invdoc = {}
-    invdoc['Name'] = doc['name']
+    invdoc['project'] = doc['project']
     invdoc['ID'] = indoc.inserted_id
     inventory.insert_one(invdoc)
 '''    if coll.count_documents({'document_hash': doc['document_hash']}) > 0:
@@ -179,7 +181,7 @@ def workOnObj(obj):
         newsavepath = savepathroot+'/'+fl1+'/'+fl2
         if not os.path.exists(newsavepath):             
             os.makedirs(newsavepath)
-        split_obj = os.path.splitext(str(obj))
+        split_obj = os.path.splitext(obj.filename)
         hashname = objhash+'.'+split_obj[1]
         shutil.move(tmpsavepath,newsavepath+'/'+hashname)
     

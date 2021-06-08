@@ -37,10 +37,11 @@ def insertPDF():
 
         # Prepare metadata
         metadata={}
-        metadata['name'] = request.form['nome']
+        metadata['title'] = request.form['title']
+        metadata['project'] = request.form['project']
         metadata['filename'] = pdf.filename
         metadata['objecthash'] = objecthash
-        be.upload2mongo(metadata,'PDFs')
+        be.upload2mongo(metadata,'pdfs')
         return render_template('uploadDone.html')
     return render_template('uploadPDF.html',form=form)
 
@@ -54,9 +55,14 @@ def insertMODEL():
 
         # Prepare metadata
         metadata={}
-        metadata['name'] = request.form['nome']
+        metadata['title'] = request.form['title']
+        metadata['description'] = request.form['description']
+        metadata['author'] = request.form['author']
+        metadata['project'] = request.form['project']
+        metadata['extension'] = request.form['extension']
         metadata['filename'] = model.filename
         metadata['objecthash'] = objecthash
+
         be.upload2mongo(metadata,'models')
         return render_template('uploadDone.html')
     return render_template('uploadMODEL.html',form=form)
