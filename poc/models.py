@@ -9,6 +9,11 @@ class InsertPdfForm(Form):
   pdf = FileField('pdf')
   submit = SubmitField('Submit')
 
+class InsertModelForm(Form):
+  nome = StringField('nome', [validators.DataRequired()])
+  model = FileField('model')
+  submit = SubmitField('Submit')
+
 
 
 
