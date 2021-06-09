@@ -118,7 +118,10 @@ def upload2mongo(doc, collection):
     # Add reference into inventory
     inventory = connect2mongo(c, 'inventory')
     invdoc = {}
+    invdoc['title'] = doc['title']
     invdoc['project'] = doc['project']
+    invdoc['objtype'] = doc['objtype']
+    invdoc['year'] = doc['year']
     invdoc['ID'] = indoc.inserted_id
     inventory.insert_one(invdoc)
 '''    if coll.count_documents({'document_hash': doc['document_hash']}) > 0:
