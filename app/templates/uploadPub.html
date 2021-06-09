@@ -1,0 +1,13 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="container">
+  <h1>ENEA Heritage Science Insternship 2021</h1>
+  <h2>PoC of ENEA heritagescience platform data module</h2>
+  <hr>
+  <h3>Upload new Publication</h3>
+    {{ wtf.quick_form(form) }}
+  <hr>
+  <p><a href="{{ url_for('index') }}">Back</a></p>
+</div>
+{% endblock %}
