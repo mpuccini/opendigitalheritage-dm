@@ -79,7 +79,7 @@ def connect2mongo(conf,collection):
         client = MongoClient(uri)
         coll = client[c['db']][collection]
     except Exception as e:
-        log.error("Cannot connect to mongo (check if you're under ENEA VPN): ",e)
+        log.error("Cannot connect to mongo (check if you're under ENEA VPN)")
         raise Exception("Cannot connect to mongo")
     
     log.info("Connection to mongo succeded!")
