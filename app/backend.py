@@ -161,7 +161,7 @@ def makeHash(path):
             data = f.read(BUF_SIZE)
             md5.update(data)
     except IOError as ioe:
-        log.error("Cannot open/read file %s: %s", path, e)
+        log.error("Cannot open/read file %s: %s", path, ioe)
         raise
     except Exception as e:
         log.error("Generic error while reading file %s: %s", path, e)
