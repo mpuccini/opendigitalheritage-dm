@@ -26,7 +26,7 @@ def insertOption():
 def insertPUB():
     form = InsertPubForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-        c = be.loadConf()
+#        c = be.loadConf()
         pub=request.files['pub']
         objecthash = be.workOnObj(pub)
 
@@ -49,7 +49,7 @@ def insertPUB():
 def insertMODEL():
     form = InsertModelForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-        c = be.loadConf()
+#        c = be.loadConf()
         model=request.files['model']
         objecthash = be.workOnObj(model)
 
