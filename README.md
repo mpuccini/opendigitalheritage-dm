@@ -4,8 +4,10 @@
 L'obiettivo di questo tirocinio è presentare un proof of concept di un tool più ampio che sarà implementato nella piattaforma ENEA.  
 In particolare, si vuole realizzare un proof of concept di un'applicazione client-server con lo scopo di memorizzare informazioni sui beni culturali mediante:  
  - Immagini  
- - Documenti in formato PDF  
- - Modellazioni 3D    
+ - Pubblicazioni 
+ - Modellazioni 3D
+
+Per l'applicazione sarà prevista una logica di login che tuttavia non verrà implementata nel poc. 
 
 ## Strumenti
 
@@ -112,10 +114,6 @@ Le operazioni principali che il proof of concept dovrà offrire sono le seguenti
  immagini, nuovi documenti PDF e nuove modellazioni 3D.
  - Ricerca di informazioni gia presenti nella Banca Dati. 
 
-### Architettura strato logico
-Per organizzare la informazioni, nel db ci saranno tre diverse collezioni divise per formati. In questo modo l'attività di inserimento sarà divisa per categoria del file da inserire(modello 3D,documento PDF,immagine).
-Per favorire le attività di ricerca è stata introdotta un ulteriore collezione di nome "Inventario", dentro la quale ci saranno tutti i documenti, aggregati per opera, a prescindere dal formato. In particolare raccoglierà i riferimenti(id creati al momento del caricamento sul database) degli oggetti.
-
 ### Interfaccia Utente
 L'UI sarà composta da input grafici che guideranno l'utente a compiere le operazioni desiderate.  
 L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
@@ -132,9 +130,15 @@ L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
 
 Schema della struttura dell'interfaccia web.
 
+### Architettura strato logico
+Per organizzare la informazioni, nel db ci saranno tre diverse collezioni divise per formati. In questo modo l'attività di inserimento sarà divisa per categoria del file da inserire(modello 3D, pubblicazione, immagine).
+Per favorire le attività di ricerca è stata introdotta un ulteriore collezione di nome "Inventario", dentro la quale ci saranno tutti i documenti, aggregati per opera, a prescindere dal formato. In particolare raccoglierà i riferimenti(id creati al momento del caricamento sul database) degli oggetti. 
+Per gestire l'archiviazione di dati e metadati verrà utilizzato un file backend.py che si occuperà di questa mansione.
+Tutte le best practice e le configurazioni iniziali saranno raccolte in un file esterno.
+
 ### Operazione di Inserimento
  Dopo che l'utente avra scelto l'operazione "Inserisci", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
- - Inserimento PDF  
+ - Inserimento Pubblicazione  
  - Inserimento Immagine  
  - Inserimento Modello 3D  
 
@@ -149,9 +153,12 @@ Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad
 ```  
 ![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaInserimento.JPG?raw=true)  
 
+Per quanto riguarda il salvataggio nel DB avverrà una doppia scrittura. 
+Gli oggetti, le cui caratteristiche sono specificate tramite form, verranno inseriti nella collezione che raggruppa i documenti del suo stesso tipo, ma anche nella collezione inventario che le raggruppa per opera.
+
 ### Operazione di Ricerca
 Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagina web che presenterà  le seguenti opzioni gestite tramite input grafico:
- - Ricerca PDF  
+ - Ricerca Pubblicazione
  - Ricerca Immagine  
  - Ricerca Modello 3D   
 
