@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/home/marco/venvs/flaskapp/bin/python",
+    "python.pythonPath": "/home/marco/venvs/webdev/bin/python",
     "python.terminal.executeInFileDir": true
 }

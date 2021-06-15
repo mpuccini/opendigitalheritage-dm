@@ -179,9 +179,9 @@ def workOnObj(obj):
         tmpsavepath = savepathroot+secure_filename(obj.filename)
         obj.save(tmpsavepath)
         objhash = makeHash(tmpsavepath)
-        fl1 = objhash[:1]
-        fl2 = objhash[:2]
-        newsavepath = savepathroot+'/'+fl1+'/'+fl2
+        #fl1 = objhash[:1]
+        #fl2 = objhash[:2]
+        newsavepath = savepathroot#+'/'+fl1+'/'+fl2
         if not os.path.exists(newsavepath):             
             os.makedirs(newsavepath)
         split_obj = os.path.splitext(obj.filename)

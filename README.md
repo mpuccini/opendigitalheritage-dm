@@ -110,7 +110,11 @@ Alcune delle caratteristiche principali sono:
 Le operazioni principali che il proof of concept dovrà offrire sono le seguenti:
  - Inserimento nel DB di nuovi dati relativi ai beni culturali. Dovrà quindi consentire l'aggiunta di nuove  
  immagini, nuovi documenti PDF e nuove modellazioni 3D.
- - Ricerca di informazioni gia presenti nella Banca Dati.  
+ - Ricerca di informazioni gia presenti nella Banca Dati. 
+
+### Architettura strato logico
+Per organizzare la informazioni, nel db ci saranno tre diverse collezioni divise per formati. In questo modo l'attività di inserimento sarà divisa per categoria del file da inserire(modello 3D,documento PDF,immagine).
+Per favorire le attività di ricerca è stata introdotta un ulteriore collezione di nome "Inventario", dentro la quale ci saranno tutti i documenti, aggregati per opera, a prescindere dal formato. In particolare raccoglierà i riferimenti(id creati al momento del caricamento sul database) degli oggetti.
 
 ### Interfaccia Utente
 L'UI sarà composta da input grafici che guideranno l'utente a compiere le operazioni desiderate.  
@@ -154,5 +158,5 @@ Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagi
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
 ![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaRicerca.jpg?raw=true)  
 
-Se l'utente vorrà cercare un'informazione tramite la ricerca testuale dovrà selezionare l'apposita barra di ricerca e scrivere le parole chiave presenti nei documenti che vuole ottenere.
-
+Con l'aggiunta della collezione inventario, è possibile ottenere documenti raggruppati per opera. Quindi ci sarà un ulteriore input grafico adibito a questa funzione. Accedendovi l'utente dovrà inserire, tramite una barra di ricerca, il nome dell'opera di cui si vogliono ottenere le informazioni.
+![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaRicercaInventory.jpg?raw=true)
