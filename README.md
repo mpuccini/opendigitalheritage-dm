@@ -46,11 +46,13 @@ pip install -r requirements
 ```
 Now you're ready to start the app just with:
 ```bash
-python app/app.py
+cd app/
+python app.py
 ```
 You may also want to test loaclly the wsgi server with gunicorn. In this case you just need to:
 ```bash
-bash app/gunicorn.sh
+cd app/
+bash gunicorn.sh
 ```
 
 ### Run as container
