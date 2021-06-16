@@ -54,33 +54,34 @@ bash app/gunicorn.sh
 ```
 
 ### Run as container
-To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands[^1].
-Build image:
+To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands[^1].  
+
+#### Build image
 ```
 (sudo) make build
 ```
-Run container:
+#### Run container
 ```
 (sudo) make run
 ```
-Stop container:
+#### Stop container
 ```
 (sudo) make stop
 ```
-Start container:
+#### Start container
 ```
 (sudo) make start
 ```
-Kill (stop & remove) container:
+#### Kill (stop & remove) container
 ```
 (sudo) make kill
 ```
-Clean (remove eventually dead containers and remove images):
+#### Clean (remove eventually dead containers and remove images)
 ```
 (sudo) make clean
 ```
 
 [^1]: A docker engine is assumed to be running. If you have podman instead, just create an alias:
-```bash
-alias docker=podman
-```
+	```bash
+	alias docker=podman
+	```
