@@ -23,7 +23,7 @@ parser.add_argument('-cf',
 		    help='Configuration file path',                     
 		    default=DEFAULT_CONFIGFILE)
 
-args = parser.parse_args()
+args, unknown = parser.parse_known_args()
 
 ## Logging
 level = logging.getLevelName(args.logLevel)
