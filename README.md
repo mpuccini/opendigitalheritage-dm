@@ -80,8 +80,7 @@ Clean (remove eventually dead containers and remove images):
 (sudo) make clean
 ```
 
-[^1]:
-A docker engine is assumed to be running. If you have podman instead, just create an alias:
+[^1]: A docker engine is assumed to be running. If you have podman instead, just create an alias:
 ```bash
 alias docker=podman
 ```
