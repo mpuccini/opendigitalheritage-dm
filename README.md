@@ -81,7 +81,7 @@ To simplify container managment, a `Makefile` is provided. In the following are 
 (sudo) make clean
 ```
 
-<span id="fn1"></span> [_consectetur adipiscing elit_](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:
+<span id="fn1"></span> [1](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:
 	```bash
 	alias docker=podman
 	```
