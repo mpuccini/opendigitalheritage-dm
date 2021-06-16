@@ -54,7 +54,7 @@ bash app/gunicorn.sh
 ```
 
 ### Run as container
-To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands[^1].  
+To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands[<sup id="footnote-id">1</sup>](#fn1).  
 
 #### Build image
 ```
@@ -81,7 +81,7 @@ To simplify container managment, a `Makefile` is provided. In the following are 
 (sudo) make clean
 ```
 
-[^1]: A docker engine is assumed to be running. If you have podman instead, just create an alias:
+<span id="fn1"></span> [_consectetur adipiscing elit_](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:
 	```bash
 	alias docker=podman
 	```
