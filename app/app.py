@@ -1,7 +1,7 @@
 # app.py
 #!bin/python
 from flask import Flask, request, render_template
-from models import InsertPubForm, InsertModelForm
+from models import InsertPubForm, InsertModelForm,SearchPubForm 
 from flask_bootstrap import Bootstrap
 import backend as be
 
@@ -79,6 +79,14 @@ def getInventory():
 def searchOption():
      return render_template('searchOption.html')
 
+@app.route('/searchPUB',methods=['GET', 'POST'])
+def searchPUB():
+    form = SearchPubForm(request.form)
+    if  form.validate_on_submit():  #request.method=GET o POST?
+            metadata={}
+            metadata['title'] = request.form['title']
+            return render_template('ResultPUB.html')
+    return render_template('searchPUB.html',form=form)
 
 if __name__ == '__main__':
     app.run()

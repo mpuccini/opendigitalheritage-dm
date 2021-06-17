@@ -29,6 +29,10 @@ class InsertModelForm(FlaskForm):
   model = FileField('Model')
   submit = SubmitField('Submit')
 
+class SearchPubForm(FlaskForm):
+  title = StringField('Title', [validators.DataRequired()])
+  submit = SubmitField('Submit')  
+
 
 
 
