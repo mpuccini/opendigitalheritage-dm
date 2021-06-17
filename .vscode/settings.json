@@ -1,4 +1,5 @@
 {
-    "python.pythonPath": "/home/marco/venvs/webdev/bin/python",
-    "python.terminal.executeInFileDir": true
+    "python.pythonPath": "C:\\Python39\\python.exe",
+    "python.terminal.executeInFileDir": true,
+    "python.analysis.extraPaths": ["app", "C://Users//giaco//Documents//GitHub//poc-eneahs//app"]
 }

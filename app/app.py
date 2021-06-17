@@ -75,6 +75,9 @@ def getInventory():
     res = inventory.find()
     return render_template('inventory.html', result=res)
 
+@app.route('/searchOption',)
+def searchOption():
+     return render_template('searchOption.html')
 
 
 if __name__ == '__main__':

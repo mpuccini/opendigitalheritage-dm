@@ -6,5 +6,6 @@ config.ini
 *.vs/
 *.vscode/*
 *.env
+*.json
 
 *.sock
