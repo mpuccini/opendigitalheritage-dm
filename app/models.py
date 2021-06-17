@@ -29,6 +29,17 @@ class InsertModelForm(FlaskForm):
   model = FileField('Model')
   submit = SubmitField('Submit')
 
+class InsertImgForm(FlaskForm):
+  title = StringField('Title', [validators.DataRequired()])
+  description = TextAreaField('Description')
+  author = StringField('Author', [validators.DataRequired()])
+  project = StringField('Project', [validators.DataRequired()])
+  year = DateField('Year', format='%Y')
+  extension = SelectField(u'File extension', choices=[('jpeg', '.jpeg '), 
+                                                      ('png', '.png ')])
+  img = FileField('Image')
+  submit = SubmitField('Submit')  
+
 class SearchPubForm(FlaskForm):
   title = StringField('Title', [validators.DataRequired()])
   submit = SubmitField('Submit')  

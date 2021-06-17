@@ -1,7 +1,7 @@
 # app.py
 #!bin/python
 from flask import Flask, request, render_template
-from models import InsertPubForm, InsertModelForm,SearchPubForm 
+from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchPubForm 
 from flask_bootstrap import Bootstrap
 import backend as be
 
@@ -68,6 +68,29 @@ def insertMODEL():
         be.upload2mongo(metadata,'models')
         return render_template('uploadDone.html')
     return render_template('uploadModel.html',form=form)
+
+@app.route('/insertIMG', methods=['GET', 'POST'])
+def insertIMG():
+    form = InsertImgForm(request.form)
+    if request.method == 'POST' and form.validate_on_submit():
+#        c = be.loadConf()
+        img=request.files['img']
+        objecthash = be.workOnObj(img)
+
+        # Prepare metadata
+        metadata={}
+        metadata['title'] = request.form['title']
+        metadata['description'] = request.form['description']
+        metadata['author'] = request.form['author']
+        metadata['project'] = request.form['project']
+        metadata['objtype'] = 'image'
+        metadata['year'] = request.form['year']
+        metadata['extension'] = request.form['extension']
+        metadata['filename'] = img.filename
+        metadata['objecthash'] = objecthash
+        be.upload2mongo(metadata,'imgs')
+        return render_template('uploadDone.html')
+    return render_template('uploadIMG.html',form=form)  
 
 @app.route('/getInventory',)
 def getInventory():
