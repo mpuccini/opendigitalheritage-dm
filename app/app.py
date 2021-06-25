@@ -1,7 +1,7 @@
 # app.py
 #!bin/python
 from flask import Flask, request, render_template
-from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchPubForm 
+from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchModelForm, SearchPubForm 
 from flask_bootstrap import Bootstrap
 import backend as be
 
@@ -110,6 +110,24 @@ def searchPUB():
             metadata['title'] = request.form['title']
             return render_template('ResultPUB.html')
     return render_template('searchPUB.html',form=form)
+
+@app.route('/searchIMG',methods=['GET', 'POST'])
+def searchIMG():
+    form = SearchImgForm(request.form)
+    if  form.validate_on_submit():  #request.method=GET o POST?
+            metadata={}
+            metadata['title'] = request.form['title']
+            return render_template('ResultIMG.html')
+    return render_template('searchIMG.html',form=form)
+
+@app.route('/searchModel',methods=['GET', 'POST'])
+def searchModel():
+    form = SearchModelForm(request.form)
+    if  form.validate_on_submit():  #request.method=GET o POST?
+            metadata={}
+            metadata['title'] = request.form['title']
+            return render_template('ResultModel.html')
+    return render_template('searchModel.html',form=form)
 
 if __name__ == '__main__':
     app.run()
