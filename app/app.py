@@ -1,6 +1,8 @@
 # app.py
 #!bin/python
+from logging import debug
 from flask import Flask, request, render_template
+from pymongo import results
 from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchModelForm, SearchPubForm 
 from flask_bootstrap import Bootstrap
 import backend as be
@@ -106,9 +108,10 @@ def searchOption():
 def searchPUB():
     form = SearchPubForm(request.form)
     if  form.validate_on_submit():  #request.method=GET o POST?
+            pubs = be.connect2mongo(be.loadConf(),'pubs')
             metadata={}
             metadata['title'] = request.form['title']
-            return render_template('ResultPUB.html')
+            return render_template('ResultPUB.html',result=pubs.find({'title':request.form['title']}))
     return render_template('searchPUB.html',form=form)
 
 @app.route('/searchIMG',methods=['GET', 'POST'])

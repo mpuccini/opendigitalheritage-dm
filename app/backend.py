@@ -189,3 +189,5 @@ def workOnObj(obj):
         shutil.move(tmpsavepath,newsavepath+'/'+hashname)
     
         return objhash
+
+
