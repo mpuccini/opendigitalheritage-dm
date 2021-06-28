@@ -118,18 +118,20 @@ def searchPUB():
 def searchIMG():
     form = SearchImgForm(request.form)
     if  form.validate_on_submit():  #request.method=GET o POST?
+            imgs = be.connect2mongo(be.loadConf(),'imgs')
             metadata={}
             metadata['title'] = request.form['title']
-            return render_template('ResultIMG.html')
+            return render_template('ResultIMG.html',result=imgs.find({'title':request.form['title']}))
     return render_template('searchIMG.html',form=form)
 
 @app.route('/searchModel',methods=['GET', 'POST'])
 def searchModel():
     form = SearchModelForm(request.form)
     if  form.validate_on_submit():  #request.method=GET o POST?
+            models = be.connect2mongo(be.loadConf(),'models')
             metadata={}
             metadata['title'] = request.form['title']
-            return render_template('ResultModel.html')
+            return render_template('ResultIMG.html',result=models.find({'title':request.form['title']}))
     return render_template('searchModel.html',form=form)
 
 if __name__ == '__main__':
