@@ -52,6 +52,10 @@ class SearchModelForm(FlaskForm):
   title = StringField('Title', [validators.DataRequired()])
   submit = SubmitField('Submit')  
 
+class SearchInventoryForm(FlaskForm):
+  title = StringField('Title', [validators.DataRequired()])
+  submit = SubmitField('Submit')  
+
 
 
 

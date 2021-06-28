@@ -3,7 +3,7 @@
 from logging import debug
 from flask import Flask, request, render_template
 from pymongo import results
-from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchModelForm, SearchPubForm 
+from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchInventoryForm, SearchModelForm, SearchPubForm 
 from flask_bootstrap import Bootstrap
 import backend as be
 
@@ -133,6 +133,16 @@ def searchModel():
             metadata['title'] = request.form['title']
             return render_template('ResultIMG.html',result=models.find({'title':request.form['title']}))
     return render_template('searchModel.html',form=form)
+
+@app.route('/searchInventory',methods=['GET', 'POST'])
+def searchInventory():
+    form = SearchInventoryForm(request.form)
+    if  form.validate_on_submit():  #request.method=GET o POST?
+            inv = be.connect2mongo(be.loadConf(),'inventory')
+            metadata={}
+            metadata['title'] = request.form['title']
+            return render_template('ResultInventory.html',result=inv.find({'title':request.form['title']}))
+    return render_template('searchInventory.html',form=form)
 
 if __name__ == '__main__':
     app.run()
