@@ -4,7 +4,7 @@ build:
 	@docker build -t $(app_name) .
 
 run:
-	@docker run --detach -p 5000:5000 $(app_name)
+	@docker run --detach -p 5000:5000 -v /store:/home/marco/data/hstore $(app_name)
 
 start:
 	@echo 'Starting container...'
