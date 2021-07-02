@@ -22,13 +22,11 @@
 	<td>{{ r['project'] }}</td>
 	<td>{{ r['year'] }}</td>
 	<td>{{ r['objtype'] }}</td>
-	{{% if r['objtype'] == '3dmodel' %}}
-	<td><a href="heritagescience.portici.enea.it/3dviewer/assembler.php?{{ r['oid'] }}"><button type="button" class="btn btn-dark">Get</button></a></td>
-	{{% else %}}
-	<td><a href="heritagescience.portici.enea.it/{{ r['oid']+'.'+r['extension'] }}"><button type="button" class="btn btn-dark">Get</button></a></td>
-	{{% elif r['objtype'] == '3dmodel' %}}
-	<td><a href="{{ url_for('getsong', title=song['title'])}}"><button type="button" class="btn btn-dark">Get</button></a></td>
-	{{% endif %}}
+	{% if r['objtype'] == '3dmodel' %}
+	<td><a href="3dviewer/assembler.php?oid={{ r['ID'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
+	{% else %}
+	<td><a href="{{ r['ID'] }}.{{ r['extension'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
+	{% endif %}
       </tr>
       {% endfor %}
     </tbody>
