@@ -55,7 +55,7 @@ cd app/
 bash gunicorn.sh
 ```
 
-### Run as container
+### Run as container (Producion)
 To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands[<sup id="footnote-id">1</sup>](#fn1).  
 
 #### Build image
@@ -82,6 +82,9 @@ To simplify container managment, a `Makefile` is provided. In the following are 
 ```
 (sudo) make clean
 ```
+
+> ### Configure your web server
+> You may need to configure your web server to proxy pass the service on standard http/https ports. 
 
 <span id="fn1"></span> [1](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:
 	```bash
