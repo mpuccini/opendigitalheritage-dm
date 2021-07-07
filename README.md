@@ -86,7 +86,7 @@ To simplify container managment, a `Makefile` is provided. In the following are 
 > ### Configure your web server
 > You may need to configure your web server to proxy pass the service on standard http/https ports. 
 
-<span id="fn1"></span> [1](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:
-	```bash
+<span id="fn1"></span> [1](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:  
+	```
 	alias docker=podman
 	```
