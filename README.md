@@ -56,9 +56,10 @@ bash gunicorn.sh
 ```
 
 ### Run as container (Producion)
-To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands[<sup id="footnote-id">1</sup>](#fn1). 
+To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands[<sup id="footnote-id">1</sup>](#fn1).  
 
 | Action | `command` |
+|:---|:---|
 | Build image | `sudo make build` |
 | Run container | `sudo make run` |
 | Stop container | `sudo make stop` |
