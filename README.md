@@ -85,7 +85,7 @@ To simplify container managment, a `Makefile` is provided. In the following are 
 
 > ### Configure your web server
 > You may need to configure your web server to proxy pass the service on standard http/https ports. 
-
+> If you prefer, you could run container in *rootles* mode for security reasons. You find [here](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md) a good guide on how to configure your podman to work rootless.  
 <span id="fn1"></span> [1](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:  
 	```
 	alias docker=podman

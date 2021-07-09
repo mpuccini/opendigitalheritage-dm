@@ -1,5 +1,9 @@
 {% extends "bootstrap/base.html" %}
 {% block content %}
+<html>
+  <head>
+    <script src="https://kit.fontawesome.com/d906718c2b.js" crossorigin="anonymous"></script>
+  </head>
 <div class="container">
   <h1>ENEA Heritage Science Internship 2021</h1>
   <h2>PoC of ENEA heritagescience platform data module</h2>  
@@ -11,7 +15,7 @@
 	<th scope="col">Title</th>
 	<th scope="col">Project</th>
 	<th scope="col">Year</th>
-	<th scope="col">Object Type</th>
+	<th scope="col" style="text-align:center">Object Type</th>
 	<th scope="col">View</th>
       </tr>
     </thead>
@@ -21,11 +25,15 @@
 	<td>{{ r['title'] }}</td>
 	<td>{{ r['project'] }}</td>
 	<td>{{ r['year'] }}</td>
-	<td>{{ r['objtype'] }}</td>
 	{% if r['objtype'] == '3dmodel' %}
-	<td><a href="3dviewer/assembler.php?oid={{ r['ID'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
-	{% else %}
-	<td><a href="{{ r['ID'] }}.{{ r['extension'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
+	<td style="text-align:center"><i class="fas fa-cube fa-2x"></i></td>
+	<td><a target="_blank" href="3dviewer/assembler.php?oid={{ r['ID'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
+	{% elif r['objtype'] == 'image'  %}
+	<td style="text-align:center"><i class="fas fa-file-image fa-2x"></i></td>
+	<td><a target="_blank" href="store/{{ r['ID'] }}.jpeg"><button type="button" class="btn btn-dark">View</button></a></td>
+	{% elif r['objtype'] == 'publication' %}
+	<td style="text-align:center"><i class="fas fa-file fa-2x"></i></td>
+	<td><a target="_blank" href="{{ r['ID'] }}.{{ r['extension'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
 	{% endif %}
       </tr>
       {% endfor %}
@@ -34,6 +42,7 @@
   <hr>
   <p><a href="{{ url_for('index') }}">Back</a></p>
 </div>
+</html>
 {% endblock %}
 
 <!-- <td><a href="{{ url_for('getsong', title=song['title'])}}"><button type="button" class="btn btn-dark">Get</button></a></td> -->
