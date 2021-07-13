@@ -56,6 +56,8 @@ bash gunicorn.sh
 ```
 
 ### Run as container (Producion)
+To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands. For security reason is recommmended to use podman in a *rootless* mode. You find [here](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md) a good guide on how to configure your podman to work rootless. 
+
 #### Configuration
 In the `config.ini` set the `path` variable of `[datastore]` field to `/store/':  
 ```bash
@@ -70,7 +72,8 @@ And then set your local path into the Makefile in the `run` rule:
 @docker run --detach -p 5000:5000 -v </your/path>:/store:Z $(app_name)
 ```
 
-To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands. For security reason is recommmended to use podman in a *rootless* mode. You find [here](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md) a good guide on how to configure your podman to work rootless. 
+
+#### Commands
 
 | Action | `command` |
 |:---|:---|
