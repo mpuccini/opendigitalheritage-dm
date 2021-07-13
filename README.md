@@ -56,7 +56,7 @@ bash gunicorn.sh
 ```
 
 ### Run as container (Producion)
-To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands. For security reason that commands are for a podman *rootless* mode environment. You find [here](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md) a good guide on how to configure your podman to work rootless. 
+To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands. For security reason is recommmended to use podman in a *rootless* mode. You find [here](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md) a good guide on how to configure your podman to work rootless. 
 
 | Action | `command` |
 |:---|:---|
@@ -69,3 +69,13 @@ To simplify container managment, a `Makefile` is provided. In the following are 
 
 > ### Some notes
 > You may need to configure your web server to proxy pass the service on standard http/https ports.   
+
+
+## To Do
+ - [x] Add map to get coordinates on upload
+ - [ ] Add map to results page to show objects location
+ - [ ] Metadata definition (JSON-LD)
+ - [ ] Fix data storage path
+ - [ ] Templates refactoring
+ - [ ] Full text search
+ - [ ] Enhance frontend
