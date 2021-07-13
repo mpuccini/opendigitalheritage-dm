@@ -15,6 +15,8 @@
 	<th scope="col">Title</th>
 	<th scope="col">Project</th>
 	<th scope="col">Year</th>
+        <th scope="col">Latitude</th>
+        <th scope="col">Longitude</th>
 	<th scope="col" style="text-align:center">Object Type</th>
 	<th scope="col">View</th>
       </tr>
@@ -25,6 +27,8 @@
 	<td>{{ r['title'] }}</td>
 	<td>{{ r['project'] }}</td>
 	<td>{{ r['year'] }}</td>
+        <td>{{ r['coordinates']['latitude'] }}</td>
+        <td>{{ r['coordinates']['longitude'] }}</td>
 	{% if r['objtype'] == '3dmodel' %}
 	<td style="text-align:center"><i class="fas fa-cube fa-2x"></i></td>
 	<td><a target="_blank" href="3dviewer/assembler.php?oid={{ r['ID'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
