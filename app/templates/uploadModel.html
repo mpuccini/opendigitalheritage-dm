@@ -1,13 +1,74 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
-<div class="container">
+<!doctype html>
+<html>
+  <head>
+    <title>Upload 3DModel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+      * {
+	  box-sizing: border-box;
+      }
+
+      /* Create two equal columns that floats next to each other */
+      .column {
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+	  height: 300px; /* Should be removed. Only for demonstration */
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+      }
+      .offscreen {
+	  position: absolute;
+	  left: -999em;
+      }
+    </style>    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+	  crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+	    crossorigin=""></script>
+  </head>
+
+  <body>
+    <div class="container">
   <h1>ENEA Heritage Science Internship 2021</h1>
   <h2>PoC of ENEA heritagescience platform data module</h2>
   <hr>
   <h3>Upload new 3D Model</h3>
-    {{ wtf.quick_form(form) }}
-  <hr>
-  <p><a href="{{ url_for('index') }}">Back</a></p>
-</div>
+      <div class="row">
+	<div class="column">
+	  <h2>Metadata</h4>
+	  {{ wtf.quick_form(form) }}
+
+	</div>
+	<div class="column">
+	  <h2>Add Position</h4>
+	  <p>Navigate and point on map the artifact position</p>
+	  <div id="map" style="position: fixed;
+			       width: 45%; 
+			       height: 600px;
+			       right: 10px;
+			       overlay: true;"></div>
+
+	
+	  <script src="static/js/getcoord.js">
+	  </script>
+	  
+	</div>
+      </div>
+    </div>
+
+  </body>
+
+</html>
 {% endblock %}

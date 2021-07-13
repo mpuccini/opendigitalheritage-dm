@@ -26,6 +26,7 @@ class InsertModelForm(FlaskForm):
   year = DateField('Year', format='%Y')
   extension = SelectField(u'File extension', choices=[('ply', '.ply Poligon File Format'), 
                                                       ('nxz', '.nxz Nexus compressed ')])
+  coordinates = StringField('Coordinates')
   model = FileField('Model')
   submit = SubmitField('Submit')
 
@@ -37,6 +38,7 @@ class InsertImgForm(FlaskForm):
   year = DateField('Year', format='%Y')
   extension = SelectField(u'File extension', choices=[('jpeg', '.jpeg '), 
                                                       ('png', '.png ')])
+  coordinates = StringField('Coordinates')
   img = FileField('Image')
   submit = SubmitField('Submit')  
 

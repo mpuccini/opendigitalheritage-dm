@@ -66,7 +66,11 @@ def insertMODEL():
         metadata['extension'] = request.form['extension']
         metadata['filename'] = model.filename
         metadata['objecthash'] = objecthash
-
+        metadata['coordinates'] = {}
+        coord = request.form['coordinates']
+        sepcoord = coord.split(',')
+        metadata['coordinates']['latitude'] = sepcoord[0]
+        metadata['coordinates']['longitude'] = sepcoord[1]
         be.upload2mongo(metadata,'models')
         return render_template('uploadDone.html')
     return render_template('uploadModel.html',form=form)
@@ -90,6 +94,11 @@ def insertIMG():
         metadata['extension'] = request.form['extension']
         metadata['filename'] = img.filename
         metadata['objecthash'] = objecthash
+        metadata['coordinates'] = {}
+        coord = request.form['coordinates']
+        sepcoord = coord.split(',')
+        metadata['coordinates']['latitude'] = sepcoord[0]
+        metadata['coordinates']['longitude'] = sepcoord[1]
         be.upload2mongo(metadata,'imgs')
         return render_template('uploadDone.html')
     return render_template('uploadIMG.html',form=form)  

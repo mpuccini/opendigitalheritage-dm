@@ -122,6 +122,9 @@ def upload2mongo(doc, collection):
     invdoc['project'] = doc['project']
     invdoc['objtype'] = doc['objtype']
     invdoc['year'] = doc['year']
+    invdoc['coordinates'] = {}
+    invdoc['coordinates']['latitude'] = doc['coordinates']['latitude']
+    invdoc['coordinates']['longitude'] = doc['coordinates']['longitude']
     invdoc['ID'] = indoc.inserted_id
     inventory.insert_one(invdoc)
 '''    if coll.count_documents({'document_hash': doc['document_hash']}) > 0:
