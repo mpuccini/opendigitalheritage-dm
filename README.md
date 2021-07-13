@@ -55,35 +55,23 @@ cd app/
 bash gunicorn.sh
 ```
 
-### Run as container
+### Run as container (Producion)
 To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands[<sup id="footnote-id">1</sup>](#fn1).  
 
-#### Build image
-```
-(sudo) make build
-```
-#### Run container
-```
-(sudo) make run
-```
-#### Stop container
-```
-(sudo) make stop
-```
-#### Start container
-```
-(sudo) make start
-```
-#### Kill (stop & remove) container
-```
-(sudo) make kill
-```
-#### Clean (remove eventually dead containers and remove images)
-```
-(sudo) make clean
-```
+| Action | `command` |
+|:---|:---|
+| Build image | `sudo make build` |
+| Run container | `sudo make run` |
+| Stop container | `sudo make stop` |
+| Start container | `sudo make start` |
+| Kill (stop & remove) container) | `sudo make kill` |
+| Clean (remove eventually dead containers and remove images)) | `sudo make clean` |
 
-<span id="fn1"></span> [1](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:
-	```bash
+> ### Some notes
+> You may need to configure your web server to proxy pass the service on standard http/https ports.   
+> If you prefer, you could run container in *rootles* mode for security reasons. You find [here](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md) a good guide on how to configure your podman to work rootless. In that case you dont need `sudo` anymore!
+
+<span id="fn1"></span> [1](#footnote-id). A docker engine is assumed to be running. If you have podman instead, just create an alias:  
+	```
 	alias docker=podman
 	```
