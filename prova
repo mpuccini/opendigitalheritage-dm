@@ -1,0 +1,5 @@
+CONFILE := "app/config.ini"
+DATAPATH := $(shell grep -Po "(?<=path \")[^\"]+" $(CONFILE))
+
+test:
+	@echo $(DATAPATH)

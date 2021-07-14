@@ -1,0 +1,3 @@
+storepath=`awk -F "=" '/path/ {print $2}' app/config.ini`
+
+echo $(storepath)

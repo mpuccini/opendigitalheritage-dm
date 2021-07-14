@@ -1,10 +1,18 @@
 app_name = poc-eneahs
 
+CONFILE := "app/config.ini"
+DATAPATH := $(shell grep -Po "(?<=path \")[^\"]+" $(CONFILE))
+
+test:
+	@echo $(DATAPATH)
+
 build:
+	@echo 'Buinding container...'
 	@docker build -t $(app_name) .
 
 run:
-	@docker run --detach -p 5000:5000 -v /home/pods/hstore:/store:Z $(app_name)
+	@echo 'Run container...'
+	@docker run --detach -p 5000:5000 -v /home/marco/hstore:/store:Z $(app_name)
 
 start:
 	@echo 'Starting container...'
