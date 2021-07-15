@@ -71,12 +71,12 @@ def connect2mongo(conf,collection):
         raise Exception("Cannot get configuration")
 
     ## mongo ENEA
-    uri = "mongodb://{}:{}@{}:{}/?authsource={}".format(c['user'],c['pwd'],c['host'],c['port'],c['db'])
+    #uri = "mongodb://{}:{}@{}:{}/?authsource={}".format(c['user'],c['pwd'],c['host'],c['port'],c['db'])
     ## mongo ATLAS
     ## uri = "mongodb+srv://{}:{}@{}/?{}?retryWrites=true&w=majority".format(c['user'],c['pwd'],c['host'],c['db'])
 
     try:
-        client = MongoClient(uri)
+        client = MongoClient(c['uri'])
         coll = client[c['db']][collection]
     except Exception:
         log.error("Cannot connect to mongo (check if you're under ENEA VPN)")
