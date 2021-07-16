@@ -12,7 +12,7 @@ function getCoord(e){
     var lng = coord.lng;
     var newMarker = L.marker(e.latlng, {draggable:'true'})
 	.addTo(mymap)
-	.bindPopup('<input class="offscreen" value='+lat+','+lng+' id="coordIN" aria-hidden="true"><button onclick="copyCoord()">Copy coordinates<br>to clipboard</button>')
+	.bindPopup('<input class="form-control" value='+lat+','+lng+' id="coordIN" hidden="true"><span class="input-group-btn"><button type="button" class="btn btn-warning" onclick="copyCoord()">Copy coordinates<br>to clipboard</button></span>')
 	.openPopup();
 }	
 

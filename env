@@ -1,0 +1,4 @@
+db = testdb
+uri = mongodb+srv://pippo:baudo@cluster0.frecy.mongodb.net/?testdb?retryWrites=true&w=majority
+path = /home/marco/data/hstore/
+secret_key=bYk79WTewC5ULf8k:spli
