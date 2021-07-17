@@ -126,7 +126,7 @@ L'HomePage avrà offrirà tre diverse opzioni di interazione. L'utente potrà:
  text = 'Douro River and Ribeira Square'
  text_results = airbnb.listingsAndReviews.find({"$text": {"$search": text}},{"_id":0, "name":1})
  ```
-![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/StrutturaPagineWeb.JPG?raw=true)  
+![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/docs/imgs/StrutturaPagineWeb.JPG?raw=true)  
 
 Schema della struttura dell'interfaccia web.
 
@@ -151,7 +151,7 @@ Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad
   <input type="submit" value="Upload">
 </form>
 ```  
-![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaInserimento.JPG?raw=true)  
+![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/docs/imgs/diagrammaInserimento.JPG?raw=true)  
 
 Per quanto riguarda il salvataggio nel DB avverrà una doppia scrittura. 
 Gli oggetti, le cui caratteristiche sono specificate tramite form, verranno inseriti nella collezione che raggruppa i documenti del suo stesso tipo, ma anche nella collezione inventario che le raggruppa per opera.
@@ -163,7 +163,7 @@ Dopo che l'utente avra scelto l'operazione "Ricerca", verrà proiettata una pagi
  - Ricerca Modello 3D   
 
 Qualunque sia la scelta dell'utente, questo verrà condotto ad una pagine web ad hoc per compilare i campi di una form. Successivamente i valori inseriti verranno utilizzati per realizzare una Query ad hoc con lo scopo di estrapolare i dati dal DB.  
-![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaRicerca.jpg?raw=true)  
+![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/docs/imgs/diagrammaRicerca.jpg?raw=true)  
 
 Con l'aggiunta della collezione inventario, è possibile ottenere documenti raggruppati per opera. Quindi ci sarà un ulteriore input grafico adibito a questa funzione. Accedendovi l'utente dovrà inserire, tramite una barra di ricerca, il nome dell'opera di cui si vogliono ottenere le informazioni.
-![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/imgs/diagrammaRicercaInventory.jpg?raw=true)
+![alt text](https://github.com/mpuccini/poc-eneahs/blob/main/docs/imgs/diagrammaRicercaInventory.jpg?raw=true)
