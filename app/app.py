@@ -2,6 +2,7 @@
 #!bin/python
 from logging import debug
 from flask import Flask, request, render_template
+from bson.objectid import ObjectId
 from pymongo import results
 from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchInventoryForm, SearchModelForm, SearchPubForm 
 from flask_bootstrap import Bootstrap
@@ -100,13 +101,13 @@ def insertIMG():
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='Image')
 
-@app.route('/getInventory',)
+@app.route('/getInventory')
 def getInventory():
     inventory = be.connect2mongo(be.loadConf(),'inventory')
     res = inventory.find()
     return render_template('inventory.html', result=res)
 
-@app.route('/searchOption',)
+@app.route('/searchOption')
 def searchOption():
      return render_template('searchOption.html')
 
@@ -149,6 +150,13 @@ def searchInventory():
             metadata['title'] = request.form['title']
             return render_template('inventory.html',result=inv.find({'title':request.form['title']}))
     return render_template('searchInventory.html',form=form)
+
+@app.route('/getImg')
+def getImg():
+    imgs = be.connect2mongo(be.loadConf(),'imgs')
+    ID = request.args.get('ID', None)
+    img = imgs.find_one({'_id': ObjectId(ID)})
+    return render_template('getImg.html', img=img)
 
 if __name__ == '__main__':
     app.run()

@@ -1,7 +1,7 @@
 {% extends "bootstrap/base.html" %}
 
 {% block head %}
-<title>Inventory</title>
+<title>HeritageScience</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="https://kit.fontawesome.com/d906718c2b.js" crossorigin="anonymous"></script>
@@ -9,7 +9,6 @@
 	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 	crossorigin="">
 </script>
-<script src="https://kit.fontawesome.com/d906718c2b.js" crossorigin="anonymous"></script>
 {{super()}}
 {% endblock %}
 
@@ -18,13 +17,13 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin=""/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <h1>ENEA Heritage Science Internship 2021</h1>
-  <h2>PoC of ENEA heritagescience platform</h2>  
+  <h1>PoC of ENEA heritagescience platform</h1>  
+  <h2>ENEA Heritage Science Internship 2021</h2>
+
   <hr>
   <h3>Inventory</h3>
   <div class="row">
@@ -63,12 +62,10 @@
 	  {% elif r['objtype'] == 'image'  %}
 	  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>	  
 	  <td style="text-align:center"><i class="fas fa-file-image fa-2x"></i></td>
-	  <td><a data-fancybox="single" href="localhost:8080/{{ r['ID'] }}.{{ r['extension'] }}">
-	    <button type="button" class="btn btn-dark">View</button>
-	  </a></td>
+	  <td><a href="{{ url_for('getImg', ID=r['ID']) }}"><button type="button" class="btn btn-dark">View</button></a></td>
 	  {% elif r['objtype'] == 'publication' %}
 	  <td style="text-align:center"><i class="fas fa-file fa-2x"></i></td>
-	  <td><a target="_blank" href="{{ r['ID'] }}.{{ r['extension'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
+	  <td><a target="_blank" href="localhost:8080/{{ r['ID'] }}.{{ r['extension'] }}">
 	  {% endif %}
 	</tr>
 	{% endfor %}
