@@ -6,7 +6,7 @@ build:
 
 run: 
 	@echo 'Run container...'
-	@docker run --detach -p 5000:5000 -v /home/marco/hstore:/store:Z $(app_name)
+	@docker run --detach -p 5000:5000 -v /home/pods/hstore:/store:Z $(app_name)
 
 start:
 	@echo 'Starting container...'
