@@ -90,10 +90,15 @@ And then set your local path into the Makefile in the `run` rule:
 
 ## To Do
  - [x] Add map to get coordinates on upload
- - [ ] Add map to results page to show objects location
+ - [X] Add map to results page to show objects location
  - [ ] Metadata definition (JSON-LD)
  - [ ] Env variables
  - [ ] Fix data storage path
  - [ ] Templates refactoring
  - [ ] Full text search
  - [ ] Enhance frontend
+ - [ ] Add features:
+   - [ ] Documents viewer
+   - [ ] Image viewer
+   - [ ] Multi image upload and view
+   - [ ] Multi model upload

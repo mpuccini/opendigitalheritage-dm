@@ -9,6 +9,7 @@
 	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 	crossorigin="">
 </script>
+<script src="https://kit.fontawesome.com/d906718c2b.js" crossorigin="anonymous"></script>
 {{super()}}
 {% endblock %}
 
@@ -17,6 +18,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin=""/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
 {% endblock %}
 
 {% block content %}
@@ -24,14 +26,7 @@
   <h1>ENEA Heritage Science Internship 2021</h1>
   <h2>PoC of ENEA heritagescience platform</h2>  
   <hr>
- <div class="row">
-    <div class="col-md-4">
-      <h3>Inventory</h3>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('index') }}"><button type="button" class="btn btn-success">Back</button></a>
-    </div>
-  </div>
+  <h3>Inventory</h3>
   <div class="row">
     <div id="map" style="width: 100%; 
 			 height: 400px;"></div>
@@ -66,8 +61,11 @@
 	  <td style="text-align:center"><i class="fas fa-cube fa-2x"></i></td>
 	  <td><a target="_blank" href="3dviewer/assembler.php?oid={{ r['ID'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
 	  {% elif r['objtype'] == 'image'  %}
+	  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>	  
 	  <td style="text-align:center"><i class="fas fa-file-image fa-2x"></i></td>
-	  <td><a target="_blank" href="store/{{ r['ID'] }}.jpeg"><button type="button" class="btn btn-dark">View</button></a></td>
+	  <td><a data-fancybox="single" href="localhost:8080/{{ r['ID'] }}.{{ r['extension'] }}">
+	    <button type="button" class="btn btn-dark">View</button>
+	  </a></td>
 	  {% elif r['objtype'] == 'publication' %}
 	  <td style="text-align:center"><i class="fas fa-file fa-2x"></i></td>
 	  <td><a target="_blank" href="{{ r['ID'] }}.{{ r['extension'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
@@ -78,7 +76,16 @@
     </table>
   </div>
   <hr>
-  <p><a href="{{ url_for('index') }}">Back</a></p>
+  <div class="row">
+    <div class="col-md-4">
+      <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="img-rounded" width="100"></a>
+    </div>
+    <div class="col-md-4">
+      <a href="https://github.com/mpuccini/poc-eneahs" target="_blank">Get source code <i class="fab fa-github"></i></a>
+    </div>
+    <div class="col-md-4">
+      <a href="{{ url_for('index') }}"><button type="button" class="btn btn-success">Back</button></a>
+    </div>
+  </div>
 </div>
-</html>
 {% endblock %}

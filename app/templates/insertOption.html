@@ -1,4 +1,8 @@
 {% extends "bootstrap/base.html" %}
+{% block head%}
+    <script src="https://kit.fontawesome.com/d906718c2b.js" crossorigin="anonymous"></script>
+{{super()}}
+{% endblock %}
 {% block content %}
 <div class="container">
   <h1>ENEA Heritage Science Internship 2021</h1>
@@ -9,7 +13,17 @@
   <p><a href="{{ url_for('insertPUB') }}">Upload new Publication</a></p>
   <p><a href="{{ url_for('insertMODEL') }}">Upload new 3D Model</a></p>
   <p><a href="{{ url_for('insertIMG') }}">Upload new Image</a></p>
-  <hr>
-  <p><a href="{{ url_for('index') }}">Back</a></p>
+    <hr>
+    <div class="row">
+      <div class="col-md-4">
+	<a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="img-rounded" width="100"></a>
+      </div>
+      <div class="col-md-4">
+	<a href="https://github.com/mpuccini/poc-eneahs" target="_blank">Get source code <i class="fab fa-github"></i></a>
+      </div>
+    <div class="col-md-4">
+      <a href="{{ url_for('index') }}"><button type="button" class="btn btn-success">Back</button></a>
+    </div>
+    </div>
 </div>
 {% endblock %}

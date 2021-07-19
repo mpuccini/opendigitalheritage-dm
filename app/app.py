@@ -28,7 +28,6 @@ def insertOption():
 def insertPUB():
     form = InsertPubForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-#        c = be.loadConf()
         pub=request.files['pub']
         objecthash = be.workOnObj(pub)
 
@@ -51,7 +50,6 @@ def insertPUB():
 def insertMODEL():
     form = InsertModelForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-#        c = be.loadConf()
         model=request.files['model']
         objecthash = be.workOnObj(model)
 
@@ -73,13 +71,12 @@ def insertMODEL():
         metadata['coordinates']['longitude'] = sepcoord[1]
         be.upload2mongo(metadata,'models')
         return render_template('uploadDone.html')
-    return render_template('uploadModel.html',form=form)
+    return render_template('uploadObj.html',form=form, obj='3D Model')
 
 @app.route('/insertIMG', methods=['GET', 'POST'])
 def insertIMG():
     form = InsertImgForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-#        c = be.loadConf()
         img=request.files['img']
         objecthash = be.workOnObj(img)
 
@@ -101,7 +98,7 @@ def insertIMG():
         metadata['coordinates']['longitude'] = sepcoord[1]
         be.upload2mongo(metadata,'imgs')
         return render_template('uploadDone.html')
-    return render_template('uploadIMG.html',form=form)  
+    return render_template('uploadObj.html',form=form, obj='Image')
 
 @app.route('/getInventory',)
 def getInventory():
@@ -150,7 +147,7 @@ def searchInventory():
             inv = be.connect2mongo(be.loadConf(),'inventory')
             metadata={}
             metadata['title'] = request.form['title']
-            return render_template('ResultInventory.html',result=inv.find({'title':request.form['title']}))
+            return render_template('inventory.html',result=inv.find({'title':request.form['title']}))
     return render_template('searchInventory.html',form=form)
 
 if __name__ == '__main__':
