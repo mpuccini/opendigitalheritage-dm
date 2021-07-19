@@ -158,5 +158,12 @@ def getImg():
     img = imgs.find_one({'_id': ObjectId(ID)})
     return render_template('getImg.html', img=img)
 
+@app.route('/getObj')
+def getObj():
+    objs = be.connect2mongo(be.loadConf(),'models')
+    ID = request.args.get('ID', None)
+    obj = objs.find_one({'_id': ObjectId(ID)})
+    return render_template('getObj.html', obj=obj)
+
 if __name__ == '__main__':
     app.run()

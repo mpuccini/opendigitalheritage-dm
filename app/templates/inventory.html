@@ -58,7 +58,7 @@
           <td>{{ r['coordinates']['longitude'] }}</td>
 	  {% if r['objtype'] == '3dmodel' %}
 	  <td style="text-align:center"><i class="fas fa-cube fa-2x"></i></td>
-	  <td><a target="_blank" href="3dviewer/assembler.php?oid={{ r['ID'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
+	  <td><a target="_blank" href="{{ url_for('getObj', ID=r['ID']) }}"><button type="button" class="btn btn-dark">View</button></a></td>
 	  {% elif r['objtype'] == 'image'  %}
 	  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>	  
 	  <td style="text-align:center"><i class="fas fa-file-image fa-2x"></i></td>
