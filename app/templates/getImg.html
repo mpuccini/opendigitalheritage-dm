@@ -26,9 +26,9 @@
     <div class="col-md-4">
       <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
       <div class="container">
-	<a data-fancybox="responsive" href="https://heritagescience.portici.enea.it/store/{{ img['objecthash'] }}.{{ img['extension'] }}">
+	<a data-fancybox="responsive" href="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}">
 	  <!-- <button type="button" class="btn btn-dark">View</button> -->
-	  <img class="img-fluid w-100" src="https://heritagescience.portici.enea.it/store/{{ img['objecthash'] }}.{{ img['extension'] }}" />
+	  <img class="img-fluid w-100" src="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}" />
 	</a>
       </div>
     </div>
