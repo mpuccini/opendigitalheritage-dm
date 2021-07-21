@@ -25,10 +25,11 @@
   <div class="row">
     <div class="col-md-4">
       <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
-      <div class="container-fliud">
-	<a data-fancybox="responsive" href="http://localhost:8080/{{ img['objecthash'] }}.{{ img['extension'] }}">
+      <div class="container">
+	<a data-fancybox="responsive" href="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}">
 	  <!-- <button type="button" class="btn btn-dark">View</button> -->
-	  <img src="localhost:8080/{{ img['objecthash'] }}.{{ img['extension'] }}" /></a>
+	  <img class="img-fluid w-100" src="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}" />
+	</a>
       </div>
     </div>
 

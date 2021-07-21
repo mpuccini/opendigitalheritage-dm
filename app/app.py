@@ -156,7 +156,8 @@ def getImg():
     imgs = be.connect2mongo(be.loadConf(),'imgs')
     ID = request.args.get('ID', None)
     img = imgs.find_one({'_id': ObjectId(ID)})
-    return render_template('getImg.html', img=img)
+    c = be.loadConf()
+    return render_template('getImg.html', img=img, c=c['datastore'])
 
 @app.route('/getObj')
 def getObj():
