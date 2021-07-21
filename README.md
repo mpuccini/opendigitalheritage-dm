@@ -98,7 +98,8 @@ And then set your local path into the Makefile in the `run` rule:
  - [ ] Full text search
  - [ ] Enhance frontend
  - [ ] Add features:
-   - [ ] Documents viewer
+   - [ ] Add check on present docs in `inventory` collection, then insert or update
+   - [ ] Document viewer
    - [X] Image viewer
    - [ ] Multi image upload and view
    - [ ] Multi model upload
