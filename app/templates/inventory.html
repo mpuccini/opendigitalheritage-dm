@@ -1,10 +1,9 @@
-{% extends "bootstrap/base.html" %}
+{% extends "index.html" %}
 
 {% block head %}
 <title>HeritageScience</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<script src="https://kit.fontawesome.com/d906718c2b.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
 	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 	crossorigin="">
@@ -21,10 +20,6 @@
 
 {% block content %}
 <div class="container">
-  <h1>PoC of ENEA heritagescience platform</h1>  
-  <h2>ENEA Heritage Science Internship 2021</h2>
-
-  <hr>
   <h3>Inventory</h3>
   <div class="row">
     <div id="map" style="width: 100%; 
@@ -57,32 +52,20 @@
           <td>{{ r['coordinates']['latitude'] }}</td>
           <td>{{ r['coordinates']['longitude'] }}</td>
 	  {% if r['objtype'] == '3dmodel' %}
-	  <td style="text-align:center"><i class="fas fa-cube fa-2x"></i></td>
-	  <td><a target="_blank" href="3dviewer/assembler.php?oid={{ r['ID'] }}"><button type="button" class="btn btn-dark">View</button></a></td>
+	  <td style="text-align:center"><i class="material-icons">view_in_ar</i></td>
+	  <td><a class="waves-effect waves-light btn" target="_blank" href="3dviewer/assembler.php?oid={{ r['ID'] }}">View</a></td>
 	  {% elif r['objtype'] == 'image'  %}
 	  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>	  
-	  <td style="text-align:center"><i class="fas fa-file-image fa-2x"></i></td>
-	  <td><a href="{{ url_for('getImg', ID=r['ID']) }}"><button type="button" class="btn btn-dark">View</button></a></td>
+	  <td style="text-align:center"><i class="material-icons">image</i></td>
+	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getImg', ID=r['ID']) }}">View</a></td>
 	  {% elif r['objtype'] == 'publication' %}
-	  <td style="text-align:center"><i class="fas fa-file fa-2x"></i></td>
-	  <td><a target="_blank" href="localhost:8080/{{ r['ID'] }}.{{ r['extension'] }}">
+	  <td style="text-align:center"><i class="material-icons">picture_as_pdf</i></td>
+	  <td><a class="waves-effect waves-light btn" target="_blank" href="localhost:8080/{{ r['ID'] }}.{{ r['extension'] }}">View</a></td>
 	  {% endif %}
 	</tr>
 	{% endfor %}
       </tbody>
     </table>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-md-4">
-      <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="img-rounded" width="100"></a>
-    </div>
-    <div class="col-md-4">
-      <a href="https://github.com/mpuccini/poc-eneahs" target="_blank">Get source code <i class="fab fa-github"></i></a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('index') }}"><button type="button" class="btn btn-success">Back</button></a>
-    </div>
   </div>
 </div>
 {% endblock %}
