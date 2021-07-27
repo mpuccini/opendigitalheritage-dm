@@ -1,61 +1,30 @@
-{% block head  %}
-<title>HeritageScience</title>
-<!--Let browser know website is optimized for mobile-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+{% extends "main.html" %}
 
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-
-<!--Import Google Icon Font-->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-{% endblock %}
-
-
-
-{% block navbar %}
-<!-- Dropdown Structure -->
+{% block content %}
 <div class="container">
-  <ul id="dropdown1" class="dropdown-content">
-    <li><a href="{{ url_for('insertPUB') }}">Publication</a></li>
-    <li><a href="{{ url_for('insertIMG') }}">Image</a></li>
-    <li><a href="{{ url_for('insertMODEL') }}">3D Model</a></li>
-  </ul>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">ENEA HeritageScience</a>
-      <ul class="right hide-on-med-and-down">
-	<li><a href="{{ url_for('index') }}">Home</a></li>
-	<li><a href="{{ url_for('getInventory') }}">Inventory</a></li>
-	<!-- Dropdown Trigger -->
-	<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">New Upload<i class="material-icons right">arrow_drop_down</i></a></li>
-      </ul>
-    </div>
-  </nav>
+<div class="section">
+<h3>PoC of ENEA HeritageScience platform</h3>
+<p>This is the Proof of Concept of the ENEA HeritageScience platform, a microservices based tool to store, manage and visualize etherogeneus data from Cultural Heritage and heritage science activities and reasearchs.</p>
+<p>This work is the result of the first ENEA Heritage Science 2021 Internship in collaboration with the <a href="http://www.diag.uniroma1.it/en" target="_blank">Department of Computer, Control, and Management Engineering  Antonio Ruberti (DIAG) of Sapienza University of Rome</a>.
+<p>For more info about the software architecture, please refer to documentation in the software repository.</p>
+</div>
+<div class="divider"></div>
+<div class="section">
+<h4>How to use it?</h4>
+<h5>New Upload</h5>
+<p>This tool allow you to upload three kind of data:
+<ul>
+<li>Pubblications</li>
+<li>Images</li>
+<li>3D Models</li>
+</ul>
+For each of these files, you have to provide some metadata compiling a simple form.</p>
+<p>To upload files, go to New Upload section clicking on the navigation bar.</p>
+<h5>Search</h5>
+<p>Search the object you're looking for, querying the database.</p>
+<h5>Inventory</h5>
+<p>Get a complete list of all stored objects.</p>
+
+</div>
 </div>
 {% endblock %}
-
-
-
-{% block content %}{% endblock %}
-
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.dropdown-trigger');
-          var instances = M.Dropdown.init(elems, options);
-	    });
-</script>
-
-<!--{% block footer %}
-	<div class="row">
-	  <div class="col-md-6">
-	    <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="img-rounded" width="100"></a>
-	  </div>
-	  <div class="col-md-6">
-	    <a href="https://github.com/mpuccini/poc-eneahs" target="_blank">Get source code <i class="material-icons">code</i></a>
-	  </div>
-	</div>
-	{% endblock %}-->

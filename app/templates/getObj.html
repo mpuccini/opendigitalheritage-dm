@@ -1,35 +1,19 @@
-{% extends "bootstrap/base.html" %}
-{% block head %}
-<title>HeritageScience</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<script src="https://kit.fontawesome.com/d906718c2b.js" crossorigin="anonymous"></script>
-</script>
-{{super()}}
-{% endblock %}
-
-{% block styles %}
-{{ super() }}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
-{% endblock %}
+{% extends "index.html" %}
 
 {% block content %}
 <div class="container">
-  <h1>PoC of ENEA heritagescience platform</h1>  
-  <h2>ENEA Heritage Science Internship 2021</h2>
-
-  <hr>
-  <h3>Image of {{ obj['title'] }}</h3>
-
-
+  <h3>3D Model of {{ obj['title'] }}</h3>
   <div class="row">
-    <div class="col-md-4">
-<a target="_blank" href="3dviewer/assembler.php?oid={{ obj['_id'] }}"><button type="button" class="btn btn-dark">3D Viewer</button></a>
+    <div class="col s12 m4">
+      {% if obj['store_type'] == 'fs' %}
+      <a class="waves-effect waves-light btn" href="{{ c['host'] }}{{ c['path'] }}{{ obj['objecthash'] }}.{{ obj['extension'] }}" target="_blank"><i class="material-icons left">visibility</i>3D Viewer</a>
+      {% elif obj['store_type'] == 's3' %}
+      <a class="waves-effect waves-light btn" href="https://myhstore.s3.eu-west-3.amazonaws.com/{{ obj['objecthash'] }}.{{ obj['extension'] }}" target="_blank"><i class="material-icons left">visibility</i>3D Viewer</a>
+      {% endif %}
     </div>
 
-
-    <div class="col-md-8">
-      <table class="table table-striped table-hover table-responsive">
+    <div class="col s12 m8">
+      <table class="highlight hoverable">
 	<tbody>
 	  <tr>
             <td><b>Title</b></td>
@@ -64,22 +48,7 @@
 	  </tr>
 	</tbody>
       </table>
-      <hr>
     </div>
   </div>
-<hr>
-  <div class="row">
-    <div class="col-md-4">
-      <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="img-rounded" width="100"></a>
-    </div>
-    <div class="col-md-4">
-      <a href="https://github.com/mpuccini/poc-eneahs" target="_blank">Get source code <i class="fab fa-github"></i></a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('index') }}"><button type="button" class="btn btn-success">Back</button></a>
-    </div>
-  </div>
-
-
 </div>
 {% endblock %}
