@@ -20,7 +20,6 @@ function copyCoord(){
     coord.select();
     coord.setSelectionRange(0, 99999);
     document.execCommand('copy');
-    alert(coord+' are being copied!');
 }
 
 mymap.on('click', getCoord);

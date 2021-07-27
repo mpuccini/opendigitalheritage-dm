@@ -15,6 +15,8 @@ class InsertPubForm(FlaskForm):
                                                       ('odt', '.odt Open Document Text'),
                                                       ('tex','.tex LaTeX source')])
   pub = FileField('Publication')
+  store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
+                                                      ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')
 
 class InsertModelForm(FlaskForm):
@@ -28,6 +30,8 @@ class InsertModelForm(FlaskForm):
                                                       ('nxz', '.nxz Nexus compressed ')])
   coordinates = StringField('Coordinates')
   model = FileField('Model')
+  store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
+                                                      ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')
 
 class InsertImgForm(FlaskForm):
@@ -40,6 +44,8 @@ class InsertImgForm(FlaskForm):
                                                       ('png', '.png ')])
   coordinates = StringField('Coordinates')
   img = FileField('Image')
+  store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
+                                                      ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')  
 
 class SearchPubForm(FlaskForm):

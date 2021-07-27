@@ -16,63 +16,51 @@
 {% block content %}
 <div class="container">
   <h1>PoC of ENEA heritagescience platform</h1>  
-  <h2>PoC of ENEA heritagescience platform data module</h2>
+  <h2>ENEA Heritage Science Internship 2021</h2>
 
   <hr>
-  <h3>Image of {{ img['title'] }}</h3>
+  <h3>Image of {{ obj['title'] }}</h3>
 
 
   <div class="row">
     <div class="col-md-4">
-      <div class="container">
-	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
-	{% if img['store_type'] == 'fs' %}
-	<a data-fancybox="responsive" href="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}">
-	  <img class="img-fluid w-100" src="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}" />
-	</a>
-	{% elif img['store_type'] == 's3' %}
-	<a data-fancybox="responsive" href="https://myhstore.s3.eu-west-3.amazonaws.com/{{ img['objecthash'] }}.{{ img['extension'] }}">
-	  <img class="img-fluid w-100" src="https://myhstore.s3.eu-west-3.amazonaws.com/{{ img['objecthash'] }}.{{ img['extension'] }}" />
-	</a>
-	{% endif %}
-
-      </div>
+<a target="_blank" href="3dviewer/assembler.php?oid={{ obj['_id'] }}"><button type="button" class="btn btn-dark">3D Viewer</button></a>
     </div>
 
 
     <div class="col-md-8">
-      <table class="table table-striped table-hover">
+      <table class="table table-striped table-hover table-responsive">
 	<tbody>
 	  <tr>
             <td><b>Title</b></td>
-            <td>{{ img['title'] }}</td>
+            <td>{{ obj['title'] }}</td>
 	  </tr>
 	  <tr>
             <td><b>Description</b></td>
-            <td>{{ img['description'] }}</td>
+            <td>{{ obj['description'] }}</td>
 	  </tr>
 	  <tr>
             <td><b>Author</b></td>
-            <td>{{ img['author'] }}</td>
+            <td>{{ obj['author'] }}</td>
 	  </tr>
 	  <tr>
             <td><b>Project</b></td>
-            <td>{{ img['project'] }}</td>
+            <td>{{ obj['project'] }}</td>
 	  </tr>
 	  <tr>
             <td><b>Year</b></td>
-            <td>{{ img['year'] }}</td>
+            <td>{{ obj['year'] }}</td>
 	  </tr>
 	  <tr>
             <td rowspan="2"><b>Coordinates</b></td>
-            <td>Latitude: {{ img['coordinates']['latitude'] }} </td>
+            <td>Latitude: {{ obj['coordinates']['latitude'] }} </td>
 	  </tr>
 	  <tr>
-            <td>Longitude: {{ img['coordinates']['longitude'] }} </td>
+            <td>Longitude: {{ obj['coordinates']['longitude'] }} </td>
 	  </tr>
 	  <tr>
             <td><b>File name</b></td>
-            <td>{{ img['filename'] }}</td>
+            <td>{{ obj['filename'] }}</td>
 	  </tr>
 	</tbody>
       </table>

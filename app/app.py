@@ -5,7 +5,6 @@ from flask import Flask, request, render_template
 from bson.objectid import ObjectId
 from pymongo import results
 from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchInventoryForm, SearchModelForm, SearchPubForm 
-from flask_bootstrap import Bootstrap
 import backend as be
 
 
@@ -15,7 +14,6 @@ c = be.loadConf()
 sk = c['app']['secret_key']
 app.config.from_mapping(
     SECRET_KEY=b'sk')
-Bootstrap(app)
 
 @app.route('/')
 def index():
@@ -30,7 +28,8 @@ def insertPUB():
     form = InsertPubForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
         pub=request.files['pub']
-        objecthash = be.workOnObj(pub)
+        store_type = request.form['store_type']
+        objecthash = be.workOnObj(pub, store_type)
 
         # Prepare metadata
         metadata={}
@@ -43,6 +42,7 @@ def insertPUB():
         metadata['extension'] = request.form['extension']
         metadata['filename'] = pub.filename
         metadata['objecthash'] = objecthash
+        metadata['store_type'] = store_type
         be.upload2mongo(metadata,'pubs')
         return render_template('uploadDone.html')
     return render_template('uploadPub.html',form=form)
@@ -52,7 +52,8 @@ def insertMODEL():
     form = InsertModelForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
         model=request.files['model']
-        objecthash = be.workOnObj(model)
+        store_type = request.form['store_type']
+        objecthash = be.workOnObj(model, store_type)
 
         # Prepare metadata
         metadata={}
@@ -65,6 +66,7 @@ def insertMODEL():
         metadata['extension'] = request.form['extension']
         metadata['filename'] = model.filename
         metadata['objecthash'] = objecthash
+        metadata['store_type'] = store_type
         metadata['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
@@ -79,7 +81,8 @@ def insertIMG():
     form = InsertImgForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
         img=request.files['img']
-        objecthash = be.workOnObj(img)
+        store_type = request.form['store_type']
+        objecthash = be.workOnObj(img, store_type)
 
         # Prepare metadata
         metadata={}
@@ -92,6 +95,7 @@ def insertIMG():
         metadata['extension'] = request.form['extension']
         metadata['filename'] = img.filename
         metadata['objecthash'] = objecthash
+        metadata['store_type'] = store_type
         metadata['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
@@ -156,7 +160,16 @@ def getImg():
     imgs = be.connect2mongo(be.loadConf(),'imgs')
     ID = request.args.get('ID', None)
     img = imgs.find_one({'_id': ObjectId(ID)})
-    return render_template('getImg.html', img=img)
+    c = be.loadConf()
+    return render_template('getImg.html', img=img, c=c['datastore'])
+
+@app.route('/getObj')
+def getObj():
+    objs = be.connect2mongo(be.loadConf(),'models')
+    ID = request.args.get('ID', None)
+    obj = objs.find_one({'_id': ObjectId(ID)})
+    return render_template('getObj.html', obj=obj)
+
 
 if __name__ == '__main__':
     app.run()
