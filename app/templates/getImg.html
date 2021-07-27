@@ -6,9 +6,9 @@
   <div class="row">
     <div class="col s12 m4">
       {% if img['store_type'] == 'fs' %}
-      <img class="materialboxed" width="100%" src="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}" />
+      <img class="materialboxed responsive-img z-depth-1" width="100%" src="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}" />
       {% elif img['store_type'] == 's3' %}
-      <img class="materialboxed" width="100%" src="https://myhstore.s3.eu-west-3.amazonaws.com/{{ img['objecthash'] }}.{{ img['extension'] }}" />
+      <img class="materialboxed responsive-img z-depth-1" width="100%" src="https://myhstore.s3.eu-west-3.amazonaws.com/{{ img['objecthash'] }}.{{ img['extension'] }}" />
       {% endif %}
     </div>
 
@@ -51,11 +51,14 @@
     </div>
   </div>
 </div>
+{% endblock %}
 
+{% block scripts %}
 <script>
   $(document).ready(function(){
       $('.materialboxed').materialbox();
   });
 </script>
-
 {% endblock %}
+
+
