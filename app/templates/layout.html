@@ -1,25 +1,83 @@
-<!doctype html>
-<html>
-  <head>
-    {% block head %}
-    <title>{% block title %}{% endblock %} ENEA HSI 2021 </title>
-    {% endblock %}
-  </head>
-  <body>
-  <div id="header">
-  {% block header %}
-  <header>
-  <h1>ENEA Heritage Science Insternship 2021</h1>
-  <h3>PoC of ENEA heritagescience platform data module</h3>
-  <hr>
-  </header>
-  {% endblock %} 
-  </div>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">
-      {% block footer %}
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-      {% endblock %}
+{% block head  %}
+<title>HeritageScience</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='imgs/favicon_io/apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='imgs/favicon_io/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='imgs/favicon_io/favicon-16x16.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='imgs/favicon_io/site.webmanifest') }}">
+{% endblock %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block navbar %}
+<!-- Dropdown Structure -->
+<div class="container">
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="{{ url_for('insertPUB') }}">Publication</a></li>
+    <li><a href="{{ url_for('insertIMG') }}">Image</a></li>
+    <li><a href="{{ url_for('insertMODEL') }}">3D Model</a></li>
+  </ul>
+  <ul id="dropdown2" class="dropdown-content">
+    <li><a href="{{ url_for('searchPUB') }}">Publication</a></li>
+    <li><a href="{{ url_for('searchIMG') }}">Image</a></li>
+    <li><a href="{{ url_for('searchMODEL') }}">3D Model</a></li>
+    <li><a href="{{ url_for('searchInventory') }}">Inventory</a></li>
+  </ul>
+  <nav>
+    <div class="nav-wrapper red lighten-2">
+      <a href="#!" class="brand-logo">ENEA HeritageScience</a>
+      <ul class="right hide-on-med-and-down">
+	<li><a href="{{ url_for('index') }}"><i class="material-icons">home</i></a></li>
+	<li><a href="{{ url_for('getInventory') }}">Inventory<i class="material-icons left">inventory</i></a></li>
+	<!-- Dropdown Trigger -->
+	<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">New Upload<i class="material-icons left">upload</i></a></li>
+	<li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Search<i class="material-icons left">search</i></a></li>
+      </ul>
     </div>
-  </body>
-</html>
+  </nav>
+</div>
+{% endblock %}
+
+
+
+{% block content %}{% endblock %}
+
+
+
+{% block footer %}
+<div class="container">
+<footer class="page-footer red lighten-4">
+  <div class="row">
+    <div class="col offset-l2 l4 s12">
+      <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="hoverable" width="100"></a>
+    </div>
+    <div class="col l4 offset-l2 s12">
+      <a href="https://github.com/mpuccini/poc-eneahs" target="_blank">Get source code <i class="material-icons">code</i></a>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://heritagescience.portici.enea.it">ENEA HeritageScience</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p> 
+    </div>
+  </div>
+</footer>
+</div>
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
+<script>
+  $('.dropdown-trigger').dropdown();
+</script>
+
+{% block scripts %}{% endblock %}
+

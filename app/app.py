@@ -39,7 +39,8 @@ def insertPUB():
         metadata['project'] = request.form['project']
         metadata['objtype'] = 'publication'
         metadata['year'] = request.form['year']
-        metadata['extension'] = request.form['extension']
+        metadata['license_url'] = request.form['license_url']
+        metadata['extension'] = extension
         metadata['filename'] = pub.filename
         metadata['objecthash'] = objecthash
         metadata['store_type'] = store_type
@@ -53,7 +54,7 @@ def insertMODEL():
     if request.method == 'POST' and form.validate_on_submit():
         model=request.files['model']
         store_type = request.form['store_type']
-        objecthash = be.workOnObj(model, store_type)
+        objecthash, extension = be.workOnObj(model, store_type)
 
         # Prepare metadata
         metadata={}
@@ -63,7 +64,8 @@ def insertMODEL():
         metadata['project'] = request.form['project']
         metadata['objtype'] = '3dmodel'
         metadata['year'] = request.form['year']
-        metadata['extension'] = request.form['extension']
+        metadata['license_url'] = request.form['license_url']
+        metadata['extension'] = extension
         metadata['filename'] = model.filename
         metadata['objecthash'] = objecthash
         metadata['store_type'] = store_type
@@ -92,7 +94,8 @@ def insertIMG():
         metadata['project'] = request.form['project']
         metadata['objtype'] = 'image'
         metadata['year'] = request.form['year']
-        metadata['extension'] = request.form['extension']
+        metadata['license_url'] = request.form['license_url']
+        metadata['extension'] = extension
         metadata['filename'] = img.filename
         metadata['objecthash'] = objecthash
         metadata['store_type'] = store_type
@@ -111,9 +114,6 @@ def getInventory():
     res = inventory.find()
     return render_template('inventory.html', result=res)
 
-@app.route('/searchOption')
-def searchOption():
-     return render_template('searchOption.html')
 
 @app.route('/searchPUB',methods=['GET', 'POST'])
 def searchPUB():
@@ -122,7 +122,7 @@ def searchPUB():
             pubs = be.connect2mongo(be.loadConf(),'pubs')
             metadata={}
             metadata['title'] = request.form['title']
-            return render_template('ResultPUB.html',result=pubs.find({'title':request.form['title']}))
+            return render_template('inventory.html',result=pubs.find({'title':request.form['title']}))
     return render_template('searchPUB.html',form=form)
 
 @app.route('/searchIMG',methods=['GET', 'POST'])
@@ -132,17 +132,17 @@ def searchIMG():
             imgs = be.connect2mongo(be.loadConf(),'imgs')
             metadata={}
             metadata['title'] = request.form['title']
-            return render_template('ResultIMG.html',result=imgs.find({'title':request.form['title']}))
+            return render_template('inventory.html',result=imgs.find({'title':request.form['title']}))
     return render_template('searchIMG.html',form=form)
 
-@app.route('/searchModel',methods=['GET', 'POST'])
-def searchModel():
+@app.route('/searchMODEL',methods=['GET', 'POST'])
+def searchMODEL():
     form = SearchModelForm(request.form)
     if  form.validate_on_submit():  #request.method=GET o POST?
             models = be.connect2mongo(be.loadConf(),'models')
             metadata={}
             metadata['title'] = request.form['title']
-            return render_template('ResultIMG.html',result=models.find({'title':request.form['title']}))
+            return render_template('inventory.html',result=models.find({'title':request.form['title']}))
     return render_template('searchModel.html',form=form)
 
 @app.route('/searchInventory',methods=['GET', 'POST'])

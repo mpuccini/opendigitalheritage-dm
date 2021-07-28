@@ -216,7 +216,8 @@ def workOnObj(obj, store_type):
     obj.save(tmpsavepath)
     objhash = makeHash(tmpsavepath)
     split_obj = os.path.splitext(obj.filename)
-    hashname = objhash+split_obj[1]
+    extension = split_obj[1]
+    hashname = objhash+extension
     if store_type == 'fs':
         #fl1 = objhash[:1]
         #fl2 = objhash[:2]
@@ -226,6 +227,6 @@ def workOnObj(obj, store_type):
         shutil.move(tmpsavepath,newsavepath+'/'+hashname)
     elif store_type == 's3':
         upload2S3(tmpsavepath, 'myhstore', hashname)
-    return objhash
+    return objhash, extension
 
 

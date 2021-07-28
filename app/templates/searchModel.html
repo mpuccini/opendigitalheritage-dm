@@ -1,13 +1,17 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends "layout.html" %}
+
+
 {% block content %}
 <div class="container">
-  <h1>ENEA Heritage Science Internship 2021</h1>
-  <h2>PoC of ENEA heritagescience platform</h2>
-  <hr>
-  <h3>Search a 3D Model</h3>
-    {{ wtf.quick_form(form) }}
-  <hr>
-  <p><a href="{{ url_for('index') }}">Back</a></p>
+  <h3>Search a {{ obj }}</h3>
+<form>
+  <div class="row">
+    <form class="col s12">
+          <i class="material-icons prefix">search</i>
+          <input id="query" type="text" class="validate">
+          <label for="query">First Name</label>
+    </form>
+  </div>
+</form>
 </div>
 {% endblock %}
