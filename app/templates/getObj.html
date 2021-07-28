@@ -1,15 +1,11 @@
-{% extends "index.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
 <div class="container">
   <h3>3D Model of {{ obj['title'] }}</h3>
   <div class="row">
     <div class="col s12 m4">
-      {% if obj['store_type'] == 'fs' %}
-      <a class="waves-effect waves-light btn" href="{{ c['host'] }}{{ c['path'] }}{{ obj['objecthash'] }}.{{ obj['extension'] }}" target="_blank"><i class="material-icons left">visibility</i>3D Viewer</a>
-      {% elif obj['store_type'] == 's3' %}
-      <a class="waves-effect waves-light btn" href="https://myhstore.s3.eu-west-3.amazonaws.com/{{ obj['objecthash'] }}.{{ obj['extension'] }}" target="_blank"><i class="material-icons left">visibility</i>3D Viewer</a>
-      {% endif %}
+      <a class="waves-effect waves-light btn" href="3dviewer/assembler.php?oid={{ obj['_id'] }}" target="_blank"><i class="material-icons left">visibility</i>3D Viewer</a>
     </div>
 
     <div class="col s12 m8">
