@@ -9,11 +9,7 @@ class InsertPubForm(FlaskForm):
   author = StringField('Author', [validators.DataRequired()])
   project = StringField('Project', [validators.DataRequired()])
   year = DateField('Year', format='%Y')
-  extension = SelectField(u'File extension', choices=[('pdf', '.pdf Portable Document Format'), 
-                                                      ('doc', '..doc Microsoft Word Format'),
-                                                      ('docx','.docx Microsoft Word Open XML Format'),
-                                                      ('odt', '.odt Open Document Text'),
-                                                      ('tex','.tex LaTeX source')])
+  license_url = StringField('License URL')
   pub = FileField('Publication')
   store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
                                                       ('s3', 'Amazon S3 Object Storage')])
@@ -26,13 +22,31 @@ class InsertModelForm(FlaskForm):
   project = StringField('Project', [validators.DataRequired()])
   objtype = '3Dmodel'
   year = DateField('Year', format='%Y')
-  extension = SelectField(u'File extension', choices=[('ply', '.ply Poligon File Format'), 
-                                                      ('nxz', '.nxz Nexus compressed ')])
+  license_url = StringField('License URL')
   coordinates = StringField('Coordinates')
   model = FileField('Model')
   store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
                                                       ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')
+
+
+'''
+class uploadObjForm(FlaskForm):
+  title = StringField('Title', [validators.DataRequired()])
+  description = TextAreaField('Description')
+  author = StringField('Author', [validators.DataRequired()])
+  project = StringField('Project', [validators.DataRequired()])
+  objtype = '3Dmodel'
+  year = DateField('Year', format='%Y')
+  license_url = StringField('License URL')
+  coordinates = StringField('Coordinates')
+  obj = FileField('Object')
+  store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
+                                                      ('s3', 'Amazon S3 Object Storage')])
+  submit = SubmitField('Submit')
+'''
+
+
 
 class InsertImgForm(FlaskForm):
   title = StringField('Title', [validators.DataRequired()])
@@ -40,8 +54,7 @@ class InsertImgForm(FlaskForm):
   author = StringField('Author', [validators.DataRequired()])
   project = StringField('Project', [validators.DataRequired()])
   year = DateField('Year', format='%Y')
-  extension = SelectField(u'File extension', choices=[('jpeg', '.jpeg '), 
-                                                      ('png', '.png ')])
+  license_url = StringField('License URL')
   coordinates = StringField('Coordinates')
   img = FileField('Image')
   store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
