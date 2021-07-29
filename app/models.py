@@ -61,20 +61,8 @@ class InsertImgForm(FlaskForm):
                                                       ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')  
 
-class SearchPubForm(FlaskForm):
-  title = StringField('Title', [validators.DataRequired()])
-  submit = SubmitField('Submit')  
-
-class SearchImgForm(FlaskForm):
-  query = StringField('Query', [validators.DataRequired()])
-  submit = SubmitField('Submit')  
-
-class SearchModelForm(FlaskForm):
-  title = StringField('Title', [validators.DataRequired()])
-  submit = SubmitField('Submit')  
-
-class SearchInventoryForm(FlaskForm):
-  title = StringField('Title', [validators.DataRequired()])
+class searchForm(FlaskForm):
+  query = StringField('', [validators.DataRequired()])
   submit = SubmitField('Submit')  
 
 class testForm(FlaskForm):

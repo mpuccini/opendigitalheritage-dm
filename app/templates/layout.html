@@ -27,10 +27,10 @@
     <li><a href="{{ url_for('insertMODEL') }}">3D Model</a></li>
   </ul>
   <ul id="dropdown2" class="dropdown-content">
-    <li><a href="{{ url_for('searchPUB') }}">Publication</a></li>
-    <li><a href="{{ url_for('searchIMG') }}">Image</a></li>
-    <li><a href="{{ url_for('searchMODEL') }}">3D Model</a></li>
-    <li><a href="{{ url_for('searchInventory') }}">Inventory</a></li>
+    <li><a href="{{ url_for('search', coll='pubs', obj='Pubblications') }}">Publication</a></li>
+    <li><a href="{{ url_for('search', coll='imgs', obj='Images') }}">Image</a></li>
+    <li><a href="{{ url_for('search', coll='models', obj='3D Models') }}">3D Model</a></li>
+    <li><a href="{{ url_for('search', coll='inventory', obj='Inventory') }}">Inventory</a></li>
   </ul>
   <nav>
     <div class="nav-wrapper red lighten-2">

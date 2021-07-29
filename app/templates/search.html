@@ -2,13 +2,14 @@
 
 {% block content %}
 <div class="container">
-  <h3>Search an Image</h3>
+  <h3>Search in {{ obj }}</h3>
   <div class="row">
-    <form method="post">
-      {{ form.csrf }}
+    <form method="post" action="" validate>
+      {{ form.csrf_token() }}
       <div class="input-field">
-        <input id="search" type="search" required>
-        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+	<i class="material-icons prefix">search</i>
+	{{ form.query.label }}
+	{{ form.query(type="search")|safe }}
         <i class="material-icons">close</i>
       </div>
     </form>
