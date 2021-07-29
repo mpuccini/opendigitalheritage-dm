@@ -66,7 +66,7 @@ class SearchPubForm(FlaskForm):
   submit = SubmitField('Submit')  
 
 class SearchImgForm(FlaskForm):
-  title = StringField('Title', [validators.DataRequired()])
+  query = StringField('Query', [validators.DataRequired()])
   submit = SubmitField('Submit')  
 
 class SearchModelForm(FlaskForm):

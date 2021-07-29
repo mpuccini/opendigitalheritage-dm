@@ -95,7 +95,7 @@ And then set your local path into the Makefile in the `run` rule:
  - [ ] Env variables
  - [ ] Fix data storage path
  - [ ] Templates refactoring
- - [ ] Full text search
+ - [X] Full text search
  - [ ] Enhance frontend
  - [ ] Add features:
    - [ ] Documents viewer

@@ -27,9 +27,9 @@ def insertOption():
 def insertPUB():
     form = InsertPubForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-        pub=request.files['pub']
-#        store_type = request.form['store_type']
-#        objecthash = be.workOnObj(pub, store_type)
+        pub = request.files['pub']
+        store_type = request.form['store_type']
+        objecthash, extension = be.workOnObj(pub, store_type)
 
         # Prepare metadata
         metadata={}
@@ -40,10 +40,10 @@ def insertPUB():
         metadata['objtype'] = 'publication'
         metadata['year'] = request.form['year']
         metadata['license_url'] = request.form['license_url']
- #       metadata['extension'] = extension
- #       metadata['filename'] = pub.filename
- #       metadata['objecthash'] = objecthash
- #       metadata['store_type'] = store_type
+        metadata['extension'] = extension
+        metadata['filename'] = pub.filename
+        metadata['objecthash'] = objecthash
+        metadata['store_type'] = store_type
         be.upload2mongo(metadata,'pubs')
         return render_template('uploadDone.html')
     return render_template('uploadPub.html',form=form)
@@ -53,10 +53,10 @@ def insertPUB():
 @app.route('/insertIMG', methods=['GET', 'POST'])
 def insertIMG():
     form = InsertImgForm(request.form)
-    if request.method == 'POST' and form.validate_on_submit():
-        img=request.files['img']
+    if request.method == 'POST' and form.validate():
+        img = request.files['img']
         store_type = request.form['store_type']
-        objecthash = be.workOnObj(img, store_type)
+        objecthash, extension = be.workOnObj(img, store_type)
 
         # Prepare metadata
         metadata={}
@@ -89,7 +89,7 @@ def insertMODEL():
     if request.method == 'POST' and form.validate_on_submit():
         model = request.files['model']
         store_type = request.form['store_type']
-        objecthash = be.workOnObj(img, store_type)
+        objecthash, extension = be.workOnObj(img, store_type)
 
         # Prepare metadata
         metadata={}
@@ -128,17 +128,17 @@ def searchPUB():
             metadata={}
             metadata['title'] = request.form['title']
             return render_template('inventory.html',result=pubs.find({'title':request.form['title']}))
-    return render_template('searchPUB.html',form=form)
+    return render_template('searchPub.html',form=form)
 
 @app.route('/searchIMG',methods=['GET', 'POST'])
 def searchIMG():
     form = SearchImgForm(request.form)
-    if  form.validate_on_submit():  #request.method=GET o POST?
+    if  request.method == 'POST' and form.validate_on_submit(): 
             imgs = be.connect2mongo(be.loadConf(),'imgs')
-            metadata={}
-            metadata['title'] = request.form['title']
-            return render_template('inventory.html',result=imgs.find({'title':request.form['title']}))
-    return render_template('searchIMG.html',form=form)
+            query = request.form['query']
+            res = imgs.find({'$text':{'$search':query}})
+            return render_template('inventory.html',result=res)
+    return render_template('searchImg.html',form=form)
 
 @app.route('/searchMODEL',methods=['GET', 'POST'])
 def searchMODEL():
@@ -220,4 +220,4 @@ def uploadOBJ(otype):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
