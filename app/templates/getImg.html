@@ -26,9 +26,13 @@
     <div class="col-md-4">
       <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
       <div class="container">
-	<a data-fancybox="responsive" href="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}">
-	  <!-- <button type="button" class="btn btn-dark">View</button> -->
-	  <img class="img-fluid w-100" src="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}.{{ img['extension'] }}" />
+      {% if img['store_type'] == 'fs' %}
+      <a data-fancybox="responsive" href="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}{{ img['extension'] }}">
+	  <img class="img-fluid w-100" src="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}{{ img['extension'] }}" />
+      {% elif img['store_type'] == 's3' %}
+	<a data-fancybox="responsive" href="https://myhstore.s3.eu-west-3.amazonaws.com/{{ img['objecthash'] }}{{ img['extension'] }}">
+	  <img class="img-fluid w-100" src="https://myhstore.s3.eu-west-3.amazonaws.com/{{ img['objecthash'] }}{{ img['extension'] }}" />
+      {% endif %}
 	</a>
       </div>
     </div>

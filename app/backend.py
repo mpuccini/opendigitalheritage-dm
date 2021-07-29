@@ -3,6 +3,7 @@ import hashlib
 import configparser
 import argparse
 import logging
+import boto3
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
@@ -97,7 +98,7 @@ def upload2mongo(doc, collection):
     except Exception as e:
         log.error("Cannot read configuration")
         return
-        
+    
     try:
         log.debug("Connecting to mongo with conf %s", c)
         coll = connect2mongo(c, collection)
@@ -122,7 +123,7 @@ def upload2mongo(doc, collection):
     invdoc['coordinates']['longitude'] = doc['coordinates']['longitude']
     invdoc['ID'] = indoc.inserted_id
     inventory.insert_one(invdoc)
-'''    if coll.count_documents({'document_hash': doc['document_hash']}) > 0:
+    '''    if coll.count_documents({'document_hash': doc['document_hash']}) > 0:
         # Insert try/except here?
         log.debug("Updating document %s", doc['document_hash'])
         coll.update_one(
@@ -134,6 +135,29 @@ def upload2mongo(doc, collection):
         # Insert try/except here?
         coll.insert_one(doc)
     log.debug("Uploaded data to mongo")'''
+
+def connect2S3():
+    try:
+        s3_client = boto3.client('s3')
+    except Exception:
+        log.error("Cannot connect to Amazon S3")
+        raise Exception("Cannot connect Amazon S3")
+    
+    log.info("Connection to Amazon S3 succeded!")
+
+    return s3_client
+
+
+def upload2S3(obj, bucket_name, obj_key):
+    """
+    Upload a file from a local folder to an Amazon S3 bucket, using the default
+    configuration.
+    """
+    s3 = connect2S3()
+    s3.upload_file(
+        obj,
+        bucket_name,
+        obj_key)
 
 
 def makeHash(path):
@@ -171,21 +195,22 @@ def makeHash(path):
     return digest
 
 
-def workOnObj(obj):
-        c = loadConf()
-        savepathroot = c['datastore']['path']
-        tmpsavepath = savepathroot+secure_filename(obj.filename)
-        obj.save(tmpsavepath)
-        objhash = makeHash(tmpsavepath)
+def workOnObj(obj, store_type):
+    c = loadConf()
+    savepathroot = c['datastore']['path']
+    tmpsavepath = savepathroot+secure_filename(obj.filename)
+    obj.save(tmpsavepath)
+    objhash = makeHash(tmpsavepath)
+    split_obj = os.path.splitext(obj.filename)
+    extension = split_obj[1]
+    hashname = objhash+extension
+    if store_type == 'fs':
         #fl1 = objhash[:1]
         #fl2 = objhash[:2]
         newsavepath = savepathroot#+'/'+fl1+'/'+fl2
         if not os.path.exists(newsavepath):             
             os.makedirs(newsavepath)
-        split_obj = os.path.splitext(obj.filename)
-        hashname = objhash+split_obj[1]
-        shutil.move(tmpsavepath,newsavepath+'/'+hashname)
-    
-        return objhash
-
-
+            shutil.move(tmpsavepath,newsavepath+'/'+hashname)
+    elif store_type == 's3':
+        upload2S3(tmpsavepath, 'myhstore', hashname)
+    return objhash, extension

@@ -9,11 +9,7 @@ class InsertPubForm(FlaskForm):
   author = StringField('Author', [validators.DataRequired()])
   project = StringField('Project', [validators.DataRequired()])
   year = DateField('Year', format='%Y')
-  extension = SelectField(u'File extension', choices=[('pdf', '.pdf Portable Document Format'), 
-                                                      ('doc', '..doc Microsoft Word Format'),
-                                                      ('docx','.docx Microsoft Word Open XML Format'),
-                                                      ('odt', '.odt Open Document Text'),
-                                                      ('tex','.tex LaTeX source')])
+
   pub = FileField('Publication')
   submit = SubmitField('Submit')
 
@@ -24,8 +20,7 @@ class InsertModelForm(FlaskForm):
   project = StringField('Project', [validators.DataRequired()])
   objtype = '3Dmodel'
   year = DateField('Year', format='%Y')
-  extension = SelectField(u'File extension', choices=[('ply', '.ply Poligon File Format'), 
-                                                      ('nxz', '.nxz Nexus compressed ')])
+
   coordinates = StringField('Coordinates')
   model = FileField('Model')
   submit = SubmitField('Submit')
@@ -36,8 +31,7 @@ class InsertImgForm(FlaskForm):
   author = StringField('Author', [validators.DataRequired()])
   project = StringField('Project', [validators.DataRequired()])
   year = DateField('Year', format='%Y')
-  extension = SelectField(u'File extension', choices=[('jpeg', '.jpeg '), 
-                                                      ('png', '.png ')])
+
   coordinates = StringField('Coordinates')
   img = FileField('Image')
   submit = SubmitField('Submit')  

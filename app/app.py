@@ -13,6 +13,7 @@ app = Flask(__name__)
 
 c = be.loadConf()
 sk = c['app']['secret_key']
+store_type = 's3'
 app.config.from_mapping(
     SECRET_KEY=b'sk')
 Bootstrap(app)
@@ -30,7 +31,7 @@ def insertPUB():
     form = InsertPubForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
         pub=request.files['pub']
-        objecthash = be.workOnObj(pub)
+        objecthash, extension = be.workOnObj(pub, store_type)
 
         # Prepare metadata
         metadata={}
@@ -40,9 +41,10 @@ def insertPUB():
         metadata['project'] = request.form['project']
         metadata['objtype'] = 'publication'
         metadata['year'] = request.form['year']
-        metadata['extension'] = request.form['extension']
+        metadata['extension'] = extension
         metadata['filename'] = pub.filename
         metadata['objecthash'] = objecthash
+        metadata['store_type'] = store_type
         be.upload2mongo(metadata,'pubs')
         return render_template('uploadDone.html')
     return render_template('uploadPub.html',form=form)
@@ -52,7 +54,7 @@ def insertMODEL():
     form = InsertModelForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
         model=request.files['model']
-        objecthash = be.workOnObj(model)
+        objecthash, extension = be.workOnObj(model, store_type)
 
         # Prepare metadata
         metadata={}
@@ -62,9 +64,10 @@ def insertMODEL():
         metadata['project'] = request.form['project']
         metadata['objtype'] = '3dmodel'
         metadata['year'] = request.form['year']
-        metadata['extension'] = request.form['extension']
+        metadata['extension'] = extension
         metadata['filename'] = model.filename
         metadata['objecthash'] = objecthash
+        metadata['store_type'] = store_type
         metadata['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
@@ -79,7 +82,7 @@ def insertIMG():
     form = InsertImgForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
         img=request.files['img']
-        objecthash = be.workOnObj(img)
+        objecthash, extension = be.workOnObj(img, store_type)
 
         # Prepare metadata
         metadata={}
@@ -89,9 +92,10 @@ def insertIMG():
         metadata['project'] = request.form['project']
         metadata['objtype'] = 'image'
         metadata['year'] = request.form['year']
-        metadata['extension'] = request.form['extension']
+        metadata['extension'] = extension
         metadata['filename'] = img.filename
         metadata['objecthash'] = objecthash
+        metadata['store_type'] = store_type
         metadata['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
