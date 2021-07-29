@@ -20,108 +20,69 @@
   <div class="row">
     <div class="col s12 m6">
       <h4>Metadata</h4>
-      <form action="" method="post" role="form"> 
-	{{ form.csrf }}
+      <form method="post" action="" enctype="multipart/form-data" validate> 
+	{{ form.csrf_token() }}
 	<div class="row">
           <div class="input-field col s6">
-            <input id="title" type="text" class="active validate" required/>
-            <label for="title">Title</label>
+	    {{ form.title.label }}
+	    {{ form.title(class_="active validate")|safe }} 
           </div>
           <div class="input-field col s6">
-            <input id="author" type="text" class="active validate"required />
-            <label for="author">Author</label>
+	    {{ form.author.label }}
+	    {{ form.author(class_="active validate")|safe }} 
           </div>
           <div class="input-field col s12">
-            <textarea id="description" class="materialize-textarea"></textarea>
-            <label for="description">Description</label>
+	    {{ form.description.label }}
+	    {{ form.description(class_="materialize-textarea")|safe }}
           </div>
           <div class="input-field col s6">
-            <input id="project" type="text" class="validate">
-            <label for="project">Project</label>
+	    {{ form.project.label }}
+	    {{ form.project(class_="active validate")|safe }} 
           </div>
           <div class="input-field col s6">
-	    <input id="year" type="text" class="validate">
-            <label for="year">Year</label>
+	    {{ form.year.label }}
+	    {{ form.year(class_="active validate")|safe }} 
           </div>
           <div class="input-field col s12">
-            <input id="coordinates" type="text" class="validate">
-            <label for="coordinates">Coordinates</label>
-<span class="helper-text" data-error="wrong" data-success="right">Paste from clipboard</span>
+	    {{ form.coordinates.label }}
+	    {{ form.coordinates(class_="active validate")|safe }} 
+	    <span class="helper-text" 
+		  data-error="wrong" 
+		  data-success="right">
+	      Paste from clipboard
+	    </span>
           </div>
           <div class="input-field col s12">
-            <input id="license_url" type="text" class="validate">
-            <label for="license_url">License URL</label>
+	    {{ form.license_url.label }}
+	    {{ form.license_url(class_="active validate")|safe }} 
           </div>
-  <div class="input-field col s12">
-    <select>
-      <option value="" disabled selected>Choose storage type</option>
-      <option value="fs">Digital Twins FS</option>
-      <option value="s3">Amazon S3</option>
-    </select>
-    <label>Materialize Select</label>
-  </div>
 	  <div class="file-field input-field col s12">
 	    <div class="btn">
 	      <span>File</span>
-	      <input type="file">
+	      <!--      	    {{ form.img.label }} -->
+	      {{ form.img(type_="file")|safe }} 
+
+	      <!--	      <input type="file"> -->
 	    </div>
 	    <div class="file-path-wrapper">
 	      <input class="file-path validate" type="text">
 	    </div>
-	  </div>  
-	  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+	  </div> 
+	  <button class="btn waves-effect waves-light" type="submit">
+	    Submit
 	    <i class="material-icons right">send</i>
 	  </button>
 	</div>
       </form> 
     </div>
-
-
-    <!--
-	<div class="col s12 m6">
-	  <h4>Metadata</h4>
-	  <form action="" method="post" role="form">
-	    <div class="form-floating">
-	      <label for="title">Title</label>
-	      <input class="form-control" id="title" name="title" required type="text" value="">
-	    </div>
-	    <div class="form-group "><label class="form-control-label" for="description">Description</label>
-	      <textarea class="form-control" id="description" name="description">
-	      </textarea>
-	    </div>
-	    <div class="form-group  required"><label class="form-control-label" for="author">Author</label>
-	      <input class="form-control" id="author" name="author" required type="text" value="">        
-	    </div>
-	    <div class="form-group  required"><label class="form-control-label" for="project">Project</label>
-	      <input class="form-control" id="project" name="project" required type="text" value="">
-	    </div>
-	    <div class="form-group "><label class="form-control-label" for="year">Year</label>
-	      <input class="form-control" id="year" name="year" type="text" value="">
-	    </div>
-	    <div class="form-group "><label class="form-control-label" for="extension">File extension</label>
-	      <select class="form-control" id="extension" name="extension">
-		<option value="ply">.ply Poligon File Format</option>
-		<option value="nxz">.nxz Nexus compressed </option>
-	      </select>
-	    </div>
-	    <div class="form-group "><label class="form-control-label" for="coordinates">Coordinates</label>
-	      <input class="form-control" id="coordinates" name="coordinates" type="text" value="">
-	    </div>
-	    <div class="form-group "><label class="form-control-label" for="model">Model</label>
-	      <input class="form-control-file" id="model" name="model" type="file">
-	    </div>
-	    <input class="btn btn-primary" id="submit" name="submit" type="submit" value="Submit">
-	  </form>
-	</div>
-	-->
-	<div class="col s12 m6">
-	  <h4>Add Position</h4>
-	  <p>Navigate and point on map the artifact position</p>
-	  <div id="map" style="position: relative;
-			       width: 100%; 
-			       height: 600px;">
-	  </div>     
-	</div>
+    <div class="col s12 m6">
+      <h4>Add Position</h4>
+      <p>Navigate and point on map the artifact position</p>
+      <div id="map" style="position: relative;
+			   width: 100%; 
+			   height: 600px;">
+      </div>     
+    </div>
   </div>
 </div>
 {% endblock %}

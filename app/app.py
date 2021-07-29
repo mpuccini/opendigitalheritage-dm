@@ -1,14 +1,17 @@
 # app.py
 #!bin/python
-from logging import debug
+import logging
 from flask import Flask, request, render_template
 from bson.objectid import ObjectId
 from pymongo import results
-from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchInventoryForm, SearchModelForm, SearchPubForm 
+from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchInventoryForm, SearchModelForm, SearchPubForm, testForm
 import backend as be
 
 
+
 app = Flask(__name__)
+
+logging.basicConfig(level=logging.DEBUG)
 
 c = be.loadConf()
 sk = c['app']['secret_key']
@@ -53,9 +56,9 @@ def insertPUB():
 @app.route('/insertIMG', methods=['GET', 'POST'])
 def insertIMG():
     form = InsertImgForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         img = request.files['img']
-        store_type = request.form['store_type']
+#        store_type = request.form['store_type']
         objecthash, extension = be.workOnObj(img, store_type)
 
         # Prepare metadata
@@ -70,7 +73,7 @@ def insertIMG():
         metadata['extension'] = extension
         metadata['filename'] = img.filename
         metadata['objecthash'] = objecthash
-        metadata['store_type'] = store_type
+        metadata['store_type'] = 's3'
         metadata['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
@@ -97,18 +100,32 @@ def insertMODEL():
         metadata['description'] = request.form['description']
         metadata['author'] = request.form['author']
         metadata['project'] = request.form['project']
-        metadata['objtype'] = 'image'
         metadata['year'] = request.form['year']
         metadata['license_url'] = request.form['license_url']
-        metadata['extension'] = extension
-        metadata['filename'] = img.filename
-        metadata['objecthash'] = objecthash
-        metadata['store_type'] = store_type
+        metadata['extension'] = extension        
         metadata['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
         metadata['coordinates']['latitude'] = sepcoord[0]
         metadata['coordinates']['longitude'] = sepcoord[1]
+
+        ## Prepare paradata
+        # paradata = {}
+        # paradata['unitMeas'] = request.form['unitMeas'] 
+        # paradata['hasSubModels'] = request.form['hasSubModels']
+        # paradata['hasHotspots'] = request.form['hasHotspots']
+        ## change it to paradata!!
+        metadata['objtype'] = '3dmodel'
+        metadata['filename'] = img.filename
+        metadata['objecthash'] = objecthash
+        metadata['store_type'] = store_type
+
+
+        ## Create doc
+        # doc = {}
+        # doc['metadata'] = metadata
+        # doc['paradata'] = paradata
+        ## Remember to upload doc instead of metadata!!
         be.upload2mongo(metadata,'imgs')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='3D Model')
@@ -133,7 +150,7 @@ def searchPUB():
 @app.route('/searchIMG',methods=['GET', 'POST'])
 def searchIMG():
     form = SearchImgForm(request.form)
-    if  request.method == 'POST' and form.validate_on_submit(): 
+    if  request.method == 'POST' and form.validate(): 
             imgs = be.connect2mongo(be.loadConf(),'imgs')
             query = request.form['query']
             res = imgs.find({'$text':{'$search':query}})
@@ -216,7 +233,12 @@ def uploadOBJ(otype):
 '''
 
 
-
+@app.route('/testFORM',methods=['GET', 'POST'])
+def testFORM():
+    form = testForm(request.form)
+    if  request.method == 'POST' and form.validate_on_submit():
+        return render_template('testRes.html', r1=request.form['field'], r2=request.form['description'])
+    return render_template('testForm.html',form=form)
 
 
 if __name__ == '__main__':

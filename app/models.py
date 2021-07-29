@@ -1,7 +1,7 @@
 # model.py
-from wtforms import SubmitField, BooleanField, StringField, PasswordField, TextAreaField, validators
+from wtforms import SubmitField, BooleanField, StringField, PasswordField, TextAreaField, FileField, SelectField, DateField, validators
 from flask_wtf import FlaskForm
-from wtforms.fields import FileField, SelectField, DateField
+#from wtforms.fields import SubmitField, BooleanField, StringField, PasswordField, TextAreaField, FileField, SelectField, DateField
 
 class InsertPubForm(FlaskForm):
   title = StringField('Title', [validators.DataRequired()])
@@ -11,7 +11,7 @@ class InsertPubForm(FlaskForm):
   year = DateField('Year', format='%Y')
   license_url = StringField('License URL')
   pub = FileField('Publication')
-  store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
+  store_type = SelectField(u'Store type', choices=[('fs', 'oDT File System'), 
                                                       ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')
 
@@ -25,7 +25,7 @@ class InsertModelForm(FlaskForm):
   license_url = StringField('License URL')
   coordinates = StringField('Coordinates')
   model = FileField('Model')
-  store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
+  store_type = SelectField(u'Store type', choices=[('fs', 'oDT File System'), 
                                                       ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')
 
@@ -57,7 +57,7 @@ class InsertImgForm(FlaskForm):
   license_url = StringField('License URL')
   coordinates = StringField('Coordinates')
   img = FileField('Image')
-  store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
+  store_type = SelectField(u'Store type', choices=[('fs', 'oDT File System'), 
                                                       ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')  
 
@@ -77,6 +77,9 @@ class SearchInventoryForm(FlaskForm):
   title = StringField('Title', [validators.DataRequired()])
   submit = SubmitField('Submit')  
 
-
+class testForm(FlaskForm):
+  field = StringField('Field', [validators.DataRequired()])
+  description = TextAreaField('Description')
+  submit = SubmitField('Submit')
 
 

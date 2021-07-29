@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+  <h3>Test Form</h3>
+  <div class="row">
+    <form method="post" action="" validate>
+      {{ form.csrf_token() }}
+          <div class="input-field col s6">
+	    {{ form.field.label }}
+	    {{ form.field(class_="active validate")|safe }} 
+          </div>
+	  <div class="input-field col s12">
+	    {{ form.description.label }}
+	    {{ form.description(class_="materialize-textarea")|safe }}
+	  </div>
+	  <button class="btn waves-effect waves-light" type="submit">Submit
+<i class="material-icons right">send</i>
+	  </button> 
+    </form>
+
+    <!--      <form method="post">
+	      {{ form.csrf }}
+	      <div class="row">
+		<div class="input-field col s12">
+		  <input id="query" type="text" class="active validate" required/>
+		  <label for="query"><i class="material-icons left">search</i>Query</label>
+		</div>
+		<button class="btn waves-effect waves-light" type="submit" value="Submit">Submit
+		  <i class="material-icons right">send</i>
+		</button>
+    </form> -->
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+  $('#description').val('');
+  M.textareaAutoResize($('#description'));
+</script>
+{% endblock %}
