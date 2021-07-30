@@ -21,7 +21,7 @@
     <div class="col s12 m6">
       <h4>Metadata</h4>
       <form method="post" action="" enctype="multipart/form-data" validate> 
-	{{ form.csrf_token() }}
+	{{ form.hidden_tag() }}
 	<div class="row">
           <div class="input-field col s6">
 	    {{ form.title.label }}
@@ -59,7 +59,7 @@
 	  <div class="file-field input-field col s12">
 	    <div class="btn">
 	      <span>File</span>
-	      {{ form.img()|safe }} 
+	      {{ form.img|safe }} 
 	    </div>
 	    <div class="file-path-wrapper">
 	      <input class="file-path validate" type="text">

@@ -198,17 +198,14 @@ def makeHash(path):
 def workOnObj(obj, store_type):
     c = loadConf()
     savepathroot = c['datastore']['path']
-    tmpsavepath = savepathroot+secure_filename(obj.filename)
-    obj.save(tmpsavepath)
-    objhash = makeHash(tmpsavepath)
+    filename = secure_filename(obj.filename)
+    
+    objhash = makeHash(obj.read(filename))
     split_obj = os.path.splitext(obj.filename)
     extension = split_obj[1]
     hashname = objhash+extension
     if store_type == 'fs':
-        newsavepath = savepathroot
-        if not os.path.exists(newsavepath):             
-            os.makedirs(newsavepath)
-            shutil.move(tmpsavepath,newsavepath+'/'+hashname)
+        obj.save(os.path.join(savepathroot,'/',hashname))
     elif store_type == 's3':
-        upload2S3(tmpsavepath, 'myhstore', hashname)
+        upload2S3(hashname, 'myhstore', hashname)
     return objhash, extension

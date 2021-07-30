@@ -4,35 +4,33 @@
 <div class="container">
   <h3>Test Form</h3>
   <div class="row">
-    <form method="post" action="" validate>
-      {{ form.csrf_token() }}
-          <div class="input-field col s6">
-	    {{ form.field.label }}
-	    {{ form.field(class_="active validate")|safe }} 
-          </div>
-	  <div class="input-field col s12">
-	    {{ form.description.label }}
-	    {{ form.description(class_="materialize-textarea")|safe }}
-	  </div>
-	  <button class="btn waves-effect waves-light" type="submit">Submit
-<i class="material-icons right">send</i>
-	  </button> 
+    <form method="post" action="" enctype="multipart/form-data" validate>
+      {{ form.hidden_tag() }}
+      <div class="input-field col s6">
+	{{ form.field.label }}
+	{{ form.field(class_="active validate")|safe }} 
+      </div>
+      <div class="input-field col s12">
+	{{ form.description.label }}
+	{{ form.description(class_="materialize-textarea")|safe }}
+      </div>
+      <div class="file-field input-field col s12">
+	<div class="btn">
+	  <span>File</span>
+	  {{ form.photo|safe }} 
+	</div>
+	<div class="file-path-wrapper">
+	  <input class="file-path validate" type="text">
+	</div>
+      </div> 
+      <button class="btn waves-effect waves-light" type="submit">Submit
+	<i class="material-icons right">send</i>
+      </button> 
     </form>
-
-    <!--      <form method="post">
-	      {{ form.csrf }}
-	      <div class="row">
-		<div class="input-field col s12">
-		  <input id="query" type="text" class="active validate" required/>
-		  <label for="query"><i class="material-icons left">search</i>Query</label>
-		</div>
-		<button class="btn waves-effect waves-light" type="submit" value="Submit">Submit
-		  <i class="material-icons right">send</i>
-		</button>
-    </form> -->
-    </div>
   </div>
 </div>
+
+
 {% endblock %}
 
 

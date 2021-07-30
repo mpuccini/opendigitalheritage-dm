@@ -5,6 +5,8 @@ from flask import Flask, request, render_template
 from bson.objectid import ObjectId
 from pymongo import results
 from models import InsertPubForm, InsertModelForm, InsertImgForm, searchForm, testForm
+from werkzeug.utils import secure_filename
+import os
 import backend as be
 
 
@@ -29,7 +31,7 @@ def insertOption():
 
 @app.route('/insertPUB', methods=['GET', 'POST'])
 def insertPUB():
-    form = InsertPubForm(request.form)
+    form = InsertPubForm()
     if request.method == 'POST' and form.validate_on_submit():
         pub = request.files['pub']
         objecthash, extension = be.workOnObj(pub, store_type)
@@ -55,9 +57,10 @@ def insertPUB():
 
 @app.route('/insertIMG', methods=['GET', 'POST'])
 def insertIMG():
-    form = InsertImgForm(request.form)
+    form = InsertImgForm()
     if request.method == 'POST' and form.validate_on_submit():
-        img = request.files['img']
+#        img = request.files['img']
+        img = form.img.data
         objecthash, extension = be.workOnObj(img, store_type)
 
         # Prepare metadata
@@ -87,7 +90,7 @@ def insertIMG():
 
 @app.route('/insertMODEL', methods=['GET', 'POST'])
 def insertMODEL():
-    form = InsertImgForm(request.form)
+    form = InsertImgForm()
     if request.method == 'POST' and form.validate_on_submit():
         model = request.files['model']
         objecthash, extension = be.workOnObj(img, store_type)
@@ -162,14 +165,19 @@ def getObj():
     return render_template('getObj.html', obj=obj)
 
 
-'''
+
 @app.route('/testFORM',methods=['GET', 'POST'])
 def testFORM():
-    form = testForm(request.form)
+    form = testForm()
     if  request.method == 'POST' and form.validate_on_submit():
+        f = form.photo.data
+        filename = secure_filename(f.filename)
+        f.save(os.path.join(
+            '/home/marco', 'photos', filename
+        ))
         return render_template('testRes.html', r1=request.form['field'], r2=request.form['description'])
     return render_template('testForm.html',form=form)
-'''
+
 
 if __name__ == '__main__':
     app.run(debug=True)
