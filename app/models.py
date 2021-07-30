@@ -13,8 +13,6 @@ class InsertPubForm(FlaskForm):
   year = DateField('Year', format='%Y')
   license_url = StringField('License URL')
   pub = FileField('Publication')
-  store_type = SelectField(u'Store type', choices=[('fs', 'oDT File System'), 
-                                                      ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')
 
 class InsertModelForm(FlaskForm):
@@ -26,9 +24,10 @@ class InsertModelForm(FlaskForm):
   year = DateField('Year', format='%Y')
   license_url = StringField('License URL')
   coordinates = StringField('Coordinates')
-  model = FileField('Model')
-  store_type = SelectField(u'Store type', choices=[('fs', 'oDT File System'), 
-                                                      ('s3', 'Amazon S3 Object Storage')])
+  model = FileField('Model', validators=[
+    FileRequired(),
+    FileAllowed(['ply', 'nxz'], 'Sorry, ply and nxz only allowed!')
+    ])
   submit = SubmitField('Submit')
 
 
@@ -60,10 +59,8 @@ class InsertImgForm(FlaskForm):
   coordinates = StringField('Coordinates')
   img = FileField('Image', validators=[
         FileRequired(),
-        FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')
+        FileAllowed(['jpg', 'png', 'jpeg'], 'Sorry, images only (jp[e]g and png)!')
     ])
-  store_type = SelectField(u'Store type', choices=[('fs', 'oDT File System'), 
-                                                      ('s3', 'Amazon S3 Object Storage')])
   submit = SubmitField('Submit')  
 
 class searchForm(FlaskForm):
@@ -71,8 +68,6 @@ class searchForm(FlaskForm):
   submit = SubmitField('Submit')  
 
 class testForm(FlaskForm):
-  field = StringField('Field', [validators.DataRequired()])
-  description = TextAreaField('Description')
   photo = FileField('image', validators=[
         FileRequired(),
         FileAllowed(['jpg', 'png'], 'Images only!')

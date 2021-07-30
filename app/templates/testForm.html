@@ -6,14 +6,6 @@
   <div class="row">
     <form method="post" action="" enctype="multipart/form-data" validate>
       {{ form.hidden_tag() }}
-      <div class="input-field col s6">
-	{{ form.field.label }}
-	{{ form.field(class_="active validate")|safe }} 
-      </div>
-      <div class="input-field col s12">
-	{{ form.description.label }}
-	{{ form.description(class_="materialize-textarea")|safe }}
-      </div>
       <div class="file-field input-field col s12">
 	<div class="btn">
 	  <span>File</span>
@@ -34,9 +26,3 @@
 {% endblock %}
 
 
-{% block scripts %}
-<script>
-  $('#description').val('');
-  M.textareaAutoResize($('#description'));
-</script>
-{% endblock %}

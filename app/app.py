@@ -6,7 +6,6 @@ from bson.objectid import ObjectId
 from pymongo import results
 from models import InsertPubForm, InsertModelForm, InsertImgForm, searchForm, testForm
 from werkzeug.utils import secure_filename
-import os
 import backend as be
 
 
@@ -171,11 +170,12 @@ def testFORM():
     form = testForm()
     if  request.method == 'POST' and form.validate_on_submit():
         f = form.photo.data
-        filename = secure_filename(f.filename)
-        f.save(os.path.join(
-            '/home/marco', 'photos', filename
-        ))
-        return render_template('testRes.html', r1=request.form['field'], r2=request.form['description'])
+#        f = request.files['photo']
+#        filename = secure_filename(f.filename)
+        objecthash, extension = be.workOnObj(f, store_type)
+        return render_template('testRes.html', 
+                               r3=objecthash,
+                               r4=extension)
     return render_template('testForm.html',form=form)
 
 

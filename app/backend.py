@@ -7,6 +7,9 @@ import boto3
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
+#from io import BytesIO
+import io
+
 
 DEFAULT_CONFIGFILE = 'config.ini'
 BUF_SIZE = 409600
@@ -160,14 +163,14 @@ def upload2S3(obj, bucket_name, obj_key):
         obj_key)
 
 
-def makeHash(path):
+def makeHash(obj):
     '''
     Get a file and calculates hash
 
     Paramenters
     -----------
-    path : str
-        file path
+    obj : bytes
+        file bytes to hash
 
     Returns
     -------
@@ -176,17 +179,17 @@ def makeHash(path):
     '''
 
     # Maybe add option to process in chunks
-    log.debug("Computing MD5 hash for %s", path)
+    log.debug("Computing MD5 hash for %s", obj.filename)
     md5 = hashlib.md5()
+    
     try:
-        with open(path, 'rb') as f:
-            data = f.read(BUF_SIZE)
-            md5.update(data)
+        data = obj.read(BUF_SIZE)
+        md5.update(data)
     except IOError as ioe:
-        log.error("Cannot open/read file %s: %s", path, ioe)
+        log.error("Cannot open/read file %s: %s", obj.filename, ioe)
         raise
     except Exception as e:
-        log.error("Generic error while reading file %s: %s", path, e)
+        log.error("Generic error while reading file %s: %s", obj.filename, e)
         raise
 
     digest = md5.hexdigest()
@@ -194,7 +197,7 @@ def makeHash(path):
     
     return digest
 
-
+'''
 def workOnObj(obj, store_type):
     c = loadConf()
     savepathroot = c['datastore']['path']
@@ -209,3 +212,29 @@ def workOnObj(obj, store_type):
     elif store_type == 's3':
         upload2S3(hashname, 'myhstore', hashname)
     return objhash, extension
+'''
+
+
+
+def workOnObj(obj, store_type):
+#    c = loadConf()
+#    savepathroot = c['datastore']['path']
+#    filename = secure_filename(obj.filename)
+#    bstream = io.BytesIO(obj.read())
+#    objhash = makeHash(obj.stream.seek(0))
+    objhash = makeHash(obj)
+    filename_base, extension = os.path.splitext(obj.filename)
+
+    hashname = objhash+extension
+    if store_type == 'fs':
+        obj.save(os.path.join(savepathroot,'/',hashname))
+    elif store_type == 's3':
+#        upload2S3(obj.stream, 'myhstore', hashname)
+        obj.stream.seek(0)
+        s3_client = boto3.client('s3')
+        s3_client.put_object(Body=obj.stream, Bucket='myhstore', Key=objhash)    
+    return objhash, extension
+
+
+
+
