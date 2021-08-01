@@ -103,3 +103,4 @@ And then set your local path into the Makefile in the `run` rule:
    - [ ] Multi image upload and view
    - [ ] Multi model upload
  - [ ] Datetime support for temporal queries 
+ - [ ] Fix storage configuration
