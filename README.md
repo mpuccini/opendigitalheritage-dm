@@ -96,9 +96,10 @@ And then set your local path into the Makefile in the `run` rule:
  - [ ] Fix data storage path
  - [ ] Templates refactoring
  - [X] Full text search
- - [ ] Enhance frontend
+ - [X] Enhance frontend
  - [ ] Add features:
    - [ ] Documents viewer
    - [X] Image viewer
    - [ ] Multi image upload and view
    - [ ] Multi model upload
+ - [ ] Datetime support for temporal queries 

@@ -22,19 +22,20 @@
 <!-- Dropdown Structure -->
 <div class="container">
   <ul id="dropdown1" class="dropdown-content">
-    <li><a href="{{ url_for('insertPUB') }}">Publication</a></li>
-    <li><a href="{{ url_for('insertIMG') }}">Image</a></li>
-    <li><a href="{{ url_for('insertMODEL') }}">3D Model</a></li>
+    <li><a href="{{ url_for('insertPUB') }}">Publication<i class="material-icons">article</i></a></li>
+    <li><a href="{{ url_for('insertIMG') }}">Image<i class="material-icons">image</i></a></li>
+    <li><a href="{{ url_for('insertMODEL') }}">3D Model<i class="material-icons">view_in_ar</i></a></li>
   </ul>
   <ul id="dropdown2" class="dropdown-content">
-    <li><a href="{{ url_for('search', coll='pubs', obj='Pubblications') }}">Publication</a></li>
-    <li><a href="{{ url_for('search', coll='imgs', obj='Images') }}">Image</a></li>
-    <li><a href="{{ url_for('search', coll='models', obj='3D Models') }}">3D Model</a></li>
-    <li><a href="{{ url_for('search', coll='inventory', obj='Inventory') }}">Inventory</a></li>
+    <li><a href="{{ url_for('search', coll='pubs', obj='Pubblications') }}">Publication<i class="material-icons">article</i></a></li>
+    <li><a href="{{ url_for('search', coll='imgs', obj='Images') }}">Image<i class="material-icons">image</i></a></li>
+    <li><a href="{{ url_for('search', coll='models', obj='3D Models') }}">3D Model<i class="material-icons">view_in_ar</i></a></li>
+    <li><a href="{{ url_for('search', coll='inventory', obj='Inventory') }}">Inventory<i class="material-icons">inventory</i></a></li>
   </ul>
   <nav>
-    <div class="nav-wrapper red lighten-2">
+    <div class="nav-wrapper">
       <a href="#!" class="brand-logo">ENEA OpenDigitalTwins</a>
+      <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
 	<li><a href="{{ url_for('index') }}"><i class="material-icons">home</i></a></li>
 	<li><a href="{{ url_for('getInventory') }}">Inventory<i class="material-icons left">inventory</i></a></li>
@@ -44,6 +45,41 @@
       </ul>
     </div>
   </nav>
+
+   <ul class="sidenav" id="mobile">
+     <li class="logo"><a href="#!" class="brand-logo">ENEA OpenDigitalTwins</a></li>
+	<li><a href="{{ url_for('index') }}"><i class="material-icons">home</i></a></li>
+	<li><a href="{{ url_for('getInventory') }}">Inventory<i class="material-icons left">inventory</i></a></li>
+      <li>
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">New Upload<i class="material-icons left">upload</i></a>
+            <div class="collapsible-body">
+                <ul id="" class="">
+    <li><a href="{{ url_for('insertPUB') }}">Publication<i class="material-icons">article</i></a></li>
+    <li><a href="{{ url_for('insertIMG') }}">Image<i class="material-icons">image</i></a></li>
+    <li><a href="{{ url_for('insertMODEL') }}">3D Model<i class="material-icons">view_in_ar</i></a></li>
+                </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Search<i class="material-icons left">search</i></a>
+            <div class="collapsible-body">
+                <ul id="" class="">
+    <li><a href="{{ url_for('search', coll='pubs', obj='Pubblications') }}">Publication<i class="material-icons">article</i></a></li>
+    <li><a href="{{ url_for('search', coll='imgs', obj='Images') }}">Image<i class="material-icons">image</i></a></li>
+    <li><a href="{{ url_for('search', coll='models', obj='3D Models') }}">3D Model<i class="material-icons">view_in_ar</i></a></li>
+    <li><a href="{{ url_for('search', coll='inventory', obj='Inventory') }}">Inventory<i class="material-icons">inventory</i></a></li>
+                </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
 </div>
 {% endblock %}
 
@@ -76,7 +112,11 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
 <script>
-  $('.dropdown-trigger').dropdown();
+      $( document ).ready(function(){
+        $('.sidenav').sidenav();
+        $('.collapsible').collapsible();
+        $(".dropdown-trigger").dropdown({ hover: true, constrainWidth: false });
+      });
 </script>
 
 {% block scripts %}{% endblock %}
