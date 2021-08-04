@@ -4,18 +4,18 @@ from logging import debug
 from flask import Flask, request, render_template
 from bson.objectid import ObjectId
 from pymongo import results
-from models import InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchInventoryForm, SearchModelForm, SearchPubForm 
+from models import searchForm, InsertPubForm, InsertModelForm, InsertImgForm, SearchImgForm, SearchInventoryForm, SearchModelForm, SearchPubForm 
 from flask_bootstrap import Bootstrap
 import backend as be
 
 
 app = Flask(__name__)
 
-c = be.loadConf()
-sk = c['app']['secret_key']
+# c = be.loadConf()
+# sk = c['app']['secret_key']
 store_type = 's3'
 app.config.from_mapping(
-    SECRET_KEY=b'sk')
+    SECRET_KEY=b'M6Yjuwzr6jSB2zMtW35WENGMjVQ3B8fF')
 Bootstrap(app)
 
 @app.route('/')
@@ -114,6 +114,18 @@ def getInventory():
 @app.route('/searchOption')
 def searchOption():
      return render_template('searchOption.html')
+
+@app.route('/search',methods=['GET', 'POST'])
+def search():
+    form = searchForm(request.form)
+    coll = request.args.get('coll', None)
+    obj = request.args.get('obj', None)
+    if  request.method == 'POST' and form.validate_on_submit(): 
+        collection = be.connect2mongo(be.loadConf(), coll)
+        query = request.form['query']
+        res = collection.find({'$text':{'$search':query}})
+        return render_template('result.html', result=res)
+    return render_template('search.html', form=form, obj=obj)     
 
 @app.route('/searchPUB',methods=['GET', 'POST'])
 def searchPUB():

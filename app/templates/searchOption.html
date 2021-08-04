@@ -17,10 +17,10 @@
   <h2>ENEA Heritage Science Internship 2021</h2>
   <hr>
   <h3>Search contents</h3>
-  <p><a href="{{ url_for('searchPUB') }}">Search Publication</a></p>
-  <p><a href="{{ url_for('searchIMG') }}">Search Images</a></p>
-  <p><a href="{{ url_for('searchModel') }}">Search 3D Models</a></p>
-  <p><a href="{{ url_for('searchInventory') }}">Search In Inventory</a></p>
+  <p><a href="{{ url_for('search', coll='pubs', obj='Pubblications') }}">Search Publication</a></p>
+  <p><a href="{{ url_for('search', coll='imgs', obj='Images') }}">Search Images</a></p>
+  <p><a href="{{ url_for('search', coll='models', obj='3D Models') }}">Search 3D Models</a></p>
+  <p><a href="{{ url_for('search', coll='inventory', obj='Inventory') }}">Search In Inventory</a></p>
   <hr>
   <div class="row">
     <div class="col-md-4">

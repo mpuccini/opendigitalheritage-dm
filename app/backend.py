@@ -66,7 +66,7 @@ def connect2mongo(conf,collection):
     collection : str
         returns a connection to defined collection
     '''
-    c = conf['mongo']
+    c = conf['mongoDB']
     if not c:
         log.error("Cannot get configuration!")
         raise Exception("Cannot get configuration")
