@@ -196,21 +196,20 @@ def makeHash(path):
 
 
 def workOnObj(obj, store_type):
-    c = loadConf()
-    savepathroot = c['datastore']['path']
-    tmpsavepath = savepathroot+secure_filename(obj.filename)
-    obj.save(tmpsavepath)
-    objhash = makeHash(tmpsavepath)
-    split_obj = os.path.splitext(obj.filename)
-    extension = split_obj[1]
+#    c = loadConf()
+#    savepathroot = c['datastore']['path']
+#    filename = secure_filename(obj.filename)
+#    bstream = io.BytesIO(obj.read())
+#    objhash = makeHash(obj.stream.seek(0))
+    objhash = makeHash(obj)
+    filename_base, extension = os.path.splitext(obj.filename)
+
     hashname = objhash+extension
     if store_type == 'fs':
-        #fl1 = objhash[:1]
-        #fl2 = objhash[:2]
-        newsavepath = savepathroot#+'/'+fl1+'/'+fl2
-        if not os.path.exists(newsavepath):             
-            os.makedirs(newsavepath)
-            shutil.move(tmpsavepath,newsavepath+'/'+hashname)
+        obj.save(os.path.join('D:/Università/tesi','/',hashname))
     elif store_type == 's3':
-        upload2S3(tmpsavepath, 'myhstore', hashname)
+#        upload2S3(obj.stream, 'myhstore', hashname)
+        obj.stream.seek(0)
+        s3_client = boto3.client('s3')
+        s3_client.put_object(Body=obj.stream, Bucket='myhstore', Key=objhash)    
     return objhash, extension
