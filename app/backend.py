@@ -7,7 +7,6 @@ import boto3
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
-#from io import BytesIO
 import io
 
 
@@ -15,7 +14,7 @@ DEFAULT_CONFIGFILE = 'config.ini'
 BUF_SIZE = 409600
 
 
-parser = argparse.ArgumentParser(description='PoC ENEA Heritage Science Internship 2021 - Upload/Research data module')
+parser = argparse.ArgumentParser(description='ENEA Open Digital Twins - Upload/Search data module')
 parser.add_argument('-l',                     
 		    '--log',                     
 		    dest='logLevel',                     
@@ -139,6 +138,7 @@ def upload2mongo(doc, collection):
         coll.insert_one(doc)
     log.debug("Uploaded data to mongo")'''
 
+
 def connect2S3():
     try:
         s3_client = boto3.client('s3')
@@ -156,12 +156,11 @@ def upload2S3(obj, bucket_name, obj_key):
     Upload a file from a local folder to an Amazon S3 bucket, using the default
     configuration.
     """
-    s3 = connect2S3()
-    s3.upload_file(
-        obj,
-        bucket_name,
-        obj_key)
-
+    s3_client = connect2S3()
+    s3_client.put_object(
+        Body=obj, 
+        Bucket=bucket_name, 
+        Key=obj_key)    
 
 def makeHash(obj):
     '''
@@ -197,31 +196,12 @@ def makeHash(obj):
     
     return digest
 
-'''
-def workOnObj(obj, store_type):
-    c = loadConf()
-    savepathroot = c['datastore']['path']
-    filename = secure_filename(obj.filename)
-    
-    objhash = makeHash(obj.read(filename))
-    split_obj = os.path.splitext(obj.filename)
-    extension = split_obj[1]
-    hashname = objhash+extension
-    if store_type == 'fs':
-        obj.save(os.path.join(savepathroot,'/',hashname))
-    elif store_type == 's3':
-        upload2S3(hashname, 'myhstore', hashname)
-    return objhash, extension
-'''
-
 
 
 def workOnObj(obj, store_type):
 #    c = loadConf()
 #    savepathroot = c['datastore']['path']
 #    filename = secure_filename(obj.filename)
-#    bstream = io.BytesIO(obj.read())
-#    objhash = makeHash(obj.stream.seek(0))
     objhash = makeHash(obj)
     filename_base, extension = os.path.splitext(obj.filename)
 
@@ -229,10 +209,8 @@ def workOnObj(obj, store_type):
     if store_type == 'fs':
         obj.save(os.path.join(savepathroot,'/',hashname))
     elif store_type == 's3':
-#        upload2S3(obj.stream, 'myhstore', hashname)
         obj.stream.seek(0)
-        s3_client = boto3.client('s3')
-        s3_client.put_object(Body=obj.stream, Bucket='myhstore', Key=objhash)    
+        upload2S3(obj.stream, 'myhstore', hashname)
     return objhash, extension
 
 

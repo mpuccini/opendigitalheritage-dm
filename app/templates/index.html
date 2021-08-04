@@ -1,29 +1,40 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container">
+<div class="row container">
   <div class="section">
-    <h3>PoC of ENEA OpenDigital Twins platform</h3>
-    <p>This is the Proof of Concept of the ENEA Open Digital Twins ecosystem, a microservices based tool to store, manage and visualize etherogeneus data from Cultural Heritage and heritage science activities and reasearchs.</p>
-    <p>This work is the result of the first ENEA Heritage Science 2021 Internship in collaboration with the <a href="http://www.diag.uniroma1.it/en" target="_blank">Department of Computer, Control, and Management Engineering  Antonio Ruberti (DIAG) of Sapienza University of Rome</a>.
-    <p>For more info about the software architecture, please refer to documentation in the software repository.</p>
+    <div class="card blue-grey darken-1 z-depth-3">
+      <div class="card-content white-text">
+	<span class="card-title">PoC of ENEA Open DigitalTwins ecosystem</span>
+	<p>This is the Proof of Concept of the ENEA Open Digital Twins ecosystem, a microservices based tool to store, manage and visualize etherogeneus data from Cultural Heritage and heritage science activities and reasearchs.</p>
+	<p>This work is the result of the first ENEA Heritage Science 2021 Internship in collaboration with the <a href="http://www.diag.uniroma1.it/en" target="_blank">Department of Computer, Control, and Management Engineering  Antonio Ruberti (DIAG) of Sapienza University of Rome</a>.
+	<p>For more info about the software architecture, please refer to documentation in the software repository.</p>
+      </div>
+    </div>
   </div>
-  <div class="divider"></div>
+</div>
+<div class="divider"></div>
+<div class="row container">
   <div class="section">
-    <h4>How to use it?</h4>
-    <h5>New Upload</h5>
-    <p>This tool allow you to upload three kind of data:
-      <ul>
-	<li>Pubblications</li>
-	<li>Images</li>
-	<li>3D Models</li>
-      </ul>
-      For each of these files, you have to provide some metadata compiling a simple form.</p>
-    <p>To upload files, go to New Upload section clicking on the navigation bar.</p>
-    <h5>Search</h5>
-    <p>Search the object you're looking for, querying the database.</p>
-    <h5>Inventory</h5>
-    <p>Get a complete list of all stored objects.</p>
+    <div class="card">
+      <div class="card-content">
+	<span class="card-title">How to use it?</span>
+	<ul class="collapsible">
+	  <li>
+	    <div class="collapsible-header"><i class="material-icons">inventory</i>Inventory</div>
+	    <div class="collapsible-body"><span>Get a complete list of all stored objects.</span></div>
+	  </li>
+	  <li>
+	    <div class="collapsible-header"><i class="material-icons">upload</i>New Upload</div>
+	    <div class="collapsible-body"><span>Upload your data. You can choose to upload pubblications, images and 3D models by filling in the provided forms for metadata.</span></div>
+	  </li>
+	  <li>
+	    <div class="collapsible-header"><i class="material-icons">search</i>Search</div>
+	    <div class="collapsible-body"><span>Make query on database with <em>full text search</em> support.</span></div>
+	  </li>
+	</ul>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

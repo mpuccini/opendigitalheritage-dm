@@ -12,7 +12,6 @@
 
 {% block styles %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
-
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock %}
 
@@ -20,7 +19,7 @@
 
 {% block navbar %}
 <!-- Dropdown Structure -->
-<div class="container">
+<div class="navbar-fixed">
   <ul id="dropdown1" class="dropdown-content">
     <li><a href="{{ url_for('insertPUB') }}">Publication<i class="material-icons">article</i></a></li>
     <li><a href="{{ url_for('insertIMG') }}">Image<i class="material-icons">image</i></a></li>
@@ -34,10 +33,10 @@
   </ul>
   <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">ENEA OpenDigitalTwins</a>
+      <a href="#!" class="brand-logo"><img src="{{ url_for('static', filename='imgs/eodt_logo_w.png') }}" width="250" height="auto"></a>
       <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-	<li><a href="{{ url_for('index') }}"><i class="material-icons">home</i></a></li>
+	<li><a href="{{ url_for('index') }}">Home<i class="material-icons left">home</i></a></li>
 	<li><a href="{{ url_for('getInventory') }}">Inventory<i class="material-icons left">inventory</i></a></li>
 	<!-- Dropdown Trigger -->
 	<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">New Upload<i class="material-icons left">upload</i></a></li>
@@ -45,10 +44,10 @@
       </ul>
     </div>
   </nav>
-
+</div>
    <ul class="sidenav" id="mobile">
      <li class="logo"><a href="#!" class="brand-logo">ENEA OpenDigitalTwins</a></li>
-	<li><a href="{{ url_for('index') }}"><i class="material-icons">home</i></a></li>
+	<li><a href="{{ url_for('index') }}">Home<i class="material-icons left">home</i></a></li>
 	<li><a href="{{ url_for('getInventory') }}">Inventory<i class="material-icons left">inventory</i></a></li>
       <li>
         <ul class="collapsible collapsible-accordion">
@@ -56,9 +55,9 @@
             <a class="collapsible-header">New Upload<i class="material-icons left">upload</i></a>
             <div class="collapsible-body">
                 <ul id="" class="">
-    <li><a href="{{ url_for('insertPUB') }}">Publication<i class="material-icons">article</i></a></li>
-    <li><a href="{{ url_for('insertIMG') }}">Image<i class="material-icons">image</i></a></li>
-    <li><a href="{{ url_for('insertMODEL') }}">3D Model<i class="material-icons">view_in_ar</i></a></li>
+		  <li><a href="{{ url_for('insertPUB') }}">Publication<i class="material-icons">article</i></a></li>
+		  <li><a href="{{ url_for('insertIMG') }}">Image<i class="material-icons">image</i></a></li>
+		  <li><a href="{{ url_for('insertMODEL') }}">3D Model<i class="material-icons">view_in_ar</i></a></li>
                 </ul>
             </div>
           </li>
@@ -70,17 +69,17 @@
             <a class="collapsible-header">Search<i class="material-icons left">search</i></a>
             <div class="collapsible-body">
                 <ul id="" class="">
-    <li><a href="{{ url_for('search', coll='pubs', obj='Pubblications') }}">Publication<i class="material-icons">article</i></a></li>
-    <li><a href="{{ url_for('search', coll='imgs', obj='Images') }}">Image<i class="material-icons">image</i></a></li>
-    <li><a href="{{ url_for('search', coll='models', obj='3D Models') }}">3D Model<i class="material-icons">view_in_ar</i></a></li>
-    <li><a href="{{ url_for('search', coll='inventory', obj='Inventory') }}">Inventory<i class="material-icons">inventory</i></a></li>
+		  <li><a href="{{ url_for('search', coll='pubs', obj='Pubblications') }}">Publication<i class="material-icons">article</i></a></li>
+		  <li><a href="{{ url_for('search', coll='imgs', obj='Images') }}">Image<i class="material-icons">image</i></a></li>
+		  <li><a href="{{ url_for('search', coll='models', obj='3D Models') }}">3D Model<i class="material-icons">view_in_ar</i></a></li>
+		  <li><a href="{{ url_for('search', coll='inventory', obj='Inventory') }}">Inventory<i class="material-icons">inventory</i></a></li>
                 </ul>
             </div>
           </li>
         </ul>
       </li>
     </ul>
-</div>
+
 {% endblock %}
 
 
@@ -90,8 +89,8 @@
 
 
 {% block footer %}
-<div class="container">
-<footer class="page-footer red lighten-4">
+<!-- <div class="container"> -->
+<footer class="page-footer green lighten-5">
   <div class="row">
     <div class="col offset-l2 l4 s12">
       <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="hoverable" width="100"></a>
@@ -102,11 +101,11 @@
   </div>
   <div class="footer-copyright">
     <div class="container">
-      <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://heritagescience.portici.enea.it">ENEA HeritageScience</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p> 
+      <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://heritagescience.portici.enea.it">ENEA OpenDigitalTwins</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p> 
     </div>
   </div>
 </footer>
-</div>
+<!-- </div> -->
 {% endblock %}
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

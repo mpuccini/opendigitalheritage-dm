@@ -89,6 +89,7 @@ And then set your local path into the Makefile in the `run` rule:
 
 
 ## To Do
+ - [ ] Authentication layer
  - [X] Add map to get coordinates on upload
  - [X] Add map to results page to show objects location
  - [ ] Metadata definition (JSON-LD)
