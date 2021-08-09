@@ -5,20 +5,17 @@ from flask import Flask, request, render_template
 from bson.objectid import ObjectId
 from pymongo import results
 from models import InsertPubForm, InsertModelForm, InsertImgForm, searchForm, testForm
-from werkzeug.utils import secure_filename
-import backend as be
+from functions import *
 
+from config import Config
 
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
 logging.basicConfig(level=logging.DEBUG)
 
-c = be.loadConf()
-sk = c['app']['secret_key']
-store_type = 's3'
-app.config.from_mapping(
-    SECRET_KEY=b'sk')
+
 
 @app.route('/')
 def index():
@@ -32,8 +29,9 @@ def insertOption():
 def insertPUB():
     form = InsertPubForm()
     if request.method == 'POST' and form.validate_on_submit():
+        c = Config()
         pub = request.files['pub']
-        objecthash, extension = be.workOnObj(pub, store_type)
+        objecthash, extension = workOnObj(pub, c.store_type)
 
         # Prepare metadata
         metadata={}
@@ -47,8 +45,8 @@ def insertPUB():
         metadata['extension'] = extension
         metadata['filename'] = pub.filename
         metadata['objecthash'] = objecthash
-        metadata['store_type'] = store_type
-        be.upload2mongo(metadata,'pubs')
+        metadata['store_type'] = c.store_type
+        upload2mongo(metadata, c.mongo_uri, c.mongo_db, 'pubs')
         return render_template('uploadDone.html')
     return render_template('uploadPub.html',form=form)
 
@@ -59,8 +57,9 @@ def insertIMG():
     form = InsertImgForm()
     if request.method == 'POST' and form.validate_on_submit():
 #        img = request.files['img']
+        c = Config()
         img = form.img.data
-        objecthash, extension = be.workOnObj(img, store_type)
+        objecthash, extension = workOnObj(img, c.store_type)
 
         # Prepare metadata
         metadata={}
@@ -74,13 +73,13 @@ def insertIMG():
         metadata['extension'] = extension
         metadata['filename'] = img.filename
         metadata['objecthash'] = objecthash
-        metadata['store_type'] = store_type
+        metadata['store_type'] = c.store_type
         metadata['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
         metadata['coordinates']['latitude'] = sepcoord[0]
         metadata['coordinates']['longitude'] = sepcoord[1]
-        be.upload2mongo(metadata,'imgs')
+        upload2mongo(metadata, c.mongo_uri, c.mongo_db,'imgs')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='Image')
 
@@ -91,8 +90,9 @@ def insertIMG():
 def insertMODEL():
     form = InsertImgForm()
     if request.method == 'POST' and form.validate_on_submit():
+        c = Config()
         model = request.files['model']
-        objecthash, extension = be.workOnObj(img, store_type)
+        objecthash, extension = workOnObj(model, c.store_type)
 
         # Prepare metadata
         metadata={}
@@ -118,7 +118,7 @@ def insertMODEL():
         metadata['objtype'] = '3dmodel'
         metadata['filename'] = img.filename
         metadata['objecthash'] = objecthash
-        metadata['store_type'] = store_type
+        metadata['store_type'] = c.store_type
 
 
         ## Create doc
@@ -126,13 +126,14 @@ def insertMODEL():
         # doc['metadata'] = metadata
         # doc['paradata'] = paradata
         ## Remember to upload doc instead of metadata!!
-        be.upload2mongo(metadata,'imgs')
+        upload2mongo(metadata, c.mongo_uri, c.mongo_db, 'imgs')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='3D Model')
 
 @app.route('/getInventory')
 def getInventory():
-    inventory = be.connect2mongo(be.loadConf(),'inventory')
+    c = Config()
+    inventory = connect2mongo(c.mongo_uri, c.mongo_db, 'inventory')
     res = inventory.find()
     return render_template('inventory.html', result=res)
 
@@ -142,7 +143,8 @@ def search():
     coll = request.args.get('coll', None)
     obj = request.args.get('obj', None)
     if  request.method == 'POST' and form.validate_on_submit(): 
-        collection = be.connect2mongo(be.loadConf(), coll)
+        c = Config()
+        collection = connect2mongo(c.mongo_uri, c.mongo_db, coll)
         query = request.form['query']
         res = collection.find({'$text':{'$search':query}})
         return render_template('results.html', result=res)
@@ -150,18 +152,25 @@ def search():
 
 @app.route('/getImg')
 def getImg():
-    imgs = be.connect2mongo(be.loadConf(),'imgs')
+    c = Config()
+    imgs = connect2mongo(c.mongo_uri, c.mongo_db, 'imgs')
     ID = request.args.get('ID', None)
     img = imgs.find_one({'_id': ObjectId(ID)})
-    c = be.loadConf()
-    return render_template('getImg.html', img=img, c=c['datastore'])
+    return render_template('getImg.html', img=img, 
+                           s3_bucket=c.aws_s3_bucket, 
+                           s3_region=c.aws_s3_region, 
+                           fs_host=c.fs_host)
 
 @app.route('/getObj')
 def getObj():
-    objs = be.connect2mongo(be.loadConf(),'models')
+    c = Config()
+    objs = connect2mongo(c.mongo_uri, c.mongo_db, 'models')
     ID = request.args.get('ID', None)
     obj = objs.find_one({'_id': ObjectId(ID)})
-    return render_template('getObj.html', obj=obj)
+    return render_template('getObj.html', obj=obj,
+                           s3_bucket=c.aws_s3_bucket, 
+                           s3_region=c.aws_s3_region, 
+                           fs_host=c.fs_host)
 
 
 
@@ -169,10 +178,11 @@ def getObj():
 def testFORM():
     form = testForm()
     if  request.method == 'POST' and form.validate_on_submit():
+        c = Config()
         f = form.photo.data
 #        f = request.files['photo']
 #        filename = secure_filename(f.filename)
-        objecthash, extension = be.workOnObj(f, store_type)
+        objecthash, extension = workOnObj(f, c.store_type)
         return render_template('testRes.html', 
                                r3=objecthash,
                                r4=extension)
@@ -180,4 +190,4 @@ def testFORM():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

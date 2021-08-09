@@ -1,12 +1,17 @@
 app_name = poc-eneahs
+env_file = .env
 
 build: 
 	@echo 'Buinding container...'
 	@docker build -t $(app_name) .
 
-run: 
-	@echo 'Run container...'
-	@docker run --detach -p 5000:5000 -v /home/marco/hstore:/store:Z $(app_name)
+run-fs: 
+	@echo 'Run container with fs support...'
+	@docker run --detach -p 5000:5000 -v $(FS_PATH):/store:Z --env-file=$(env_file) $(app_name)
+
+run-s3: 
+	@echo 'Run container with S3 support...'
+	@docker run --detach -p 5000:5000 -v $(HOME)/.aws/credentials:/root/.aws/credentials --env-file=$(env_file) $(app_name)
 
 start:
 	@echo 'Starting container...'

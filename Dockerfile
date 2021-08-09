@@ -1,13 +1,16 @@
-FROM python:3.9.5-slim
+FROM python:rc-slim
 
-COPY requirements.txt /
-RUN pip3 install -r /requirements.txt
+COPY requirements.txt ./
+
+RUN pip3 install -r /requirements.txt 
+
 
 WORKDIR /app
+
 COPY /app /app
 
 EXPOSE 5000
 
-CMD ["sh", "gunicorn.sh"]
+CMD ["/bin/bash", "gunicorn.sh"]
 
 

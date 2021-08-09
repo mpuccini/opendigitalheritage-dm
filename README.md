@@ -18,20 +18,20 @@ cd poc-eneahs
 ```
 
 ### Make some configurations
-You first need to configure mognoDB connection, where to store data and define an app key.
-```ini
-[mongo]
-host = <mongos-hosts> 
-port = 27017
-user = <user-name>
-pwd = <user-password>
-db = <authentication-database>
+You first need to configure mongoDB connection, where to store data (File System or AWS S3) and set related setups. So, you need to copy the `env-sample` file into an `.env` file with your configuration for each variable. These will be used as environment variables.
+```
+MONGO_DATABASE=<yourdb>
+MONGO_URI=mongodb+srv://<user>:<passwd>@<mongohost>/<yourdb>?retryWrites=true&w=majority
+STORE_TYPE=s3 (or fs)
+AWS_S3_BUCKET=<yourbucket>
+AWS_S3_REGION=<yourS3region>
+FS_HOST=<remote/localFSost>
+FS_PATH=<FSpath>
+```
 
-[datastore]
-path = <data-storage-path>
-
-[app]
-secret_key=<your-secret_key>
+Once you have the `.env` file, you just need to export variables into the environment with:
+```bash
+export $(xargs < .env)
 ```
 
 ### Start for development
@@ -56,24 +56,16 @@ bash gunicorn.sh
 ```
 
 ### Run as container (Producion)
-To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands. For security reason is recommmended to use podman in a *rootless* mode. You find [here](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md) a good guide on how to configure your podman to work rootless. 
-
 #### Configuration
-In the `config.ini` set the `path` variable of `[datastore]` field to `/store/':  
+Add this to your server `.bashrc` or `.profile`:
 ```bash
-...
-[datastore]
-	path = /store/
-...
+export FS_PATH=<FSpath>
 ```
-
-And then set your local path into the Makefile in the `run` rule:  
-```cpp
-@docker run --detach -p 5000:5000 -v </your/path>:/store:Z $(app_name)
-```
-
+to set this variable both inside and outside container. 
 
 #### Commands
+To simplify container managment, a `Makefile` is provided. In the following are summarized all the available commands. For security reason is recommmended to use podman in a *rootless* mode. You find [here](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md) a good guide on how to configure your podman to work rootless. 
+
 
 | Action | `command` |
 |:---|:---|
@@ -93,7 +85,7 @@ And then set your local path into the Makefile in the `run` rule:
  - [X] Add map to get coordinates on upload
  - [X] Add map to results page to show objects location
  - [ ] Metadata definition (JSON-LD)
- - [ ] Env variables
+ - [X] Env variables
  - [ ] Fix data storage path
  - [ ] Templates refactoring
  - [X] Full text search

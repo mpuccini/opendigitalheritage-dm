@@ -6,9 +6,9 @@
   <div class="row">
     <div class="col s12 m4">
       {% if img['store_type'] == 'fs' %}
-      <img class="materialboxed responsive-img z-depth-1" width="100%" src="{{ c['host'] }}{{ c['path'] }}{{ img['objecthash'] }}{{ img['extension'] }}" />
+      <img class="materialboxed responsive-img z-depth-1" width="100%" src="{{ fs_host }}/store/{{ img['objecthash'] }}{{ img['extension'] }}" />
       {% elif img['store_type'] == 's3' %}
-      <img class="materialboxed responsive-img z-depth-1" width="100%" src="https://myhstore.s3.eu-west-3.amazonaws.com/{{ img['objecthash'] }}{{ img['extension'] }}" />
+      <img class="materialboxed responsive-img z-depth-1" width="100%" src="https://{{ s3_bucket }}.s3.{{ s3_region }}.amazonaws.com/{{ img['objecthash'] }}{{ img['extension'] }}" />
       {% endif %}
     </div>
 

@@ -1,6 +1,6 @@
 import os, shutil
 import hashlib
-import configparser
+#import configparser
 import argparse
 import logging
 import boto3
@@ -10,7 +10,7 @@ from werkzeug.datastructures import FileStorage
 import io
 
 
-DEFAULT_CONFIGFILE = 'config.ini'
+#DEFAULT_CONFIGFILE = 'config.ini'
 BUF_SIZE = 409600
 
 
@@ -21,10 +21,10 @@ parser.add_argument('-l',
 		    choices=['DEBUG','INFO','ERROR'],                     
 		    help='Log level',                     
 		    default='ERROR')
-parser.add_argument('-cf',                     
-		    '--configFile',                     
-		    help='Configuration file path',                     
-		    default=DEFAULT_CONFIGFILE)
+#parser.add_argument('-cf',                     
+#		    '--configFile',                     
+#		    help='Configuration file path',                     
+#		    default=DEFAULT_CONFIGFILE)
 
 args, unknown = parser.parse_known_args()
 
@@ -34,27 +34,27 @@ logging.basicConfig(format='%(levelname)s: %(message)s', level=level)
 log = logging.getLogger(__name__)
 
 
-def loadConf():     
-    '''     
-    Load cofiguration from ini file passed as argument     
+#def loadConf():     
+#    '''     
+#    Load cofiguration from ini file passed as argument     
+#
+#    Returns     
+#    -------     
+#    config : obj     
+#    '''     
+#    log.debug("Loading configuration from %s", args.configFile)     
+#    config = configparser.ConfigParser()     
+#    try:         
+#        config.read(args.configFile)     
+#    except Exception as e:         
+#        log.error("Cannot read configuration file %s: %s", args.configFile, e)         
+#        raise Exception("Cannot read configuration file")     
+#    log.debug("Configuration: %s", config)         
+#
+#    return config
 
-    Returns     
-    -------     
-    config : obj     
-    '''     
-    log.debug("Loading configuration from %s", args.configFile)     
-    config = configparser.ConfigParser()     
-    try:         
-        config.read(args.configFile)     
-    except Exception as e:         
-        log.error("Cannot read configuration file %s: %s", args.configFile, e)         
-        raise Exception("Cannot read configuration file")     
-    log.debug("Configuration: %s", config)         
 
-    return config
-
-
-def connect2mongo(conf,collection):
+def connect2mongo(uri, db, collection):
     '''
     Establishes connection with mongoDB
 
@@ -68,14 +68,10 @@ def connect2mongo(conf,collection):
     collection : str
         returns a connection to defined collection
     '''
-    c = conf['mongo']
-    if not c:
-        log.error("Cannot get configuration!")
-        raise Exception("Cannot get configuration")
 
     try:
-        client = MongoClient(c['uri'])
-        coll = client[c['db']][collection]
+        client = MongoClient(uri)
+        coll = client[db][collection]
     except Exception:
         log.error("Cannot connect to mongo (check if you're under ENEA VPN)")
         raise Exception("Cannot connect to mongo")
@@ -85,7 +81,7 @@ def connect2mongo(conf,collection):
     return coll
 
 
-def upload2mongo(doc, collection):
+def upload2mongo(doc, uri, db, collection):
     '''
     Upload document to mongoDB collection
 
@@ -103,7 +99,7 @@ def upload2mongo(doc, collection):
     
     try:
         log.debug("Connecting to mongo with conf %s", c)
-        coll = connect2mongo(c, collection)
+        coll = connect2mongo(uri, db, collection)
     except Exception as e:
         # Better catch more significative exception types
         # (if connect2mongo() raises some)
@@ -199,15 +195,13 @@ def makeHash(obj):
 
 
 def workOnObj(obj, store_type):
-#    c = loadConf()
-#    savepathroot = c['datastore']['path']
 #    filename = secure_filename(obj.filename)
     objhash = makeHash(obj)
     filename_base, extension = os.path.splitext(obj.filename)
 
     hashname = objhash+extension
     if store_type == 'fs':
-        obj.save(os.path.join(savepathroot,'/',hashname))
+        obj.save(os.path.join(os.getenv('FS_PATH'),'/',hashname))
     elif store_type == 's3':
         obj.stream.seek(0)
         upload2S3(obj.stream, 'myhstore', hashname)
