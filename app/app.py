@@ -56,7 +56,6 @@ def insertPUB():
 def insertIMG():
     form = InsertImgForm()
     if request.method == 'POST' and form.validate_on_submit():
-#        img = request.files['img']
         c = Config()
         img = form.img.data
         objecthash, extension = workOnObj(img, c.store_type)
@@ -79,7 +78,7 @@ def insertIMG():
         sepcoord = coord.split(',')
         metadata['coordinates']['latitude'] = sepcoord[0]
         metadata['coordinates']['longitude'] = sepcoord[1]
-        upload2mongo(metadata, c.mongo_uri, c.mongo_db,'imgs')
+        upload2mongo(metadata, c.mongo_uri, c.mongo_db, 'imgs')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='Image')
 
@@ -126,7 +125,7 @@ def insertMODEL():
         # doc['metadata'] = metadata
         # doc['paradata'] = paradata
         ## Remember to upload doc instead of metadata!!
-        upload2mongo(metadata, c.mongo_uri, c.mongo_db, 'imgs')
+        upload2mongo(metadata, c.mongo_uri, c.mongo_db, 'models')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='3D Model')
 

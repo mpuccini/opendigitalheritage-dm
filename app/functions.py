@@ -7,12 +7,10 @@ import boto3
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
+from config import Config
 import io
 
-
-#DEFAULT_CONFIGFILE = 'config.ini'
 BUF_SIZE = 409600
-
 
 parser = argparse.ArgumentParser(description='ENEA Open Digital Twins - Upload/Search data module')
 parser.add_argument('-l',                     
@@ -21,10 +19,6 @@ parser.add_argument('-l',
 		    choices=['DEBUG','INFO','ERROR'],                     
 		    help='Log level',                     
 		    default='ERROR')
-#parser.add_argument('-cf',                     
-#		    '--configFile',                     
-#		    help='Configuration file path',                     
-#		    default=DEFAULT_CONFIGFILE)
 
 args, unknown = parser.parse_known_args()
 
@@ -32,26 +26,6 @@ args, unknown = parser.parse_known_args()
 level = logging.getLevelName(args.logLevel)
 logging.basicConfig(format='%(levelname)s: %(message)s', level=level)
 log = logging.getLogger(__name__)
-
-
-#def loadConf():     
-#    '''     
-#    Load cofiguration from ini file passed as argument     
-#
-#    Returns     
-#    -------     
-#    config : obj     
-#    '''     
-#    log.debug("Loading configuration from %s", args.configFile)     
-#    config = configparser.ConfigParser()     
-#    try:         
-#        config.read(args.configFile)     
-#    except Exception as e:         
-#        log.error("Cannot read configuration file %s: %s", args.configFile, e)         
-#        raise Exception("Cannot read configuration file")     
-#    log.debug("Configuration: %s", config)         
-#
-#    return config
 
 
 def connect2mongo(uri, db, collection):
@@ -203,8 +177,9 @@ def workOnObj(obj, store_type):
     if store_type == 'fs':
         obj.save(os.path.join(os.getenv('FS_PATH'),'/',hashname))
     elif store_type == 's3':
+        c = Config()
         obj.stream.seek(0)
-        upload2S3(obj.stream, 'myhstore', hashname)
+        upload2S3(obj.stream, c.aws_s3_bucket, hashname)
     return objhash, extension
 
 
