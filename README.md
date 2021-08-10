@@ -71,7 +71,8 @@ To simplify container managment, a `Makefile` is provided. In the following are 
 | Action | `command` |
 |:---|:---|
 | Build image | `make build` |
-| Run container | `make run` |
+| Run container with S3 | `make run-s3` |
+| Run container with FS | `make run-fs` |
 | Stop container | `make stop` |
 | Start container | `make start` |
 | Kill (stop & remove) container) | `make kill` |
