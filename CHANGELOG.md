@@ -4,6 +4,10 @@ Changelog
 
 (unreleased)
 ------------
+- Small change in README. [mpuccini]
+- Make_env.sh deleted. [mpuccini]
+- Small fixes. [mpuccini]
+- Configurations with env vars. Changelog added. [mpuccini]
 - Some garbage cleaned. [mpuccini]
 - Small add in README.mg. [mpuccini]
 - Sidebar mobile added. [mpuccini]
