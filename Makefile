@@ -1,5 +1,5 @@
 app_name = poc-eneahs
-env_file = .env
+env_file = app/.env
 
 build: 
 	@echo 'Buinding container...'

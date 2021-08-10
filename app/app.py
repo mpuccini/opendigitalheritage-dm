@@ -179,8 +179,8 @@ def testFORM():
     if  request.method == 'POST' and form.validate_on_submit():
         c = Config()
         f = form.photo.data
-#        f = request.files['photo']
-#        filename = secure_filename(f.filename)
+        #        f = request.files['photo']
+        #        filename = secure_filename(f.filename)
         objecthash, extension = workOnObj(f, c.store_type)
         return render_template('testRes.html', 
                                r3=objecthash,
@@ -189,4 +189,4 @@ def testFORM():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

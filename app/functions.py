@@ -65,14 +65,9 @@ def upload2mongo(doc, uri, db, collection):
     '''
     # Don't known if "doc" is printable (check __repr__ magic method)
     log.debug("Uploading %s to MongoDB", doc)
-    try:        
-        c = loadConf()
-    except Exception as e:
-        log.error("Cannot read configuration")
-        return
     
     try:
-        log.debug("Connecting to mongo with conf %s", c)
+        log.debug("Connecting to mongo db.collection: %s.%s", db, collection)
         coll = connect2mongo(uri, db, collection)
     except Exception as e:
         # Better catch more significative exception types
@@ -84,7 +79,7 @@ def upload2mongo(doc, uri, db, collection):
     indoc = coll.insert_one(doc)    
 
     # Add reference into inventory
-    inventory = connect2mongo(c, 'inventory')
+    inventory = connect2mongo(uri, db, 'inventory')
     invdoc = {}
     invdoc['title'] = doc['title']
     invdoc['project'] = doc['project']
@@ -131,6 +126,7 @@ def upload2S3(obj, bucket_name, obj_key):
         Body=obj, 
         Bucket=bucket_name, 
         Key=obj_key)    
+
 
 def makeHash(obj):
     '''

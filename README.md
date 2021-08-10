@@ -18,7 +18,7 @@ cd poc-eneahs
 ```
 
 ### Make some configurations
-You first need to configure mongoDB connection, where to store data (File System or AWS S3) and set related setups. So, you need to copy the `env-sample` file into an `.env` file with your configuration for each variable. These will be used as environment variables.
+You first need to configure mongoDB connection, where to store data (File System or AWS S3) and set related setups. So, you need to copy the `app/env-sample` file into an `app/.env` file with your configuration for each variable. These will be used as environment variables.
 ```
 MONGO_DATABASE=<yourdb>
 MONGO_URI=mongodb+srv://<user>:<passwd>@<mongohost>/<yourdb>?retryWrites=true&w=majority
@@ -29,8 +29,9 @@ FS_HOST=<remote/localFSost>
 FS_PATH=<FSpath>
 ```
 
-Once you have the `.env` file, you just need to export variables into the environment with:
+Once you have the `.env` file, you just need to export variables into the environment with (go inside the `app` folder first):
 ```bash
+cd app
 export $(xargs < .env)
 ```
 
