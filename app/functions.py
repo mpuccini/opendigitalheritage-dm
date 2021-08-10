@@ -171,6 +171,7 @@ def workOnObj(obj, store_type):
 
     hashname = objhash+extension
     if store_type == 'fs':
+        obj.stream.seek(0)
         obj.save(os.path.join(os.getenv('FS_PATH'),hashname))
     elif store_type == 's3':
         c = Config()
