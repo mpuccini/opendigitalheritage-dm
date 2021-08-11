@@ -25,7 +25,8 @@
 
   </div>
   <div class="row">
-    <table class="highlight hoverable">
+    {% if result|length > 0 %}
+    <table class="highlight hoverable responsive-table">
       <thead class="thead-dark">
 	<tr>
 	  <th scope="col">Title</th>
@@ -38,7 +39,6 @@
 	</tr>
       </thead>
       <tbody>
-	{% if result|length > 0 %}
 	{% for r in result %}
 	<script type="text/javascript">
 	  marker = new L.marker([{{ r['coordinates']['latitude'] }}, {{ r['coordinates']['longitude'] }}])
@@ -53,21 +53,21 @@
           <td>{{ r['coordinates']['longitude'] }}</td>
 	  {% if r['objtype'] == '3dmodel' %}
 	  <td style="text-align:center"><i class="material-icons">view_in_ar</i></td>
-	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getObj', ID=r['_id']) }}">View</a></td>
+	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getObj', ID=r['_id']) }}"><i class="material-icons">visibility</i></a></td>
 	  {% elif r['objtype'] == 'image'  %}
 	  <td style="text-align:center"><i class="material-icons">image</i></td>
-	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getImg', ID=r['_id']) }}">View</a></td>
+	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getImg', ID=r['_id']) }}"><i class="material-icons">visibility</i></a></td>
 	  {% elif r['objtype'] == 'publication' %}
 	  <td style="text-align:center"><i class="material-icons">picture_as_pdf</i></td>
-	  <td><a class="waves-effect waves-light btn" target="_blank" href="{{ url_for('getPub', ID=r['_id']) }}">View</a></td>
+	  <td><a class="waves-effect waves-light btn" target="_blank" href="{{ url_for('getPub', ID=r['_id']) }}"><i class="material-icons">visibility</i></a></td>
 	  {% endif %}
 	</tr>
 	{% endfor %}
 	{% else %}
 	<div class="row container">
 	  <div class="section">
-	    <div class="card red-grey darken-1 z-depth-3">
-	      <div class="card-content white-text">
+	    <div class="card amber z-depth-3">
+	      <div class="card-content black-text">
 		<span class="card-title">No results!</span>
 		<p>Sorry but we have no results for your search query.</p>
 	      </div>

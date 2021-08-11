@@ -25,7 +25,7 @@
 
   </div>
   <div class="row">
-    <table class="highlight hoverable">
+    <table class="highlight hoverable responsive-table">
       <thead class="thead-dark">
 	<tr>
 	  <th scope="col">Title</th>
@@ -52,13 +52,13 @@
           <td>{{ r['coordinates']['longitude'] }}</td>
 	  {% if r['objtype'] == '3dmodel' %}
 	  <td style="text-align:center"><i class="material-icons">view_in_ar</i></td>
-	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getObj', ID=r['ID']) }}">View</a></td>
+	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getObj', ID=r['ID']) }}"><i class="material-icons">visibility</i></a></td>
 	  {% elif r['objtype'] == 'image'  %}
 	  <td style="text-align:center"><i class="material-icons">image</i></td>
-	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getImg', ID=r['ID']) }}">View</a></td>
+	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getImg', ID=r['ID']) }}"><i class="material-icons">visibility</i></a></td>
 	  {% elif r['objtype'] == 'publication' %}
 	  <td style="text-align:center"><i class="material-icons">picture_as_pdf</i></td>
-	  <td><a class="waves-effect waves-light btn" target="_blank" href="localhost:8080/{{ r['ID'] }}.{{ r['extension'] }}">View</a></td>
+	  <td><a class="waves-effect waves-light btn" target="_blank" href="localhost:8080/{{ r['ID'] }}.{{ r['extension'] }}"><i class="material-icons">visibility</i></a></td>
 	  {% endif %}
 	</tr>
 	{% endfor %}

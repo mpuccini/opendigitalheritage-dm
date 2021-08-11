@@ -146,7 +146,7 @@ def search():
         collection = connect2mongo(c.mongo_uri, c.mongo_db, coll)
         query = request.form['query']
         res = collection.find({'$text':{'$search':query}})
-        return render_template('results.html', result=res)
+        return render_template('results.html', result=list(res))
     return render_template('search.html', form=form, obj=obj)
 
 @app.route('/getImg')
