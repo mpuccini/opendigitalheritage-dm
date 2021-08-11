@@ -38,6 +38,7 @@
 	</tr>
       </thead>
       <tbody>
+	{% if result|length > 0 %}
 	{% for r in result %}
 	<script type="text/javascript">
 	  marker = new L.marker([{{ r['coordinates']['latitude'] }}, {{ r['coordinates']['longitude'] }}])
@@ -62,6 +63,18 @@
 	  {% endif %}
 	</tr>
 	{% endfor %}
+	{% else %}
+	<div class="row container">
+	  <div class="section">
+	    <div class="card red-grey darken-1 z-depth-3">
+	      <div class="card-content white-text">
+		<span class="card-title">No results!</span>
+		<p>Sorry but we have no results for your search query.</p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	{% endif %}
       </tbody>
     </table>
   </div>
