@@ -3,7 +3,7 @@ import hashlib
 import configparser
 import argparse
 import logging
-import boto3
+#import boto3
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
@@ -66,7 +66,7 @@ def connect2mongo(conf,collection):
     collection : str
         returns a connection to defined collection
     '''
-    c = conf['mongoDB']
+    c = conf['mongo']
     if not c:
         log.error("Cannot get configuration!")
         raise Exception("Cannot get configuration")
@@ -136,31 +136,31 @@ def upload2mongo(doc, collection):
         coll.insert_one(doc)
     log.debug("Uploaded data to mongo")'''
 
-def connect2S3():
-    try:
-        s3_client = boto3.client('s3')
-    except Exception:
-        log.error("Cannot connect to Amazon S3")
-        raise Exception("Cannot connect Amazon S3")
+# def connect2S3():
+#     try:
+#         s3_client = boto3.client('s3')
+#     except Exception:
+#         log.error("Cannot connect to Amazon S3")
+#         raise Exception("Cannot connect Amazon S3")
     
-    log.info("Connection to Amazon S3 succeded!")
+#     log.info("Connection to Amazon S3 succeded!")
 
-    return s3_client
-
-
-def upload2S3(obj, bucket_name, obj_key):
-    """
-    Upload a file from a local folder to an Amazon S3 bucket, using the default
-    configuration.
-    """
-    s3 = connect2S3()
-    s3.upload_file(
-        obj,
-        bucket_name,
-        obj_key)
+#     return s3_client
 
 
-def makeHash(path):
+# def upload2S3(obj, bucket_name, obj_key):
+#     """
+#     Upload a file from a local folder to an Amazon S3 bucket, using the default
+#     configuration.
+#     """
+#     s3 = connect2S3()
+#     s3.upload_file(
+#         obj,
+#         bucket_name,
+#         obj_key)
+
+
+def makeHash(obj):
     '''
     Get a file and calculates hash
 
@@ -176,17 +176,16 @@ def makeHash(path):
     '''
 
     # Maybe add option to process in chunks
-    log.debug("Computing MD5 hash for %s", path)
+    log.debug("Computing MD5 hash for %s", obj.filename)
     md5 = hashlib.md5()
     try:
-        with open(path, 'rb') as f:
-            data = f.read(BUF_SIZE)
-            md5.update(data)
+        data = obj.read(BUF_SIZE)
+        md5.update(data)
     except IOError as ioe:
-        log.error("Cannot open/read file %s: %s", path, ioe)
+        log.error("Cannot open/read file %s: %s",obj.filename, ioe)
         raise
     except Exception as e:
-        log.error("Generic error while reading file %s: %s", path, e)
+        log.error("Generic error while reading file %s: %s", obj.filename, e)
         raise
 
     digest = md5.hexdigest()
@@ -196,20 +195,14 @@ def makeHash(path):
 
 
 def workOnObj(obj, store_type):
-#    c = loadConf()
-#    savepathroot = c['datastore']['path']
-#    filename = secure_filename(obj.filename)
-#    bstream = io.BytesIO(obj.read())
-#    objhash = makeHash(obj.stream.seek(0))
+    c = loadConf()
+    #savepathroot = c['datastore']['path']
+    filename = secure_filename(obj.filename)
+
     objhash = makeHash(obj)
     filename_base, extension = os.path.splitext(obj.filename)
 
     hashname = objhash+extension
-    if store_type == 'fs':
-        obj.save(os.path.join('D:/Università/tesi','/',hashname))
-    elif store_type == 's3':
-#        upload2S3(obj.stream, 'myhstore', hashname)
-        obj.stream.seek(0)
-        s3_client = boto3.client('s3')
-        s3_client.put_object(Body=obj.stream, Bucket='myhstore', Key=objhash)    
+    obj.stream.seek(0)
+    obj.save(os.path.join('D:/Università/tesi/',hashname))
     return objhash, extension

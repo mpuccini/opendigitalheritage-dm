@@ -11,11 +11,11 @@ import backend as be
 
 app = Flask(__name__)
 
-# c = be.loadConf()
-# sk = c['app']['secret_key']
-store_type = 's3'
+c = be.loadConf()
+sk = c['app']['secret_key']
+store_type = 'fs'
 app.config.from_mapping(
-    SECRET_KEY=b'M6Yjuwzr6jSB2zMtW35WENGMjVQ3B8fF')
+    SECRET_KEY=b'sk')
 Bootstrap(app)
 
 @app.route('/')
@@ -201,4 +201,4 @@ def getObj():
     return render_template('getObj.html', obj=obj)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
