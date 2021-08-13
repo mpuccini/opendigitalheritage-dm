@@ -62,23 +62,41 @@ def insertIMG():
 
         # Prepare metadata
         metadata={}
-        metadata['title'] = request.form['title']
-        metadata['description'] = request.form['description']
-        metadata['author'] = request.form['author']
-        metadata['project'] = request.form['project']
-        metadata['objtype'] = 'image'
-        metadata['year'] = request.form['year']
-        metadata['license_url'] = request.form['license_url']
-        metadata['extension'] = extension
-        metadata['filename'] = img.filename
-        metadata['objecthash'] = objecthash
-        metadata['store_type'] = c.store_type
-        metadata['coordinates'] = {}
+        
+        asset = {}
+        asset['title'] = request.form['title']
+        asset['description'] = request.form['description']
+        asset['authorship'] = request.form['authorship']
+        asset['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
-        metadata['coordinates']['latitude'] = sepcoord[0]
-        metadata['coordinates']['longitude'] = sepcoord[1]
-        upload2mongo(metadata, c.mongo_uri, c.mongo_db, 'imgs')
+        asset['coordinates']['latitude'] = sepcoord[0]
+        asset['coordinates']['longitude'] = sepcoord[1]
+        asset['license'] = request.form['license']
+        metadata['asset'] = asset
+
+        project = {}
+        project['name'] = request.form['project_name']
+        project['year'] = request.form['project_year']
+        project['url'] = request.form['project_url']
+        project['partners'] = request.form['project_partners']
+        metadata['project'] = project
+
+        objectdata = {}
+        objectdata['filename'] = img.filename
+        objectdata['type'] = 'image'
+        objectdata['kind'] = request.form['object_kind']
+        objectdata['extension'] = extension
+        objectdata['hash'] = objecthash
+
+        storedata = {}
+        storedata['type'] = c.store_type
+
+        doc = {}
+        doc['metadata'] = metadata
+        doc['objectdata'] = objectdata
+        doc['storedata'] = storedata
+        upload2mongo(doc, c.mongo_uri, c.mongo_db, 'imgs')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='Image')
 

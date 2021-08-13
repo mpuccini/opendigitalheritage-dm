@@ -19,43 +19,75 @@
   <h3>Upload new {{ obj }}</h3>
   <div class="row">
     <div class="col s12 m6">
-      <h4>Metadata</h4>
       <form method="post" action="" enctype="multipart/form-data" validate> 
 	{{ form.hidden_tag() }}
 	<div class="row">
-          <div class="input-field col s6">
-	    {{ form.title.label }}
-	    {{ form.title(class_="active validate")|safe }} 
-          </div>
-          <div class="input-field col s6">
-	    {{ form.author.label }}
-	    {{ form.author(class_="active validate")|safe }} 
-          </div>
-          <div class="input-field col s12">
-	    {{ form.description.label }}
-	    {{ form.description(class_="materialize-textarea")|safe }}
-          </div>
-          <div class="input-field col s6">
-	    {{ form.project.label }}
-	    {{ form.project(class_="active validate")|safe }} 
-          </div>
-          <div class="input-field col s6">
-	    {{ form.year.label }}
-	    {{ form.year(class_="active validate")|safe }} 
-          </div>
-          <div class="input-field col s12">
-	    {{ form.coordinates.label }}
-	    {{ form.coordinates(class_="active validate")|safe }} 
-	    <span class="helper-text" 
-		  data-error="wrong" 
-		  data-success="right">
-	      Paste from clipboard
-	    </span>
-          </div>
-          <div class="input-field col s12">
-	    {{ form.license_url.label }}
-	    {{ form.license_url(class_="active validate")|safe }} 
-          </div>
+	  <div class="card">
+	    <span class="card-title">Metadata</span>
+	    <div class="card-content">
+	    <fieldset>
+	      <legend>Asset data</legend>
+              <div class="input-field col s6">
+		{{ form.title.label }}
+		{{ form.title(class_="active validate")|safe }} 
+              </div>
+              <div class="input-field col s6">
+		{{ form.authorship.label }}
+		{{ form.authorship(class_="active validate")|safe }} 
+              </div>
+              <div class="input-field col s12">
+		{{ form.description.label }}
+		{{ form.description(class_="materialize-textarea")|safe }}
+              </div>
+              <div class="input-field col s6">
+		{{ form.coordinates.label }}
+		{{ form.coordinates(class_="active validate")|safe }} 
+		<span class="helper-text" 
+		      data-error="wrong" 
+		      data-success="right">
+		  Paste from clipboard
+		</span>
+              </div>
+              <div class="input-field col s6">
+		{{ form.license.label }}
+		{{ form.license(class_="active")|safe }}
+              </div>
+	    </fieldset>
+
+	    <fieldset>
+	      <legend>Project data</legend>
+              <div class="input-field col s6">
+		{{ form.project_name.label }}
+		{{ form.project_name(class_="active validate")|safe }} 
+              </div>
+              <div class="input-field col s6">
+		{{ form.project_year.label }}
+		{{ form.project_year(class_="active validate")|safe }} 
+              </div>
+              <div class="input-field col s6">
+		{{ form.project_url.label }}
+		{{ form.project_url(class_="active")|safe }} 
+              </div>
+              <div class="input-field col s6">
+		{{ form.project_partners.label }}
+		{{ form.project_partners(class_="active")|safe }} 
+              </div>
+	    </fieldset>
+	    </div>
+	  </div>
+
+	  <div class="card">
+	    <span class="card-title">Object data</span>
+	    <div class="card-content">
+	      <fieldset>
+              <div class="input-field col s12">
+		{{ form.object_kind.label }}
+		{{ form.object_kind(class_="active")|safe }} 
+	      </div>
+	      </fieldset>
+            </div>
+	  </div>
+
 	  <div class="file-field input-field col s12">
 	    <div class="btn">
 	      <span>File</span>
@@ -73,12 +105,14 @@
       </form> 
     </div>
     <div class="col s12 m6">
-      <h4>Add Position</h4>
-      <p>Navigate and point on map the artifact position</p>
-      <div id="map" style="position: relative;
-			   width: 100%; 
-			   height: 600px;">
-      </div>     
+      <div class="card">
+	<span class="card-title">Add Position</span>
+	<p>Navigate and point on map the artifact position</p>
+	<div id="map" style="position: relative;
+			     width: 100%; 
+			     height: 600px;">
+	</div>     
+      </div>
     </div>
   </div>
 </div>

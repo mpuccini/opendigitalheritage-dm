@@ -5,6 +5,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 
 
+
 class InsertPubForm(FlaskForm):
   title = StringField('Title', [validators.DataRequired()])
   description = TextAreaField('Description')
@@ -31,37 +32,29 @@ class InsertModelForm(FlaskForm):
   submit = SubmitField('Submit')
 
 
-'''
-class uploadObjForm(FlaskForm):
-  title = StringField('Title', [validators.DataRequired()])
-  description = TextAreaField('Description')
-  author = StringField('Author', [validators.DataRequired()])
-  project = StringField('Project', [validators.DataRequired()])
-  objtype = '3Dmodel'
-  year = DateField('Year', format='%Y')
-  license_url = StringField('License URL')
-  coordinates = StringField('Coordinates')
-  obj = FileField('Object')
-  store_type = SelectField(u'Store type', choices=[('fs', 'HeritageScience File System'), 
-                                                      ('s3', 'Amazon S3 Object Storage')])
-  submit = SubmitField('Submit')
-'''
-
-
 
 class InsertImgForm(FlaskForm):
   title = StringField('Title', [validators.DataRequired()])
   description = TextAreaField('Description')
-  author = StringField('Author', [validators.DataRequired()])
-  project = StringField('Project', [validators.DataRequired()])
-  year = DateField('Year', format='%Y')
-  license_url = StringField('License URL')
+  authorship = StringField('Authorship', [validators.DataRequired()])
   coordinates = StringField('Coordinates')
+  license = StringField('License')
+
+
+  project_name = StringField('Name', [validators.DataRequired()])
+  project_year = DateField('Year', format='%Y')
+  project_url = StringField('URL')
+  project_partners = StringField('Partners')
+
+  object_kind = StringField('Image kind')
   img = FileField('Image', validators=[
         FileRequired(),
         FileAllowed(['jpg', 'png', 'jpeg'], 'Sorry, images only (jp[e]g and png)!')
     ])
   submit = SubmitField('Submit')  
+
+
+
 
 class searchForm(FlaskForm):
   query = StringField('', [validators.DataRequired()])
