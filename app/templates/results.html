@@ -30,10 +30,10 @@
       <thead class="thead-dark">
 	<tr>
 	  <th scope="col">Title</th>
+	  <th scope="col">Authorship</th>	  
 	  <th scope="col">Project</th>
 	  <th scope="col">Year</th>
-          <th scope="col">Latitude</th>
-          <th scope="col">Longitude</th>
+          <th scope="col">Project URL</th>
 	  <th scope="col" style="text-align:center">Object Type</th>
 	  <th scope="col">View</th>
 	</tr>
@@ -41,23 +41,23 @@
       <tbody>
 	{% for r in result %}
 	<script type="text/javascript">
-	  marker = new L.marker([{{ r['coordinates']['latitude'] }}, {{ r['coordinates']['longitude'] }}])
+	  marker = new L.marker([{{ r['metadata']['asset']['coordinates']['latitude'] }}, {{ r['metadata']['asset']['coordinates']['longitude'] }}])
     .addTo(mymap)
-    .bindPopup("{{ r['title'] }}");
+    .bindPopup("{{ r['metadata']['asset']['title'] }}");
 	</script>
 	<tr>
-	  <td>{{ r['title'] }}</td>
-	  <td>{{ r['project'] }}</td>
-	  <td>{{ r['year'] }}</td>
-          <td>{{ r['coordinates']['latitude'] }}</td>
-          <td>{{ r['coordinates']['longitude'] }}</td>
-	  {% if r['objtype'] == '3dmodel' %}
+	  <td>{{ r['metadata']['asset']['title'] }}</td>
+	  <td>{{ r['metadata']['asset']['authorship'] }}</td>
+	  <td>{{ r['metadata']['project']['name'] }}</td>
+	  <td>{{ r['metadata']['project']['year'] }}</td>
+	  <td><a class="waves-effect waves-teal btn-flat" target="_blank" href="{{ r['project_url'] }}"><i class="material-icons">link</i></a></td>
+	  {% if r['objectdata']['type'] == '3dmodel' %}
 	  <td style="text-align:center"><i class="material-icons">view_in_ar</i></td>
 	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getObj', ID=r['_id']) }}"><i class="material-icons">visibility</i></a></td>
-	  {% elif r['objtype'] == 'image'  %}
+	  {% elif r['objectdata']['type'] == 'image'  %}
 	  <td style="text-align:center"><i class="material-icons">image</i></td>
 	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getImg', ID=r['_id']) }}"><i class="material-icons">visibility</i></a></td>
-	  {% elif r['objtype'] == 'publication' %}
+	  {% elif r['objectdata']['type'] == 'publication' %}
 	  <td style="text-align:center"><i class="material-icons">picture_as_pdf</i></td>
 	  <td><a class="waves-effect waves-light btn" target="_blank" href="{{ url_for('getPub', ID=r['_id']) }}"><i class="material-icons">visibility</i></a></td>
 	  {% endif %}

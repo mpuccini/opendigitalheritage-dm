@@ -85,7 +85,7 @@ def insertIMG():
         objectdata = {}
         objectdata['filename'] = img.filename
         objectdata['type'] = 'image'
-        objectdata['kind'] = request.form['object_kind']
+        objectdata['kind'] = request.form.get('object_kind')
         objectdata['extension'] = extension
         objectdata['hash'] = objecthash
 
@@ -164,7 +164,10 @@ def search():
         collection = connect2mongo(c.mongo_uri, c.mongo_db, coll)
         query = request.form['query']
         res = collection.find({'$text':{'$search':query}})
-        return render_template('results.html', result=list(res))
+        if coll != 'inventory':
+            return render_template('results.html', result=list(res))
+        else:
+            return render_template('inventory.html', result=res)
     return render_template('search.html', form=form, obj=obj)
 
 @app.route('/getImg')

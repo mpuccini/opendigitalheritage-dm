@@ -46,7 +46,6 @@ class InsertImgForm(FlaskForm):
   project_url = StringField('URL')
   project_partners = StringField('Partners')
 
-  object_kind = StringField('Image kind')
   img = FileField('Image', validators=[
         FileRequired(),
         FileAllowed(['jpg', 'png', 'jpeg'], 'Sorry, images only (jp[e]g and png)!')

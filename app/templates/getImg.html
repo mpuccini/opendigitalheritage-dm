@@ -2,48 +2,70 @@
 
 {% block content %}
 <div class="container">
-  <h3>Image of {{ img['title'] }}</h3>
+  <h3>Image of {{ img['metadata']['asset']['title'] }}</h3>
   <div class="row">
     <div class="col s12 m4">
-      {% if img['store_type'] == 'fs' %}
-      <img class="materialboxed responsive-img z-depth-1" width="100%" src="{{ fs_host }}/store/{{ img['objecthash'] }}{{ img['extension'] }}" />
-      {% elif img['store_type'] == 's3' %}
-      <img class="materialboxed responsive-img z-depth-1" width="100%" src="https://{{ s3_bucket }}.s3.{{ s3_region }}.amazonaws.com/{{ img['objecthash'] }}{{ img['extension'] }}" />
+      {% if img['storedata']['type'] == 'fs' %}
+      <img class="materialboxed responsive-img z-depth-1" width="100%" src="{{ fs_host }}/store/{{ img['objectdata']['hash'] }}{{ img['objectdata']['extension'] }}" />
+      {% elif img['storedata']['type'] == 's3' %}
+      <img class="materialboxed responsive-img z-depth-1" width="100%" src="https://{{ s3_bucket }}.s3.{{ s3_region }}.amazonaws.com/{{ img['objectdata']['hash'] }}{{ img['objectdata']['extension'] }}" />
       {% endif %}
     </div>
 
     <div class="col s12 m8">
-      <table class="highlight hoverable">
-	<tbody>
-	  <tr>
-            <td><b>Title</b></td>
-            <td>{{ img['title'] }}</td>
-	  </tr>
-	  <tr>
-            <td><b>Description</b></td>
-            <td>{{ img['description'] }}</td>
-	  </tr>
-	  <tr>
-            <td><b>Author</b></td>
-            <td>{{ img['author'] }}</td>
-	  </tr>
-	  <tr>
-            <td><b>Project</b></td>
-            <td>{{ img['project'] }}</td>
-	  </tr>
-	  <tr>
-            <td><b>Year</b></td>
-            <td>{{ img['year'] }}</td>
-	  </tr>
-	  <tr>
-            <td rowspan="2"><b>Coordinates</b></td>
-            <td>Latitude: {{ img['coordinates']['latitude'] }} </td>
-	  </tr>
-	  <tr>
-            <td>Longitude: {{ img['coordinates']['longitude'] }} </td>
-	  </tr>
-	</tbody>
-      </table>
+
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Asset</span>
+	  <table class="highlight">
+	    <tbody>
+	      <tr>
+		<td><b>Title</b></td>
+		<td>{{ img['metadata']['asset']['title'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Description</b></td>
+		<td>{{ img['metadata']['asset']['description'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Authorship</b></td>
+		<td>{{ img['metadata']['asset']['authorship'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>License</b></td>
+		<td>{{ img['metadata']['asset']['license'] }}</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+
+      <div class="card">
+	<div class="card-content">
+          <span class="card-title">Project</span>
+	  <table class="highlight">
+	    <tbody>
+	      <tr>
+		<td><b>Name</b></td>
+		<td>{{ img['metadata']['project']['name'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Year</b></td>
+		<td>{{ img['metadata']['project']['year'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>URL</b></td>
+		<td>{{ img['metadata']['project']['url'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Partners</b></td>
+		<td>{{ img['metadata']['project']['partners'] }}</td>
+	      </tr>
+	      </tbody>
+	  </table>
+	</div>
+      </div>
+
     </div>
   </div>
 </div>

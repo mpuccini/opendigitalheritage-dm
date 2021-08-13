@@ -85,11 +85,11 @@ def upload2mongo(doc, uri, db, collection):
     invdoc['coordinates'] = {}
     invdoc['coordinates']['latitude'] = doc['metadata']['asset']['coordinates']['latitude']
     invdoc['coordinates']['longitude'] = doc['metadata']['asset']['coordinates']['longitude']
-    invdoc['project_name'] = doc['project']['name']
-    invdoc['project_year'] = doc['project']['year']
-    invdoc['project_url'] = doc['project']['url']
-    invdoc['objtype'] = doc['objdata']['type']
+    invdoc['project_name'] = doc['metadata']['project']['name']
+    invdoc['project_year'] = doc['metadata']['project']['year']
+    invdoc['project_url'] = doc['metadata']['project']['url']
 
+    invdoc['objtype'] = doc['objectdata']['type']
 
     invdoc['ID'] = indoc.inserted_id
     inventory.insert_one(invdoc)

@@ -31,8 +31,7 @@
 	  <th scope="col">Title</th>
 	  <th scope="col">Project</th>
 	  <th scope="col">Year</th>
-          <th scope="col">Latitude</th>
-          <th scope="col">Longitude</th>
+          <th scope="col">Project URL</th>
 	  <th scope="col" style="text-align:center">Object Type</th>
 	  <th scope="col">View</th>
 	</tr>
@@ -46,10 +45,9 @@
 	</script>
 	<tr>
 	  <td>{{ r['title'] }}</td>
-	  <td>{{ r['project'] }}</td>
-	  <td>{{ r['year'] }}</td>
-          <td>{{ r['coordinates']['latitude'] }}</td>
-          <td>{{ r['coordinates']['longitude'] }}</td>
+	  <td>{{ r['project_name'] }}</td>
+	  <td>{{ r['project_year'] }}</td>
+	  <td><a class="waves-effect waves-teal btn-flat" target="_blank" href="{{ r['project_url'] }}"><i class="material-icons">link</i></a></td>
 	  {% if r['objtype'] == '3dmodel' %}
 	  <td style="text-align:center"><i class="material-icons">view_in_ar</i></td>
 	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getObj', ID=r['ID']) }}"><i class="material-icons">visibility</i></a></td>
