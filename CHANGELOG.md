@@ -4,6 +4,15 @@ Changelog
 
 (unreleased)
 ------------
+- New Metadata model: full implemented for images (upload/search)
+  [mpuccini]
+- New metadata format: implemented images mng. [mpuccini]
+- Minor changes and results responsive tables. [mpuccini]
+- Results.html for no results... [mpuccini]
+- Some info added in README. [mpuccini]
+- Just a CHANGELOG update. [mpuccini]
+- Upload to FS stream fixed. [marco.puccini]
+- FS savepath fixed. [marco.puccini]
 - Small change in README. [mpuccini]
 - Make_env.sh deleted. [mpuccini]
 - Small fixes. [mpuccini]

@@ -7,7 +7,7 @@ build:
 
 run-fs: 
 	@echo 'Run container with fs support...'
-	@docker run --detach -p 5000:5000 -v $(FS_PATH):/store:Z --env-file=$(env_file) $(app_name)
+	@docker run --detach -p 5000:5000 -v $(FS_PATH):/$(FS_PATH):Z --env-file=$(env_file) $(app_name)
 
 run-s3: 
 	@echo 'Run container with S3 support...'
