@@ -80,11 +80,13 @@ def upload2mongo(doc, uri, db, collection):
 
     # Add reference into inventory
     inventory = connect2mongo(uri, db, 'inventory')
+
     invdoc = {}
     invdoc['title'] = doc['metadata']['asset']['title']
     invdoc['coordinates'] = {}
     invdoc['coordinates']['latitude'] = doc['metadata']['asset']['coordinates']['latitude']
     invdoc['coordinates']['longitude'] = doc['metadata']['asset']['coordinates']['longitude']
+
     invdoc['project_name'] = doc['metadata']['project']['name']
     invdoc['project_year'] = doc['metadata']['project']['year']
     invdoc['project_url'] = doc['metadata']['project']['url']
@@ -92,6 +94,7 @@ def upload2mongo(doc, uri, db, collection):
     invdoc['objtype'] = doc['objectdata']['type']
 
     invdoc['ID'] = indoc.inserted_id
+
     inventory.insert_one(invdoc)
     '''    if coll.count_documents({'document_hash': doc['document_hash']}) > 0:
         # Insert try/except here?

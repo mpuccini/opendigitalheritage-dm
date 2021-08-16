@@ -30,25 +30,47 @@ def insertPUB():
     form = InsertPubForm()
     if request.method == 'POST' and form.validate_on_submit():
         c = Config()
-        pub = request.files['pub']
+        pub = form.obj.data
         objecthash, extension = workOnObj(pub, c.store_type)
 
         # Prepare metadata
         metadata={}
-        metadata['title'] = request.form['title']
-        metadata['description'] = request.form['description']
-        metadata['author'] = request.form['author']
-        metadata['project'] = request.form['project']
-        metadata['objtype'] = 'publication'
-        metadata['year'] = request.form['year']
-        metadata['license_url'] = request.form['license_url']
-        metadata['extension'] = extension
-        metadata['filename'] = pub.filename
-        metadata['objecthash'] = objecthash
-        metadata['store_type'] = c.store_type
-        upload2mongo(metadata, c.mongo_uri, c.mongo_db, 'pubs')
+        
+        asset = {}
+        asset['title'] = request.form['title']
+        asset['description'] = request.form['description']
+        asset['authorship'] = request.form['authorship']
+        asset['coordinates'] = {}
+        asset['coordinates']['latitude'] = None
+        asset['coordinates']['longitude'] = None
+        asset['license'] = request.form['license']
+        metadata['asset'] = asset
+
+        project = {}
+        project['name'] = request.form['project_name']
+        project['year'] = request.form['project_year']
+        project['url'] = request.form['project_url']
+        project['partners'] = request.form['project_partners']
+        metadata['project'] = project
+
+        objectdata = {}
+        objectdata['filename'] = pub.filename
+        objectdata['type'] = 'publication'
+        objectdata['kind'] = request.form.get('object_kind')
+        objectdata['extension'] = extension
+        objectdata['hash'] = objecthash
+
+        storedata = {}
+        storedata['type'] = c.store_type
+
+        doc = {}
+        doc['metadata'] = metadata
+        doc['objectdata'] = objectdata
+        doc['storedata'] = storedata
+
+        upload2mongo(doc, c.mongo_uri, c.mongo_db, 'pubs')
         return render_template('uploadDone.html')
-    return render_template('uploadPub.html',form=form)
+    return render_template('uploadPub.html', form=form, obj='Publication')
 
 
 
@@ -57,7 +79,7 @@ def insertIMG():
     form = InsertImgForm()
     if request.method == 'POST' and form.validate_on_submit():
         c = Config()
-        img = form.img.data
+        img = form.obj.data
         objecthash, extension = workOnObj(img, c.store_type)
 
         # Prepare metadata
@@ -108,42 +130,47 @@ def insertMODEL():
     form = InsertImgForm()
     if request.method == 'POST' and form.validate_on_submit():
         c = Config()
-        model = request.files['model']
+        model = form.obj.data
         objecthash, extension = workOnObj(model, c.store_type)
 
         # Prepare metadata
         metadata={}
-        metadata['title'] = request.form['title']
-        metadata['description'] = request.form['description']
-        metadata['author'] = request.form['author']
-        metadata['project'] = request.form['project']
-        metadata['year'] = request.form['year']
-        metadata['license_url'] = request.form['license_url']
-        metadata['extension'] = extension        
-        metadata['coordinates'] = {}
+        
+        asset = {}
+        asset['title'] = request.form['title']
+        asset['description'] = request.form['description']
+        asset['authorship'] = request.form['authorship']
+        asset['coordinates'] = {}
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
-        metadata['coordinates']['latitude'] = sepcoord[0]
-        metadata['coordinates']['longitude'] = sepcoord[1]
+        asset['coordinates']['latitude'] = sepcoord[0]
+        asset['coordinates']['longitude'] = sepcoord[1]
+        asset['license'] = request.form['license']
+        metadata['asset'] = asset
 
-        ## Prepare paradata
-        # paradata = {}
-        # paradata['unitMeas'] = request.form['unitMeas'] 
-        # paradata['hasSubModels'] = request.form['hasSubModels']
-        # paradata['hasHotspots'] = request.form['hasHotspots']
-        ## change it to paradata!!
-        metadata['objtype'] = '3dmodel'
-        metadata['filename'] = img.filename
-        metadata['objecthash'] = objecthash
-        metadata['store_type'] = c.store_type
+        project = {}
+        project['name'] = request.form['project_name']
+        project['year'] = request.form['project_year']
+        project['url'] = request.form['project_url']
+        project['partners'] = request.form['project_partners']
+        metadata['project'] = project
 
+        objectdata = {}
+        objectdata['filename'] = model.filename
+        objectdata['type'] = '3dmodel'
+        objectdata['kind'] = request.form.get('object_kind')
+        objectdata['extension'] = extension
+        objectdata['hash'] = objecthash
 
-        ## Create doc
-        # doc = {}
-        # doc['metadata'] = metadata
-        # doc['paradata'] = paradata
-        ## Remember to upload doc instead of metadata!!
-        upload2mongo(metadata, c.mongo_uri, c.mongo_db, 'models')
+        storedata = {}
+        storedata['type'] = c.store_type
+
+        doc = {}
+        doc['metadata'] = metadata
+        doc['objectdata'] = objectdata
+        doc['storedata'] = storedata
+
+        upload2mongo(doc, c.mongo_uri, c.mongo_db, 'models')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='3D Model')
 
@@ -169,6 +196,19 @@ def search():
         else:
             return render_template('inventory.html', result=res)
     return render_template('search.html', form=form, obj=obj)
+
+
+@app.route('/getPub')
+def getPub():
+    c = Config()
+    pubs = connect2mongo(c.mongo_uri, c.mongo_db, 'pubs')
+    ID = request.args.get('ID', None)
+    pub = pubs.find_one({'_id': ObjectId(ID)})
+    return render_template('getPub.html', pub=pub, 
+                           s3_bucket=c.aws_s3_bucket, 
+                           s3_region=c.aws_s3_region, 
+                           fs_host=c.fs_host)
+
 
 @app.route('/getImg')
 def getImg():
