@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+  <h3>Image of {{ pub['metadata']['project']['name'] }}</h3>
+  <div class="row">
+    <div class="col s12 m4">
+      {% if pub['storedata']['type'] == 'fs' %}
+      <a class="waves-effect waves-light btn" href="{{ fs_host }}/store/{{ pub['objectdata']['hash'] }}{{ pub['objectdata']['extension'] }}" target="_blank"><i class="material-icons left">visibility</i>View Publication</a>
+      {% elif pub['storedata']['type'] == 's3' %}
+      <a class="waves-effect waves-light btn" href="https://{{ s3_bucket }}.s3.{{ s3_region }}.amazonaws.com/{{ pub['objectdata']['hash'] }}{{ pub['objectdata']['extension'] }}" target="_blank"><i class="material-icons left">visibility</i>View Publication</a>
+      {% endif %}
+    </div>
+
+    <div class="col s12 m8">
+
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Asset</span>
+	  <table class="highlight">
+	    <tbody>
+	      <tr>
+		<td><b>Title</b></td>
+		<td>{{ pub['metadata']['asset']['title'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Description</b></td>
+		<td>{{ pub['metadata']['asset']['description'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Authorship</b></td>
+		<td>{{ pub['metadata']['asset']['authorship'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>License</b></td>
+		<td>{{ pub['metadata']['asset']['license'] }}</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+
+      <div class="card">
+	<div class="card-content">
+          <span class="card-title">Project</span>
+	  <table class="highlight">
+	    <tbody>
+	      <tr>
+		<td><b>Name</b></td>
+		<td>{{ pub['metadata']['project']['name'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Year</b></td>
+		<td>{{ pub['metadata']['project']['year'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>URL</b></td>
+		<td>{{ pub['metadata']['project']['url'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Partners</b></td>
+		<td>{{ pub['metadata']['project']['partners'] }}</td>
+	      </tr>
+	      </tbody>
+	  </table>
+	</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

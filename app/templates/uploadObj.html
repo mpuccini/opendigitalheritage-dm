@@ -16,8 +16,10 @@
 
 {% block content %}
 <div class="container">
+
   <h3>Upload new {{ obj }}</h3>
   <div class="row">
+
     <div class="col s12 m6">
       <form method="POST" action="" enctype="multipart/form-data" validate> 
 	{{ form.hidden_tag() }}
@@ -81,40 +83,62 @@
 	    <div class="card-content">
 	      <fieldset>
 		<div class="input-field col s12">
+		  {% if obj == 'Image'%}
 		  <select name="object_kind">
 		    <option value="" disabled selected>Choose your option</option>
 		    <option value="Documentary">
-		      Documentary: 'back-stage' images
+		      Documentary image
 		    </option>
 		    <option value="Photogrammetry">
-		      Photogrammetry: image for SfM 
+		      Photogrammetry image for SfM 
 		    </option>
 		    <option value="IR">
-		      IR: Infra-Red image
+		      Infra-Red image
 		    </option>
 		  </select>
 		  <label>Image kind</label>
+		  {% elif obj == '3D Model' %}
+		  <select name="object_kind">
+		    <option value="" disabled selected>Choose your option</option>
+		    <option value="Laser Scanner">
+		      Laser Scanner reconstruction
+		    </option>
+		    <option value="Photogrammetry">
+		      Photogrammetry reconsctruction 
+		    </option>
+		    <option value="FEM">
+		      FEM model
+		    </option>
+		    <option value="CAD">
+		      CAD model
+		    </option>
+		  </select>
+		  <label>3D Model kind</label>
+		  {% endif %}
 		</div>
 	      </fieldset>
-            </div>
+	    </div>
 	  </div>
 
 	  <div class="file-field input-field col s12">
 	    <div class="btn">
 	      <span>File</span>
-	      {{ form.img|safe }} 
+	      {{ form.obj|safe }} 
 	    </div>
 	    <div class="file-path-wrapper">
 	      <input class="file-path validate" type="text">
 	    </div>
 	  </div> 
+
 	  <button class="btn waves-effect waves-light" type="submit">
 	    Submit
 	    <i class="material-icons right">send</i>
 	  </button>
+
 	</div>
       </form> 
     </div>
+
     <div class="col s12 m6">
       <div class="card">
 	<span class="card-title">Add Position</span>
@@ -125,6 +149,7 @@
 	</div>     
       </div>
     </div>
+
   </div>
 </div>
 {% endblock %}

@@ -2,6 +2,76 @@
 
 {% block content %}
 <div class="container">
+  <h3>Image of {{ img['metadata']['asset']['title'] }}</h3>
+  <div class="row">
+    <div class="col s12 m4">
+      <a class="waves-effect waves-light btn" href="3dviewer/assembler.php?oid={{ obj['_id'] }}" target="_blank"><i class="material-icons left">visibility</i>3D Viewer</a>
+    </div>
+
+    <div class="col s12 m8">
+
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Asset</span>
+	  <table class="highlight">
+	    <tbody>
+	      <tr>
+		<td><b>Title</b></td>
+		<td>{{ img['metadata']['asset']['title'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Description</b></td>
+		<td>{{ img['metadata']['asset']['description'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Authorship</b></td>
+		<td>{{ img['metadata']['asset']['authorship'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>License</b></td>
+		<td>{{ img['metadata']['asset']['license'] }}</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+
+      <div class="card">
+	<div class="card-content">
+          <span class="card-title">Project</span>
+	  <table class="highlight">
+	    <tbody>
+	      <tr>
+		<td><b>Name</b></td>
+		<td>{{ img['metadata']['project']['name'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Year</b></td>
+		<td>{{ img['metadata']['project']['year'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>URL</b></td>
+		<td>{{ img['metadata']['project']['url'] }}</td>
+	      </tr>
+	      <tr>
+		<td><b>Partners</b></td>
+		<td>{{ img['metadata']['project']['partners'] }}</td>
+	      </tr>
+	      </tbody>
+	  </table>
+	</div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
   <h3>3D Model of {{ obj['title'] }}</h3>
   <div class="row">
     <div class="col s12 m4">
