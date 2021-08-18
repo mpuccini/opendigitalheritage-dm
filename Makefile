@@ -1,4 +1,4 @@
-app_name = poc-eneahs
+app_name = opendigitaltwins-dm
 env_file = app/.env
 
 build: 
