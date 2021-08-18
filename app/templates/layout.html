@@ -3,15 +3,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='imgs/favicon/apple-touch-icon.png') }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='imgs/favicon/favicon-32x32.png') }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='imgs/favicon/favicon-16x16.png') }}">
-<link rel="manifest" href="{{ url_for('static', filename='imgs/favicon/site.webmanifest') }}">
+<link rel="icon" href="{{ url_for('static', filename='imgs/favicon.ico') }}">
 {% endblock %}
 
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/collapse.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock %}
@@ -33,7 +29,7 @@
     <li><a href="{{ url_for('search', coll='inventory', obj='Inventory') }}">Inventory<i class="material-icons">inventory</i></a></li>
   </ul>
   <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper brown">
       <a href="#!" class="brand-logo"><img src="{{ url_for('static', filename='imgs/eodt_logo_w.png') }}" width="250" height="auto"></a>
       <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
@@ -91,7 +87,7 @@
 
 {% block footer %}
 <!-- <div class="container"> -->
-<footer class="page-footer green lighten-5">
+<footer class="page-footer brown lighten-5">
   <div class="row">
     <div class="col offset-l2 l4 s12">
       <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="hoverable" width="100"></a>

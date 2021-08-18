@@ -50,7 +50,11 @@
 	  <td>{{ r['metadata']['asset']['authorship'] }}</td>
 	  <td>{{ r['metadata']['project']['name'] }}</td>
 	  <td>{{ r['metadata']['project']['year'] }}</td>
+	  {% if r['project_url'] %}
 	  <td><a class="waves-effect waves-teal btn-flat" target="_blank" href="{{ r['project_url'] }}"><i class="material-icons">link</i></a></td>
+	  {% else %}
+	  <td><a class="waves-effect waves-teal btn-flat"><i class="material-icons">link_off</i></a></td>
+	  {% endif %}
 	  {% if r['objectdata']['type'] == '3dmodel' %}
 	  <td style="text-align:center"><i class="material-icons">view_in_ar</i></td>
 	  <td><a class="waves-effect waves-light btn" href="{{ url_for('getObj', ID=r['_id']) }}"><i class="material-icons">visibility</i></a></td>
