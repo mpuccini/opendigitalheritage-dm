@@ -50,8 +50,8 @@
 	  <td>{{ r['metadata']['asset']['authorship'] }}</td>
 	  <td>{{ r['metadata']['project']['name'] }}</td>
 	  <td>{{ r['metadata']['project']['year'] }}</td>
-	  {% if r['project']['url'] %}
-	  <td><a class="waves-effect waves-teal btn-flat" target="_blank" href="{{ r['project']['url'] }}"><i class="material-icons">link</i></a></td>
+	  {% if r['metadata']['project']['url'] %}
+	  <td><a class="waves-effect waves-teal btn-flat" target="_blank" href="{{ r['metadata']['project']['url'] }}"><i class="material-icons">link</i></a></td>
 	  {% else %}
 	  <td><a class="waves-effect waves-teal btn-flat"><i class="material-icons">link_off</i></a></td>
 	  {% endif %}
