@@ -1,5 +1,5 @@
 # model.py
-from wtforms import SubmitField, BooleanField, StringField, PasswordField, TextAreaField, FileField, DateField, validators
+from wtforms import SubmitField, BooleanField, StringField, PasswordField, TextAreaField, DateField, validators
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 

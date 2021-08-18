@@ -31,7 +31,7 @@ def insertPUB():
     if request.method == 'POST' and form.validate_on_submit():
         c = Config()
         pub = form.obj.data
-        objecthash, extension = workOnObj(pub, c.store_type)
+        objecthash, extension = workOnObj(pub)
 
         # Prepare metadata
         metadata={}
@@ -68,7 +68,7 @@ def insertPUB():
         doc['objectdata'] = objectdata
         doc['storedata'] = storedata
 
-        upload2mongo(doc, c.mongo_uri, c.mongo_db, 'pubs')
+        upload2mongo(doc, 'pubs')
         return render_template('uploadDone.html')
     return render_template('uploadPub.html', form=form, obj='Publication')
 
@@ -80,7 +80,7 @@ def insertIMG():
     if request.method == 'POST' and form.validate_on_submit():
         c = Config()
         img = form.obj.data
-        objecthash, extension = workOnObj(img, c.store_type)
+        objecthash, extension = workOnObj(img)
 
         # Prepare metadata
         metadata={}
@@ -118,7 +118,7 @@ def insertIMG():
         doc['metadata'] = metadata
         doc['objectdata'] = objectdata
         doc['storedata'] = storedata
-        upload2mongo(doc, c.mongo_uri, c.mongo_db, 'imgs')
+        upload2mongo(doc, 'imgs')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='Image')
 
@@ -127,11 +127,11 @@ def insertIMG():
 
 @app.route('/insertMODEL', methods=['GET', 'POST'])
 def insertMODEL():
-    form = InsertImgForm()
+    form = InsertModelForm()
     if request.method == 'POST' and form.validate_on_submit():
         c = Config()
         model = form.obj.data
-        objecthash, extension = workOnObj(model, c.store_type)
+        objecthash, extension = workOnObj(model)
 
         # Prepare metadata
         metadata={}
@@ -170,7 +170,7 @@ def insertMODEL():
         doc['objectdata'] = objectdata
         doc['storedata'] = storedata
 
-        upload2mongo(doc, c.mongo_uri, c.mongo_db, 'models')
+        upload2mongo(doc, 'models')
         return render_template('uploadDone.html')
     return render_template('uploadObj.html',form=form, obj='3D Model')
 
@@ -208,7 +208,6 @@ def getPub():
                            s3_bucket=c.aws_s3_bucket, 
                            s3_region=c.aws_s3_region, 
                            fs_host=c.fs_host)
-
 
 @app.route('/getImg')
 def getImg():

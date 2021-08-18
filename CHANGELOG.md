@@ -4,6 +4,10 @@ Changelog
 
 (unreleased)
 ------------
+- New Metadata model: full implemented (upload/search) [mpuccini]
+- New Metadata model: full implemented (upload/search) [mpuccini]
+- Makefile fix: mount host volume inside container with same path.
+  [mpuccini]
 - New Metadata model: full implemented for images (upload/search)
   [mpuccini]
 - New metadata format: implemented images mng. [mpuccini]

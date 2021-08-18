@@ -55,7 +55,7 @@ def connect2mongo(uri, db, collection):
     return coll
 
 
-def upload2mongo(doc, uri, db, collection):
+def upload2mongo(doc, collection):
     '''
     Upload document to mongoDB collection
 
@@ -63,12 +63,15 @@ def upload2mongo(doc, uri, db, collection):
     -------
     none
     '''
+    c = Config()    
+
+
     # Don't known if "doc" is printable (check __repr__ magic method)
     log.debug("Uploading %s to MongoDB", doc)
     
     try:
-        log.debug("Connecting to mongo db.collection: %s.%s", db, collection)
-        coll = connect2mongo(uri, db, collection)
+        log.debug("Connecting to mongo db.collection: %s.%s", c.mongo_db, collection)
+        coll = connect2mongo(c.mongo_uri, c.mongo_db, collection)
     except Exception as e:
         # Better catch more significative exception types
         # (if connect2mongo() raises some)
@@ -79,7 +82,7 @@ def upload2mongo(doc, uri, db, collection):
     indoc = coll.insert_one(doc)    
 
     # Add reference into inventory
-    inventory = connect2mongo(uri, db, 'inventory')
+    inventory = connect2mongo(c.mongo_uri, c.mongo_db, 'inventory')
 
     invdoc = {}
     invdoc['title'] = doc['metadata']['asset']['title']
@@ -123,16 +126,21 @@ def connect2S3():
 
 
 def upload2S3(obj, bucket_name, obj_key):
-    """
-    Upload a file from a local folder to an Amazon S3 bucket, using the default
-    configuration.
-    """
+    '''
+    Upload a file to an Amazon S3 bucket.
+    '''
     s3_client = connect2S3()
-    s3_client.put_object(
-        Body=obj, 
-        Bucket=bucket_name, 
-        Key=obj_key)    
-
+    try:
+        s3_client.put_object(
+            ACL='public-read',
+            Body=obj, 
+            Bucket=bucket_name, 
+            Key=obj_key)
+    except Exception:
+        log.error("Cannot put object to Amazon S3 bucket")
+        raise Exception("Cannot put object to Amazon S3 bucket")
+    
+    log.info("Object upload to Amazon S3 succeded!")
 
 def makeHash(obj):
     '''
@@ -170,18 +178,15 @@ def makeHash(obj):
 
 
 
-def workOnObj(obj, store_type):
-#    filename = secure_filename(obj.filename)
+def workOnObj(obj):
+    c = Config()
     objhash = makeHash(obj)
     filename_base, extension = os.path.splitext(obj.filename)
-
     hashname = objhash+extension
-    if store_type == 'fs':
-        obj.stream.seek(0)
-        obj.save(os.path.join(os.getenv('FS_PATH'),hashname))
-    elif store_type == 's3':
-        c = Config()
-        obj.stream.seek(0)
+    obj.stream.seek(0)
+    if c.store_type == 'fs':
+        obj.save(os.path.join(c.fs_path,hashname))
+    elif c.store_type == 's3':
         upload2S3(obj.stream, c.aws_s3_bucket, hashname)
     return objhash, extension
 
