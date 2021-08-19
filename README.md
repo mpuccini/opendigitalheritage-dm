@@ -25,12 +25,15 @@ cd poc-eneahs
 
 ### Make some configurations
 You first need to configure mongoDB connection, where to store data (File System or AWS S3) and set related setups. So, you need to copy the `app/env-sample` file into an `app/.env` file with your configuration for each variable. These will be used as environment variables.
-```
+```ini
+APP_NAME=opendigitaltwins-dm
+ENV_FILE=app/.env
 MONGO_DATABASE=<yourdb>
 MONGO_URI=mongodb+srv://<user>:<passwd>@<mongohost>/<yourdb>?retryWrites=true&w=majority
 STORE_TYPE=s3 (or fs)
 AWS_S3_BUCKET=<yourbucket>
 AWS_S3_REGION=<yourS3region>
+AWS_CREDENTIALS=.aws/credentials
 FS_HOST=<remote/localFSost>
 FS_PATH=<FSpath>
 ```
