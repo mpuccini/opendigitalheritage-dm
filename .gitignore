@@ -1,6 +1,6 @@
-app/__pycache__/
+*__pycache__/
 *.py[cod]
-config.ini
+
 
 *.idea/
 *.vs/
@@ -9,4 +9,4 @@ config.ini
 *.json
 
 *.sock
-.gitchangelog.rc
+*.gitchangelog.rc
