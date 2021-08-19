@@ -24,7 +24,7 @@ cd poc-eneahs
 ```
 
 ### Make some configurations
-You first need to configure mongoDB connection, where to store data (File System or AWS S3) and set related setups. So, you need to copy the `app/env-sample` file into an `app/.env` file with your configuration for each variable. These will be used as environment variables.
+You first need to configure mongoDB connection, where to store data (File System or AWS S3) and set related setups. So, you need to copy the `app/env-sample` file into an `app/.env` file with your configuration for each variable. These will be used as environment variables (leave blanks if not used, or delete them).
 ```ini
 APP_NAME=opendigitaltwins-dm
 ENV_FILE=app/.env
