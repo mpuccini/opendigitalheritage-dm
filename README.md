@@ -6,7 +6,7 @@ More informations on the app itself (not the containerization) are in the [Archi
 
 > this application is based on a mongoDB database storage service and a data storage service of your choice between a file system or an S3 object storage. Both database and storage are given for acquired and their installation and configuration will not be discussed in this document. Regarding the mongoDB database, this is the structure that this application expects to find:  
 >  - database: heritagescience
->   -  collections: inventory, imgs, pubs, models
+>    - collections: inventory, imgs, pubs, models  
 > Before proceeding with the deployment of the application, it is therefore necessary to setup these services.
 
 ## Instructions
