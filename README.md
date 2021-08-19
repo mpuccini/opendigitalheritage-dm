@@ -3,10 +3,11 @@
 ## General info
 This is the Proof of Concept of the data managment module of the ENEA Open Digital Twins ecosystem. The PoC is a web app that is the result of the Heritage Science Internship 2021 in ENEA. This module allow to upload and get cultural heritage digital data with a search tool working with mongoDB. It is containarized to ensure portability.  
 More informations on the app itself (not the containerization) are in the [Architectural document](docs/arch-doc.md).  
-### Different data store support
-This app can use different type of technologies to store data. In particular it is possible to configure the Open Digital Twins to work with:  
- - File System
- - S3 object storage
+
+> this application is based on a mongoDB database storage service and a data storage service of your choice between a file system or an S3 object storage. Both database and storage are given for acquired and their installation and configuration will not be discussed in this document. Regarding the mongoDB database, this is the structure that this application expects to find:  
+>  - database: heritagescience
+>   -  collections: inventory, imgs, pubs, models
+> Before proceeding with the deployment of the application, it is therefore necessary to setup these services.
 
 ## Instructions
 This PoC can run in *development mode* in you local machine or deployed as containerized *production-ready* service on your server and/or on common public cloud providers.
