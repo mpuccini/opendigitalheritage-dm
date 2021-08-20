@@ -97,14 +97,13 @@ To simplify container managment, a `Makefile` is provided. In the following are 
  - [X] Add map to results page to show objects location
  - [ ] Metadata definition (JSON-LD)
  - [X] Env variables
- - [ ] Fix data storage path
+ - [X] Fix data storage path
  - [ ] Templates refactoring
  - [X] Full text search
  - [X] Enhance frontend
  - [ ] Add features:
-   - [ ] Documents viewer
+   - [X] Documents viewer
    - [X] Image viewer
    - [ ] Multi image upload and view
    - [ ] Multi model upload
  - [ ] Datetime support for temporal queries 
- - [ ] Fix storage configuration
