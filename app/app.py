@@ -3,6 +3,7 @@
 from logging import debug
 from flask import Flask, request, render_template
 from bson.objectid import ObjectId
+from flask.config import Config
 from pymongo import results
 from models import searchForm, InsertPubForm, InsertModelForm, InsertImgForm
 from flask_bootstrap import Bootstrap
@@ -142,8 +143,10 @@ def search():
         collection = be.connect2mongo(be.loadConf(), coll)
         query = request.form['query']
         res = collection.find({'$text':{'$search':query}})
+        if coll=='inventory':
+            return render_template('inventory.html', result=res)
         return render_template('result.html', result=res)
-    return render_template('search.html', form=form, obj=obj)     
+    return render_template('search.html', form=form, obj=obj)      
 
 # @app.route('/searchPUB',methods=['GET', 'POST'])
 # def searchPUB():
