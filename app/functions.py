@@ -1,6 +1,5 @@
 import os, shutil
 import hashlib
-#import configparser
 import argparse
 import logging
 import boto3
