@@ -18,11 +18,71 @@
   <h2>ENEA Heritage Science Internship 2021</h2>
   <hr>
   <h3>Upload new Publication</h3>
-  {{ wtf.quick_form(form) }}
+
+
+  <form class="form" method="POST" action="" enctype="multipart/form-data" validate>
+    {{form.hidden_tag()}}
+    <div>
+      <div>
+        <span>Metadata</span>
+        <div>
+          <fieldset>
+            <legend>Asset data</legend>
+            <div class="input-field">
+              {{ form.title.label }}
+              {{ form.title(class_="active validate")|safe }}
+            </div>
+            <div class="input-field">
+              {{ form.authorship.label }}
+              {{ form.authorship(class_="active validate")|safe }}
+            </div>
+            <div class="input-field">
+              {{ form.description.label }}
+              {{ form.description(class_="materialize-textarea")|safe }}
+            </div>
+            <div class="input-field">
+              {{ form.license.label }}
+              {{ form.license(class_="active")|safe }}
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Project data</legend>
+            <div class="input-field">
+              {{ form.project_name.label }}
+              {{ form.project_name(class_="active validate")|safe }}
+            </div>
+            <div class="input-field">
+              {{ form.project_year.label }}
+              {{ form.project_year(class_="active validate")|safe }}
+            </div>
+            <div class="input-field">
+              {{ form.project_url.label }}
+              {{ form.project_url(class_="active")|safe }}
+            </div>
+            <div class="input-field">
+              {{ form.project_partners.label }}
+              {{ form.project_partners(class_="active")|safe }}
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="input-group">
+        
+          <span>File</span>
+          {{ form.pub|safe }}
+      </div>
+      <button class="btn btn-primary" type="submit">
+        Submit
+      </button>
+    </div>
+  </form>
   <hr>
   <div class="row">
     <div class="col-md-4">
-      <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}" alt="ENEA logo" class="img-rounded" width="100"></a>
+      <a href="https://www.enea.it" target="_blank"><img src="{{ url_for('static', filename='imgs/logo_enea.png') }}"
+          alt="ENEA logo" class="img-rounded" width="100"></a>
     </div>
     <div class="col-md-4">
       <a href="https://github.com/mpuccini/poc-eneahs" target="_blank">Get source code <i class="fab fa-github"></i></a>

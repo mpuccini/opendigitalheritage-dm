@@ -8,11 +8,15 @@ from flask_wtf.file import FileField, FileAllowed, FileRequired
 class InsertPubForm(FlaskForm):
   title = StringField('Title', [validators.DataRequired()])
   description = TextAreaField('Description')
-  author = StringField('Author', [validators.DataRequired()])
-  project = StringField('Project', [validators.DataRequired()])
-  year = DateField('Year', format='%Y')
-  license_url = StringField('License URL')
-  pub = FileField('Publication')
+  authorship = StringField('Author', [validators.DataRequired()])
+  license = StringField('License')
+  project_name = StringField('Project Name', [validators.DataRequired()])
+  project_year = DateField('Project Year', format='%Y')
+  project_url = StringField('Project URL')
+  project_partners=StringField('Project partners')
+ 
+  pub = FileField('Publication', validators=[FileRequired()])
+
   submit = SubmitField('Submit')
 
 
@@ -61,6 +65,28 @@ class InsertImgForm(FlaskForm):
 # class SearchInventoryForm(FlaskForm):
 #   title = StringField('Title', [validators.DataRequired()])
 #   submit = SubmitField('Submit')  
+class testImgForm(FlaskForm):
+  photo = FileField('image', validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'png'], 'Images only!')
+    ])
+  submit = SubmitField('Submit')
+
+
+
+class testPubForm(FlaskForm):
+  title = StringField('Title', [validators.DataRequired()])
+  description = TextAreaField('Description')
+  authorship = StringField('Author', [validators.DataRequired()])
+  license = StringField('License')
+  project_name = StringField('Project Name', [validators.DataRequired()])
+  project_year = DateField('Project Year', format='%Y')
+  project_url = StringField('Project URL')
+  project_partners=StringField('Project partners')
+  pub = FileField('Publication', validators=[FileRequired()])
+
+  submit = SubmitField('Submit')
+
 
 class searchForm(FlaskForm):
   query = StringField('', [validators.DataRequired()])

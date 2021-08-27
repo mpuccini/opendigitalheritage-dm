@@ -1,0 +1,52 @@
+{% block content %}
+<div class="container">
+    <h3>Test Form</h3>
+    <div class="row">
+        <form method="post" action="" enctype="multipart/form-data" validate>
+            {{ form.hidden_tag() }}
+            <div class="input-field">
+                {{ form.title.label }}
+                {{ form.title(class_="active validate")|safe }}
+            </div>
+            <div class="input-field">
+                {{ form.authorship.label }}
+                {{ form.authorship(class_="active validate")|safe }}
+            </div>
+            <div class="input-field">
+                {{ form.description.label }}
+                {{ form.description(class_="materialize-textarea")|safe }}
+            </div>
+            <div class="input-field">
+                {{ form.license.label }}
+                {{ form.license(class_="active")|safe }}
+            </div>
+            <div class="input-field">
+                {{ form.project_name.label }}
+                {{ form.project_name(class_="active validate")|safe }}
+              </div>
+              <div class="input-field">
+                {{ form.project_year.label }}
+                {{ form.project_year(class_="active validate")|safe }}
+              </div>
+              <div class="input-field">
+                {{ form.project_url.label }}
+                {{ form.project_url(class_="active")|safe }}
+              </div>
+              <div class="input-field">
+                {{ form.project_partners.label }}
+                {{ form.project_partners(class_="active")|safe }}
+              </div>
+            <div>
+                <div class="btn">
+                    <span>File</span>
+                    {{ form.pub|safe }}
+                </div>
+            </div>
+            <button class="btn" type="submit">Submit
+            </button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

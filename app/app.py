@@ -5,18 +5,17 @@ from flask import Flask, request, render_template
 from bson.objectid import ObjectId
 from flask.config import Config
 from pymongo import results
-from models import searchForm, InsertPubForm, InsertModelForm, InsertImgForm
+from models import searchForm, InsertPubForm, InsertModelForm, InsertImgForm, testImgForm,testPubForm
 from flask_bootstrap import Bootstrap
 import backend as be
-
+import os
 
 app = Flask(__name__)
 
 c = be.loadConf()
-sk = c['app']['secret_key']
 store_type = 'fs'
 app.config.from_mapping(
-    SECRET_KEY=b'sk')
+    SECRET_KEY= os.urandom(32))
 Bootstrap(app)
 
 @app.route('/')
@@ -29,26 +28,47 @@ def insertOption():
 
 @app.route('/insertPUB', methods=['GET', 'POST'])
 def insertPUB():
-    form = InsertPubForm(request.form)
+    form = testPubForm()
     if request.method == 'POST' and form.validate_on_submit():
-        pub=request.files['pub']
+        pub=form.pub.data
         objecthash, extension = be.workOnObj(pub, store_type)
 
         # Prepare metadata
         metadata={}
-        metadata['title'] = request.form['title']
-        metadata['description'] = request.form['description']
-        metadata['author'] = request.form['author']
-        metadata['project'] = request.form['project']
-        metadata['objtype'] = 'publication'
-        metadata['year'] = request.form['year']
-        metadata['extension'] = extension
-        metadata['filename'] = pub.filename
-        metadata['objecthash'] = objecthash
-        metadata['store_type'] = store_type
-        be.upload2mongo(metadata,'pubs')
+        
+        asset = {}
+        asset['title'] = request.form['title']
+        asset['description'] = request.form['description']
+        asset['authorship'] = request.form['authorship']
+        asset['coordinates'] = {}
+        asset['coordinates']['latitude'] = None
+        asset['coordinates']['longitude'] = None
+        asset['license'] = request.form['license']
+        metadata['asset'] = asset
+        project = {}
+        project['name'] = request.form['project_name']
+        project['year'] = request.form['project_year']
+        project['url'] = request.form['project_url']
+        project['partners'] = request.form['project_partners']
+        metadata['project'] = project
+
+        objectdata = {}
+        objectdata['filename'] = pub.filename
+        objectdata['type'] = 'publication'
+        objectdata['extension'] = extension
+        objectdata['hash'] = objecthash
+        storedata = {}
+        storedata['type'] = store_type
+
+        doc = {}
+        doc['metadata'] = metadata
+        doc['objectdata'] = objectdata
+        doc['storedata'] = storedata
+
+
+        be.upload2mongo(doc,'pubs')
         return render_template('uploadDone.html')
-    return render_template('uploadPub.html',form=form)
+    return render_template('testPubForm.html',form=form)
 
 @app.route('/insertMODEL', methods=['GET', 'POST'])
 def insertMODEL():
@@ -202,6 +222,61 @@ def getObj():
     ID = request.args.get('ID', None)
     obj = objs.find_one({'_id': ObjectId(ID)})
     return render_template('getObj.html', obj=obj)
+
+@app.route('/testImgForm',methods=['GET', 'POST'])
+def testFORM():
+    form = testImgForm()
+    if  request.method == 'POST' and form.validate_on_submit():
+      
+        f = form.photo.data
+        #        f = request.files['photo']
+        #        filename = secure_filename(f.filename)
+        objecthash, extension = be.workOnObj(f, store_type)
+        return render_template('uploadDone.html')
+    return render_template('testForm.html',form=form)
+@app.route('/testPubForm',methods=['GET', 'POST'])
+def testPubFORM():
+    form = testPubForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        pub=form.pub.data
+        objecthash, extension = be.workOnObj(pub, store_type)
+
+        # Prepare metadata
+        metadata={}
+        
+        asset = {}
+        asset['title'] = request.form['title']
+        asset['description'] = request.form['description']
+        asset['authorship'] = request.form['authorship']
+        asset['coordinates'] = {}
+        asset['coordinates']['latitude'] = None
+        asset['coordinates']['longitude'] = None
+        asset['license'] = request.form['license']
+        metadata['asset'] = asset
+        project = {}
+        project['name'] = request.form['project_name']
+        project['year'] = request.form['project_year']
+        project['url'] = request.form['project_url']
+        project['partners'] = request.form['project_partners']
+        metadata['project'] = project
+
+        objectdata = {}
+        objectdata['filename'] = pub.filename
+        objectdata['type'] = 'publication'
+        objectdata['extension'] = extension
+        objectdata['hash'] = objecthash
+        storedata = {}
+        storedata['type'] = store_type
+
+        doc = {}
+        doc['metadata'] = metadata
+        doc['objectdata'] = objectdata
+        doc['storedata'] = storedata
+
+
+        be.upload2mongo(doc,'pubs')
+        return render_template('uploadDone.html')
+    return render_template('testPubForm.html',form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)

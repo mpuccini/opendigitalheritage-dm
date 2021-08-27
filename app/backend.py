@@ -114,13 +114,13 @@ def upload2mongo(doc, collection):
     # Add reference into inventory
     inventory = connect2mongo(c, 'inventory')
     invdoc = {}
-    invdoc['title'] = doc['title']
-    invdoc['project'] = doc['project']
-    invdoc['objtype'] = doc['objtype']
-    invdoc['year'] = doc['year']
+    invdoc['title'] = doc['metadata']['asset']['title']
+    invdoc['project'] = doc['metadata']['project']['name']
+    invdoc['objtype'] = doc['objectdata']['type']
+    invdoc['year'] = doc['metadata']['project']['year']
     invdoc['coordinates'] = {}
-    invdoc['coordinates']['latitude'] = doc['coordinates']['latitude']
-    invdoc['coordinates']['longitude'] = doc['coordinates']['longitude']
+    invdoc['coordinates']['latitude'] = doc['metadata']['asset']['coordinates']['latitude']
+    invdoc['coordinates']['longitude'] = doc['metadata']['asset']['coordinates']['longitude']
     invdoc['ID'] = indoc.inserted_id
     inventory.insert_one(invdoc)
     '''    if coll.count_documents({'document_hash': doc['document_hash']}) > 0:
@@ -196,13 +196,13 @@ def makeHash(obj):
 
 def workOnObj(obj, store_type):
     c = loadConf()
-    #savepathroot = c['datastore']['path']
-    filename = secure_filename(obj.filename)
+    savepathroot = c['datastore']['path']
+    
 
     objhash = makeHash(obj)
     filename_base, extension = os.path.splitext(obj.filename)
 
     hashname = objhash+extension
     obj.stream.seek(0)
-    obj.save(os.path.join('D:/Università/tesi/',hashname))
+    obj.save(os.path.join(savepathroot,hashname))
     return objhash, extension

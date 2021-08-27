@@ -1,0 +1,20 @@
+{% block content %}
+<div class="container">
+  <h3>Test Form</h3>
+  <div class="row">
+    <form method="post" action="" enctype="multipart/form-data" validate>
+      {{ form.hidden_tag() }}
+      <div class="file-field input-field col s12">
+	<div class="btn">
+	  <span>File</span>
+	  {{ form.photo|safe }} 
+	</div>
+      </div> 
+      <button class="btn" type="submit">Submit
+      </button> 
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
