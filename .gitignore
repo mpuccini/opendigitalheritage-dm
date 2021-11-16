@@ -5,7 +5,7 @@
 *.idea/
 *.vs/
 *.vscode/
-*.env
+app/*.env
 *.json
 
 *.sock
