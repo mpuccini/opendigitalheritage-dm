@@ -85,9 +85,10 @@ def upload2mongo(doc, collection):
 
     invdoc = {}
     invdoc['title'] = doc['metadata']['asset']['title']
-    invdoc['coordinates'] = {}
-    invdoc['coordinates']['latitude'] = doc['metadata']['asset']['coordinates']['latitude']
-    invdoc['coordinates']['longitude'] = doc['metadata']['asset']['coordinates']['longitude']
+    invdoc['location'] = {}
+    invdoc['location']['coordinates'] = []
+    invdoc['location']['coordinates'][0] = doc['metadata']['asset']['location']['coordinates'][0]
+    invdoc['location']['coordinates'][1] = doc['metadata']['asset']['location']['coordinates'][1]
 
     invdoc['project_name'] = doc['metadata']['project']['name']
     invdoc['project_year'] = doc['metadata']['project']['year']

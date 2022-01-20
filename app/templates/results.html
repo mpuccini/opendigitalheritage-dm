@@ -41,7 +41,7 @@
       <tbody>
 	{% for r in result %}
 	<script type="text/javascript">
-	  marker = new L.marker([{{ r['metadata']['asset']['coordinates']['latitude'] }}, {{ r['metadata']['asset']['coordinates']['longitude'] }}])
+	  marker = new L.marker([{{ r['metadata']['asset']['location']['coordinates'][1] }}, {{ r['metadata']['asset']['location']['coordinates'][0] }}])
     .addTo(mymap)
     .bindPopup("{{ r['metadata']['asset']['title'] }}");
 	</script>

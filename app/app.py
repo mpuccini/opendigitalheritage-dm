@@ -40,9 +40,10 @@ def insertPUB():
         asset['title'] = request.form['title']
         asset['description'] = request.form['description']
         asset['authorship'] = request.form['authorship']
-        asset['coordinates'] = {}
-        asset['coordinates']['latitude'] = None
-        asset['coordinates']['longitude'] = None
+        asset['location'] = {}
+        asset['location']['coordinates'] = []
+        asset['coordinates'][0] = None
+        asset['coordinates'][1] = None
         asset['license'] = request.form['license']
         metadata['asset'] = asset
 
@@ -89,11 +90,12 @@ def insertIMG():
         asset['title'] = request.form['title']
         asset['description'] = request.form['description']
         asset['authorship'] = request.form['authorship']
-        asset['coordinates'] = {}
+        asset['location'] = {}
+        asset['location']['coordinates'] = []
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
-        asset['coordinates']['latitude'] = sepcoord[0]
-        asset['coordinates']['longitude'] = sepcoord[1]
+        asset['location']['coordinates'][1] = sepcoord[0]
+        asset['location']['coordinates'][0] = sepcoord[1]
         asset['license'] = request.form['license']
         metadata['asset'] = asset
 
@@ -140,11 +142,12 @@ def insertMODEL():
         asset['title'] = request.form['title']
         asset['description'] = request.form['description']
         asset['authorship'] = request.form['authorship']
-        asset['coordinates'] = {}
+        asset['location'] = {}
+        asset['location']['coordinates'] = []
         coord = request.form['coordinates']
         sepcoord = coord.split(',')
-        asset['coordinates']['latitude'] = sepcoord[0]
-        asset['coordinates']['longitude'] = sepcoord[1]
+        asset['location']['coordinates'][1] = sepcoord[0]
+        asset['location']['coordinates'][0] = sepcoord[1]
         asset['license'] = request.form['license']
         metadata['asset'] = asset
 
